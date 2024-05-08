@@ -133,7 +133,11 @@
 				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Animations/AdvancedAnim/ALS_StanceVariation_Injured.uasset",
 				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Animations/AdvancedAnim/ALS_StanceVariation_Masculine.uasset",
 				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Animations/AdvancedAnim/ALS_StanceVariation_Normal.uasset",
-				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Animations/AdvancedAnim/Bow_Draw.uasset"
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Animations/AdvancedAnim/Bow_Draw.uasset",
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Blueprints/BP_Yoru.uasset",
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Input/IMC_Yoru.uasset",
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Input/IA_YoruMove.uasset",
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/ThirdPerson/Blueprints/BP_ThirdPersonGameMode.uasset"
 			]
 		}
 	]
