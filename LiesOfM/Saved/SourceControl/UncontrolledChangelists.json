@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/StarterContent/Maps/Advanced_Lighting_BuiltData.uasset",
+				"D:/github/game_project/Unreal_Game/LiesOfM/LiesOfM/Content/AAA/Maps/Lv_Temp.umap"
+			]
+		}
+	]
+}
