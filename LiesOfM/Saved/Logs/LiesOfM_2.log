@@ -1295,3 +1295,5 @@ LogInit: Object subsystem initialized
 [2024.05.08-10.53.36:186][293]AssetCheck: New page: Asset Save: Lv_Temp
 [2024.05.08-10.53.36:186][293]LogContentValidation: Display: Validating /Script/Engine.World /Game/AAA/Maps/Lv_Temp.Lv_Temp
 [2024.05.08-10.53.38:555][562]LogDerivedDataCache: C:/Users/yoru/AppData/Local/UnrealEngine/Common/DerivedDataCache: Maintenance finished in +00:00:13.261 and deleted 0 files with total size 0 MiB and 0 empty folders. Scanned 7459 files in 9543 folders with total size 1217 MiB.
+[2024.05.08-10.58.00:842][309]LogSlate: Window 'Editor Preferences' being destroyed
+[2024.05.08-10.58.03:318][566]LogLiveCoding: Display: Console will be hidden but remain running in the background. Restart to disable completely.
