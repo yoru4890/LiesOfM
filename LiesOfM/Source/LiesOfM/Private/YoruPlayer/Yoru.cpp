@@ -10,10 +10,6 @@
 
 AYoru::AYoru()
 {
-	PrimaryActorTick.bCanEverTick = true;
-	bUseControllerRotationYaw = false;
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> bodyMeshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWarriors/Character/CompleteCharacters/sk_CharM_Base.sk_CharM_Base'"));
 	if (bodyMeshFinder.Succeeded())
 	{
@@ -23,7 +19,7 @@ AYoru::AYoru()
 
 	mainSpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("mainSpringArm"));
 	mainSpringArmComp->SetupAttachment(RootComponent);
-	mainSpringArmComp->TargetArmLength = 250.0f;
+	mainSpringArmComp->TargetArmLength = 280.0f;
 	mainSpringArmComp->SocketOffset = { 0, 0, 50 };
 	mainSpringArmComp->bUsePawnControlRotation = true;
 	mainSpringArmComp->bEnableCameraLag = true;
@@ -37,13 +33,17 @@ AYoru::AYoru()
 
 	statComp = CreateDefaultSubobject<UYoruStatComponent>(TEXT("statComp"));
 
-	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C'"));
+	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 
 	if (animInstanceFinder.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(animInstanceFinder.Class);
 	}
 
+	PrimaryActorTick.bCanEverTick = true;
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->MaxWalkSpeed = statComp->runSpeed;
 }
 void AYoru::BeginPlay()
 {

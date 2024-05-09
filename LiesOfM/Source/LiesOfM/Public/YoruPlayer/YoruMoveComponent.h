@@ -27,6 +27,9 @@ public:
 public:
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
+	void Jump(const FInputActionValue& value);
+	void ChangeWalk(const FInputActionValue& value);
+	void ChangeRun(const FInputActionValue& value);
 
 private:
 	UPROPERTY(VisibleAnywhere, Category ="Yoru|Input")
@@ -37,6 +40,12 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lookAction;
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> jumpAction;
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> moveChangeAction;
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")

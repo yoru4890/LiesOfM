@@ -22,4 +22,11 @@ protected:
 
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
+	float walkSpeed{ 150.0f };
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
+	float runSpeed{ 450.0f };
 };

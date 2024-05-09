@@ -22,5 +22,11 @@ protected:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
-	class AYoru* owner;
+	class AYoru* owner{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	float moveSpeed{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	bool isFalling{};
 };

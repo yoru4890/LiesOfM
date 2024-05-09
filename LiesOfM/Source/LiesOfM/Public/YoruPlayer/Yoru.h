@@ -40,5 +40,5 @@ private:
 	TObjectPtr<class UYoruStatComponent> statComp{};
 
 public:
-	TObjectPtr<class UYoruStatComponent> GetStatComp() { return statComp; }
+	TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
 };

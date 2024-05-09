@@ -8,6 +8,7 @@
 #include <InputMappingContext.h>
 #include "Kismet/KismetMathLibrary.h"
 #include "YoruPlayer/YoruStatComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 UYoruMoveComponent::UYoruMoveComponent()
@@ -33,6 +34,19 @@ UYoruMoveComponent::UYoruMoveComponent()
 		lookAction = lookActionFinder.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> jumpActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_YoruJump.IA_YoruJump'"));
+
+	if (jumpActionFinder.Succeeded())
+	{
+		jumpAction = jumpActionFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> moveChangeActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_YoruMoveChane.IA_YoruMoveChane'"));
+
+	if (moveChangeActionFinder.Succeeded())
+	{
+		moveChangeAction = moveChangeActionFinder.Object;
+	}
 }
 
 void UYoruMoveComponent::BeginPlay()
@@ -64,6 +78,9 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
 	enhancedInputComponet->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
+	enhancedInputComponet->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
+	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
+	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeRun);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -89,7 +106,7 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 			me->AddControllerPitchInput(valueY * me->GetWorld()->DeltaTimeSeconds * mouseSpeed);
 		}
 	}
-	else if (controlPitch >= 270 && controlPitch <= 310)
+	else if (controlPitch >= 270 && controlPitch <= 300)
 	{
 		if (value.Get<FVector2D>().Y < 0)
 		{
@@ -100,4 +117,19 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 	{
 		me->AddControllerPitchInput(valueY * me->GetWorld()->DeltaTimeSeconds * mouseSpeed);
 	}
+}
+
+void UYoruMoveComponent::Jump(const FInputActionValue& value)
+{
+	me->Jump();
+}
+
+void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
+{
+	me->GetCharacterMovement()->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
+}
+
+void UYoruMoveComponent::ChangeRun(const FInputActionValue& value)
+{
+	me->GetCharacterMovement()->MaxWalkSpeed = me->GetStatComp()->runSpeed;
 }

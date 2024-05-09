@@ -3,6 +3,7 @@
 
 #include "YoruPlayer/YoruAnimInstance.h"
 #include "YoruPlayer/Yoru.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UYoruAnimInstance::UYoruAnimInstance()
 {
@@ -18,4 +19,10 @@ void UYoruAnimInstance::NativeInitializeAnimation()
 void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
+
+	if (owner)
+	{
+		isFalling = owner->GetCharacterMovement()->IsFalling();
+		moveSpeed = owner->GetCharacterMovement()->Velocity.Size2D();
+	}
 }
