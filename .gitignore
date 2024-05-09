@@ -84,3 +84,6 @@ LiesOfM/Content/OldWest/
 LiesOfM/Content/StarterContent/
 LiesOfM/Content/ThirdPerson/
 LiesOfM/Content/InfinityBladeWeapons/
+
+# Ignore AutoScreenshot
+LiesOfM/Saved/AutoScreenshot.png
