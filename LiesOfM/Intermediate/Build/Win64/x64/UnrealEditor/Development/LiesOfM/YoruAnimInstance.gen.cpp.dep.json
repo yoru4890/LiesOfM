@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoruaniminstance.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\x64\\liesofmeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\liesofm\\definitions.liesofm.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yoruaniminstance.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoruaniminstance.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

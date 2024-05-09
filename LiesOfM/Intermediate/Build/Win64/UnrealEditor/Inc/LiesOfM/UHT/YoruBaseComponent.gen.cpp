@@ -32,7 +32,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruBaseComponent() {}
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_me_MetaData[];
 #endif
-		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_me;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_me;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -56,7 +56,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruBaseComponent() {}
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruBaseComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me = { "me", nullptr, (EPropertyFlags)0x0024080000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruBaseComponent, me), Z_Construct_UClass_AYoru_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me_MetaData), Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me = { "me", nullptr, (EPropertyFlags)0x0020080000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruBaseComponent, me), Z_Construct_UClass_AYoru_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me_MetaData), Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruBaseComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruBaseComponent_Statics::NewProp_me,
 	};
@@ -98,9 +98,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruBaseComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruBaseComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruBaseComponent, UYoruBaseComponent::StaticClass, TEXT("UYoruBaseComponent"), &Z_Registration_Info_UClass_UYoruBaseComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruBaseComponent), 1142545065U) },
+		{ Z_Construct_UClass_UYoruBaseComponent, UYoruBaseComponent::StaticClass, TEXT("UYoruBaseComponent"), &Z_Registration_Info_UClass_UYoruBaseComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruBaseComponent), 1705785872U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruBaseComponent_h_4241021798(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruBaseComponent_h_726424685(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruBaseComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruBaseComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

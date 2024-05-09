@@ -3,3 +3,16 @@
 
 #include "YoruPlayer/YoruStatComponent.h"
 
+UYoruStatComponent::UYoruStatComponent()
+{
+}
+
+void UYoruStatComponent::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void UYoruStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}

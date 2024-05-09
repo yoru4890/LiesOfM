@@ -45,6 +45,9 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\Yoru.cpp">
       <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruAnimInstance.cpp">
+      <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruAttackComponent.cpp">
       <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
     </ClCompile>
@@ -70,6 +73,9 @@
       <UniqueIdentifier>{4DAF3C70-BE5B-38E8-BB7C-C1C78F96B4AE}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\Yoru.h">
+      <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruAnimInstance.h">
       <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruAttackComponent.h">

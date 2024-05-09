@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InputActionvalue.h"
 #include "Yoru.generated.h"
 
 UCLASS()
@@ -37,13 +36,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Component")
 	TObjectPtr<class UYoruMoveComponent> moveComp{};
 
-private:
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
-	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
-
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
-	TObjectPtr<class UInputAction> moveAction;
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Component")
+	TObjectPtr<class UYoruStatComponent> statComp{};
 
 public:
-	void Move(const FInputActionValue& value);
+	TObjectPtr<class UYoruStatComponent> GetStatComp() { return statComp; }
 };

@@ -72,3 +72,14 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Ignore the Assets
+LiesOfM/Content/AdvancedLocomotionV4/
+LiesOfM/Content/Characters/
+LiesOfM/Content/Collections/
+LiesOfM/Content/Developers/
+LiesOfM/Content/InfinityBladeWarriors/
+LiesOfM/Content/LevelPrototyping/
+LiesOfM/Content/OldWest/
+LiesOfM/Content/StarterContent/
+LiesOfM/Content/ThirdPerson/

@@ -7,6 +7,7 @@
         "Includes": [
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\liesofm\\definitions.liesofm.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yorubasecomponent.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yorubasecomponent.generated.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yoru.h",
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
@@ -16,10 +17,7 @@
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
-            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputactionvalue.h",
-            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputactionvalue.generated.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoru.generated.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yorubasecomponent.generated.h"
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoru.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

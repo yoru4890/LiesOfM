@@ -14,4 +14,12 @@ class LIESOFM_API UYoruStatComponent : public UYoruBaseComponent
 {
 	GENERATED_BODY()
 	
+public:
+	UYoruStatComponent();
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 };

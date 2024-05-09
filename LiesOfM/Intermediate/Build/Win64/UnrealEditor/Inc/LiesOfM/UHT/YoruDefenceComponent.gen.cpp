@@ -83,9 +83,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3667195810U) },
+		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3613512112U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_617182137(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_3484159683(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

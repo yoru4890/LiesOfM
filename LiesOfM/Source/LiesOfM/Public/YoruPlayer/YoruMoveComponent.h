@@ -24,7 +24,10 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void InitializeComponent() override;
+public:
+	void Move(const FInputActionValue& value);
+	void Look(const FInputActionValue& value);
+
 private:
 	UPROPERTY(VisibleAnywhere, Category ="Yoru|Input")
 	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
@@ -32,6 +35,10 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> moveAction;
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> lookAction;
+
 public:
-	void Move(const FInputActionValue& value);
+	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
+	double mouseSpeed{ 35.0 };
 };

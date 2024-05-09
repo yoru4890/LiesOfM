@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "YoruPlayer/Yoru.h"
 #include "YoruBaseComponent.generated.h"
 
 
@@ -24,9 +23,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) {};
 
-	virtual void InitializeComponent() override;
-
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Reference")
-	TObjectPtr<class AYoru> me;
+	class AYoru* me;
 };
