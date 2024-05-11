@@ -18,10 +18,6 @@ void UYoruAnimInstance::NativeInitializeAnimation()
 	{
 		moveComp = owner->GetCharacterMovement();
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AnimInstance doesn't get Onwer"));
-	}
 }
 
 void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)

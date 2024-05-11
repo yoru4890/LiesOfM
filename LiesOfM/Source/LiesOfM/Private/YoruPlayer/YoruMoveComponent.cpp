@@ -9,6 +9,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "YoruPlayer/YoruStatComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "YoruPlayer/YoruWidgetComponent.h"
 
 
 UYoruMoveComponent::UYoruMoveComponent()
@@ -139,6 +140,7 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
 	me->Jump();
+	me->widgetComp->TempToggle();
 }
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)

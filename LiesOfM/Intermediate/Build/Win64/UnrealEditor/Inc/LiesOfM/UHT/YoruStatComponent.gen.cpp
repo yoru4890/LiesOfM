@@ -29,9 +29,25 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentStamina_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_currentStamina;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_maxStamina_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_maxStamina;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_StaminaRegen_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_StaminaRegen;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_walkSpeed_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_walkSpeed;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_jogSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_jogSpeed;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_runSpeed_MetaData[];
 #endif
@@ -48,28 +64,60 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::Class_MetaDataParams[] = {
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
+		{ "Comment", "/**\n *\n */" },
 #endif
 		{ "IncludePath", "YoruPlayer/YoruStatComponent.h" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
 	};
 #endif
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData[] = {
-		{ "Category", "Yoru|Mouse" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina_MetaData[] = {
+		{ "Category", "Your|Stamina" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed = { "walkSpeed", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, walkSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina = { "currentStamina", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, currentStamina), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina_MetaData[] = {
+		{ "Category", "Your|Stamina" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina = { "maxStamina", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, maxStamina), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_StaminaRegen_MetaData[] = {
+		{ "Category", "Your|Stamina" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_StaminaRegen = { "StaminaRegen", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, StaminaRegen), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_StaminaRegen_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_StaminaRegen_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData[] = {
+		{ "Category", "Yoru|Speed" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed = { "walkSpeed", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, walkSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed_MetaData[] = {
+		{ "Category", "Your|Speed" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed = { "jogSpeed", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, jogSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData[] = {
-		{ "Category", "Yoru|Mouse" },
+		{ "Category", "Yoru|Speed" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed = { "runSpeed", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, runSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed = { "runSpeed", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, runSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruStatComponent_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_StaminaRegen,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruStatComponent_Statics::StaticCppClassTypeInfo = {
@@ -110,9 +158,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 3966422779U) },
+		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 168631104U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_3942995454(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_1269962433(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

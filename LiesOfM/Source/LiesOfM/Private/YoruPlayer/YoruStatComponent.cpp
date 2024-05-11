@@ -16,3 +16,15 @@ void UYoruStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
+
+float UYoruStatComponent::DecreaseStamina(float amount)
+{
+	currentStamina -= amount;
+
+	if (currentStamina < 0)
+	{
+		currentStamina = 0;
+	}
+
+	return currentStamina;
+}

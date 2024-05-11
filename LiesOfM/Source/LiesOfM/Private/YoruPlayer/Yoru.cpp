@@ -6,7 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "YoruPlayer/YoruStatComponent.h"
-
+#include "YoruPlayer/YoruWidgetComponent.h"
 
 AYoru::AYoru()
 {
@@ -32,6 +32,8 @@ AYoru::AYoru()
 	moveComp = CreateDefaultSubobject<UYoruMoveComponent>(TEXT("moveComp"));
 
 	statComp = CreateDefaultSubobject<UYoruStatComponent>(TEXT("statComp"));
+
+	widgetComp = CreateDefaultSubobject<UYoruWidgetComponent>(TEXT("widgetComp"));
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 

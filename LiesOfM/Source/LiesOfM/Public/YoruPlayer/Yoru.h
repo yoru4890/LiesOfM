@@ -26,18 +26,21 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Compoent")
+public:
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
 
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Compoent")
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class UCameraComponent> mainCamera{};
 
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Component")
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruMoveComponent> moveComp{};
 
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Component")
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruStatComponent> statComp{};
+
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
+	TObjectPtr<class UYoruWidgetComponent> widgetComp{};
 
 public:
 	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }

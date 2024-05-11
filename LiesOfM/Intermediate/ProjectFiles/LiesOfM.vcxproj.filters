@@ -11,6 +11,7 @@
     <None Include="..\..\Source\LiesOfMEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -63,6 +64,9 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruStatComponent.cpp">
       <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruWidgetComponent.cpp">
+      <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Public">
       <UniqueIdentifier>{5D658756-B149-3986-8F91-C632CB285977}</UniqueIdentifier>
     </Filter>
@@ -91,6 +95,9 @@
       <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruStatComponent.h">
+      <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruWidgetComponent.h">
       <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
     </ClInclude>
   </ItemGroup>
