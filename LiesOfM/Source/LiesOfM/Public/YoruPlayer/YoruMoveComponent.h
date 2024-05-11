@@ -26,6 +26,7 @@ public:
 
 public:
 	void Move(const FInputActionValue& value);
+	void NoMove(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
 	void Jump(const FInputActionValue& value);
 	void ChangeWalk(const FInputActionValue& value);
@@ -46,6 +47,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> moveChangeAction;
+
+	float elapsedTimePressedMove{};
+	float moveSpeed{};
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")

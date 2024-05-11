@@ -25,8 +25,23 @@ protected:
 	class AYoru* owner{};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	class UCharacterMovementComponent* moveComp{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	FVector velocity{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
 	float moveSpeed{};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
 	bool isFalling{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	bool isPressedMovementInput{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	bool isSkipWalkStart{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	bool isFootUp{};
 };

@@ -40,5 +40,14 @@ private:
 	TObjectPtr<class UYoruStatComponent> statComp{};
 
 public:
-	TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
+	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
+
+	UFUNCTION(BlueprintCallable)
+	inline bool GetisPressedMovementInput() const noexcept { return isPressedMovementInput; }
+	UFUNCTION(BlueprintCallable)
+	inline void SetisPressedMovementInput(bool isPressed) { isPressedMovementInput = isPressed; }
+
+private:
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	bool isPressedMovementInput{};
 };

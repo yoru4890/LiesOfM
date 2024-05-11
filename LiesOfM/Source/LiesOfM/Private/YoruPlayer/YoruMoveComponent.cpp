@@ -77,6 +77,8 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	UEnhancedInputComponent* enhancedInputComponet = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
 	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
+	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::NoMove);
+	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::NoMove);
 	enhancedInputComponet->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
 	enhancedInputComponet->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
 	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
@@ -85,11 +87,26 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
 {
+	me->SetisPressedMovementInput(true);
+	
+	elapsedTimePressedMove += me->GetWorld()->DeltaTimeSeconds;
+	
+
+	UE_LOG(LogTemp, Warning, TEXT("%f"), elapsedTimePressedMove);
+
+	moveSpeed = FMath::Clamp(elapsedTimePressedMove, 0.3f, 1.0f);
+
 	FRotator controlRotation{ me->GetControlRotation() };
 	controlRotation.Pitch = 0;
-	me->AddMovementInput(UKismetMathLibrary::GetRightVector(controlRotation), value.Get<FVector2D>().X);
+	me->AddMovementInput(UKismetMathLibrary::GetRightVector(controlRotation), value.Get<FVector2D>().X * moveSpeed);
 	controlRotation.Roll = 0;
-	me->AddMovementInput(UKismetMathLibrary::GetForwardVector(controlRotation), value.Get<FVector2D>().Y);
+	me->AddMovementInput(UKismetMathLibrary::GetForwardVector(controlRotation), value.Get<FVector2D>().Y * moveSpeed);
+}
+
+void UYoruMoveComponent::NoMove(const FInputActionValue& value)
+{
+	me->SetisPressedMovementInput(false);
+	elapsedTimePressedMove = 0;
 }
 
 void UYoruMoveComponent::Look(const FInputActionValue& value)
