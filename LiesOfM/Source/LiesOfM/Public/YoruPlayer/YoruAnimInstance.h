@@ -25,7 +25,7 @@ protected:
 	class AYoru* owner{};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
-	class UCharacterMovementComponent* moveComp{};
+	class UCharacterMovementComponent* charMoveComp{};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
 	FVector velocity{};

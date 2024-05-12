@@ -6,6 +6,18 @@
 #include "GameFramework/Character.h"
 #include "Yoru.generated.h"
 
+UENUM(BlueprintType)
+enum class EPlayerState : uint8
+{ 
+	NONE UMETA(DisplayName = "NONE"),
+	Running UMETA(DisplayName = "Running"),
+	Rolling UMETA(DisplayName = "Rolling"),
+	StepBack UMETA(DisplayName = "StepBack"),
+
+	SIZE
+};
+
+
 UCLASS()
 class LIESOFM_API AYoru : public ACharacter
 {
@@ -21,15 +33,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:
-	enum class EPlayerState
-	{
-		NONE,
-		Running,
-
-		SIZE
-	};
-
 
 public:
 	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
@@ -40,7 +43,8 @@ public:
 	inline void SetisPressedMovementInput(bool isPressed) { isPressedMovementInput = isPressed; }
 
 	EPlayerState GetPlayerState() const noexcept { return currentPlayerState; }
-	void SetPlayerState(const EPlayerState& state) { currentPlayerState = state; }
+	UFUNCTION(BlueprintCallable, Category = Test)
+	void SetPlayerState(const TEnumAsByte<EPlayerState>& state);
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};

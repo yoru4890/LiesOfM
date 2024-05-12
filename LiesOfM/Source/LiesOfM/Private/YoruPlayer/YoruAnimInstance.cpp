@@ -16,7 +16,7 @@ void UYoruAnimInstance::NativeInitializeAnimation()
 	owner = Cast<AYoru>(GetOwningActor());
 	if (owner)
 	{
-		moveComp = owner->GetCharacterMovement();
+		charMoveComp = owner->GetCharacterMovement();
 	}
 }
 
@@ -24,13 +24,13 @@ void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	if (moveComp)
+	if (charMoveComp)
 	{
 		isPressedMovementInput = owner->GetisPressedMovementInput();
-		velocity = moveComp->Velocity;
+		velocity = charMoveComp->Velocity;
 		moveSpeed = velocity.Size2D();
-		isFalling = moveComp->IsFalling();
-		if (moveComp->MaxWalkSpeed == 150.0f)
+		isFalling = charMoveComp->IsFalling();
+		if (charMoveComp->MaxWalkSpeed == 150.0f)
 		{
 			isWalking = true;
 		}

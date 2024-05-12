@@ -17,8 +17,80 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruMoveComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruStatComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruWidgetComponent_NoRegister();
+	LIESOFM_API UEnum* Z_Construct_UEnum_LiesOfM_EPlayerState();
 	UPackage* Z_Construct_UPackage__Script_LiesOfM();
 // End Cross Module References
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EPlayerState;
+	static UEnum* EPlayerState_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EPlayerState.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EPlayerState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_LiesOfM_EPlayerState, (UObject*)Z_Construct_UPackage__Script_LiesOfM(), TEXT("EPlayerState"));
+		}
+		return Z_Registration_Info_UEnum_EPlayerState.OuterSingleton;
+	}
+	template<> LIESOFM_API UEnum* StaticEnum<EPlayerState>()
+	{
+		return EPlayerState_StaticEnum();
+	}
+	struct Z_Construct_UEnum_LiesOfM_EPlayerState_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enumerators[] = {
+		{ "EPlayerState::NONE", (int64)EPlayerState::NONE },
+		{ "EPlayerState::Running", (int64)EPlayerState::Running },
+		{ "EPlayerState::Rolling", (int64)EPlayerState::Rolling },
+		{ "EPlayerState::StepBack", (int64)EPlayerState::StepBack },
+		{ "EPlayerState::SIZE", (int64)EPlayerState::SIZE },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+		{ "NONE.DisplayName", "NONE" },
+		{ "NONE.Name", "EPlayerState::NONE" },
+		{ "Rolling.DisplayName", "Rolling" },
+		{ "Rolling.Name", "EPlayerState::Rolling" },
+		{ "Running.DisplayName", "Running" },
+		{ "Running.Name", "EPlayerState::Running" },
+		{ "SIZE.Name", "EPlayerState::SIZE" },
+		{ "StepBack.DisplayName", "StepBack" },
+		{ "StepBack.Name", "EPlayerState::StepBack" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_LiesOfM,
+		nullptr,
+		"EPlayerState",
+		"EPlayerState",
+		Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enumerators,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enumerators),
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::EnumClass,
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::Enum_MetaDataParams)
+	};
+	UEnum* Z_Construct_UEnum_LiesOfM_EPlayerState()
+	{
+		if (!Z_Registration_Info_UEnum_EPlayerState.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EPlayerState.InnerSingleton, Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EPlayerState.InnerSingleton;
+	}
+	DEFINE_FUNCTION(AYoru::execSetPlayerState)
+	{
+		P_GET_ENUM_REF(EPlayerState,Z_Param_Out_state);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->SetPlayerState((EPlayerState&)(Z_Param_Out_state));
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(AYoru::execSetisPressedMovementInput)
 	{
 		P_GET_UBOOL(Z_Param_isPressed);
@@ -40,6 +112,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		static const FNameNativePtrPair Funcs[] = {
 			{ "GetisPressedMovementInput", &AYoru::execGetisPressedMovementInput },
 			{ "SetisPressedMovementInput", &AYoru::execSetisPressedMovementInput },
+			{ "SetPlayerState", &AYoru::execSetPlayerState },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -121,6 +194,49 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_AYoru_SetPlayerState_Statics
+	{
+		struct Yoru_eventSetPlayerState_Parms
+		{
+			EPlayerState state;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_state_MetaData[];
+#endif
+		static const UECodeGen_Private::FBytePropertyParams NewProp_state;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AYoru_SetPlayerState_Statics::NewProp_state_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_AYoru_SetPlayerState_Statics::NewProp_state = { "state", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Yoru_eventSetPlayerState_Parms, state), Z_Construct_UEnum_LiesOfM_EPlayerState, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::NewProp_state_MetaData), Z_Construct_UFunction_AYoru_SetPlayerState_Statics::NewProp_state_MetaData) }; // 2713328095
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AYoru_SetPlayerState_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AYoru_SetPlayerState_Statics::NewProp_state,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AYoru_SetPlayerState_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Test" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AYoru_SetPlayerState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AYoru, nullptr, "SetPlayerState", nullptr, nullptr, Z_Construct_UFunction_AYoru_SetPlayerState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::PropPointers), sizeof(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::Yoru_eventSetPlayerState_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::Function_MetaDataParams), Z_Construct_UFunction_AYoru_SetPlayerState_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_AYoru_SetPlayerState_Statics::Yoru_eventSetPlayerState_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_AYoru_SetPlayerState()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AYoru_SetPlayerState_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AYoru);
 	UClass* Z_Construct_UClass_AYoru_NoRegister()
 	{
@@ -170,6 +286,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	const FClassFunctionLinkInfo Z_Construct_UClass_AYoru_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_AYoru_GetisPressedMovementInput, "GetisPressedMovementInput" }, // 3997279820
 		{ &Z_Construct_UFunction_AYoru_SetisPressedMovementInput, "SetisPressedMovementInput" }, // 2097408035
+		{ &Z_Construct_UFunction_AYoru_SetPlayerState, "SetPlayerState" }, // 3074657469
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -273,13 +390,17 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	AYoru::~AYoru() {}
 	struct Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics
 	{
+		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 1059339289U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo[] = {
+		{ EPlayerState_StaticEnum, TEXT("EPlayerState"), &Z_Registration_Info_UEnum_EPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2713328095U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_1663006467(TEXT("/Script/LiesOfM"),
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 3715934071U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_3697916951(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo),
 		nullptr, 0,
-		nullptr, 0);
+		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

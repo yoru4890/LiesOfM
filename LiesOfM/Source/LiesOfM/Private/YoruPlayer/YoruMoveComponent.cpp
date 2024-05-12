@@ -55,6 +55,20 @@ UYoruMoveComponent::UYoruMoveComponent()
 	{
 		runRollAction = runRollActionFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> rollingMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_Rolling.AM_Rolling'"));
+
+	if (rollingMontageFinder.Succeeded())
+	{
+		rollingMontage = rollingMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> stepBackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_StepBack.AM_StepBack'"));
+
+	if (stepBackMontageFinder.Succeeded())
+	{
+		stepBackMontage = stepBackMontageFinder.Object;
+	}
 }
 
 void UYoruMoveComponent::BeginPlay()
@@ -91,8 +105,9 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	enhancedInputComponet->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
 	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
 	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
-	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::RunOrRolling);
+	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
+	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -150,7 +165,7 @@ void UYoruMoveComponent::Jump(const FInputActionValue& value)
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
 {
-	if (isMovementInput && me->GetPlayerState() != AYoru::EPlayerState::Running)
+	if (isMovementInput && me->GetPlayerState() != EPlayerState::Running)
 	{
 		charMoveComp->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
 	}
@@ -158,17 +173,17 @@ void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
 
 void UYoruMoveComponent::ChangeJog(const FInputActionValue& value)
 {
-	if (isMovementInput && me->GetPlayerState() != AYoru::EPlayerState::Running)
+	if (isMovementInput && me->GetPlayerState() != EPlayerState::Running)
 	{
 		charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;
 	}
 }
 
-void UYoruMoveComponent::RunOrRolling(const FInputActionValue& value)
+void UYoruMoveComponent::Run(const FInputActionValue& value)
 {
 	if (isMovementInput && HasMovementKeyInput())
 	{
-		if (me->GetPlayerState() == AYoru::EPlayerState::Running)
+		if (me->GetPlayerState() == EPlayerState::Running)
 		{
 			me->statComp->RunTick();
 		}
@@ -178,7 +193,7 @@ void UYoruMoveComponent::RunOrRolling(const FInputActionValue& value)
 			{
 				me->statComp->HandleStaminaRegen(false, 0.75f);
 				charMoveComp->MaxWalkSpeed = me->statComp->runSpeed;
-				me->SetPlayerState(AYoru::EPlayerState::Running);
+				me->SetPlayerState(EPlayerState::Running);
 			}
 		}
 	}
@@ -199,9 +214,18 @@ void UYoruMoveComponent::StopRunning()
 
 	if (!(me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("temp"));
-		me->SetPlayerState(AYoru::EPlayerState::NONE);
+		me->SetPlayerState(EPlayerState::NONE);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
+	}
+}
+
+void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
+{
+	if (isMovementInput && me->statComp->CheckStamina(8.0f))
+	{
+		me->statComp->HandleStaminaRegen(false, 0.75f);
+		HandleRollStepBack();
+		me->statComp->CallUpdateStamina();
 	}
 }
 
@@ -214,6 +238,26 @@ void UYoruMoveComponent::MovementInputHandler(float duration, bool isStopInput)
 	else
 	{
 		GetWorld()->GetTimerManager().ClearTimer(inputTimeHandle);
-		GetWorld()->GetTimerManager().SetTimer(inputTimeHandle, this, &UYoruMoveComponent::SetMovementInputFalse, duration, false);
+		GetWorld()->GetTimerManager().SetTimer(inputTimeHandle, this, &UYoruMoveComponent::SetMovementInputTrue, 0.1f, false,duration);
+	}
+}
+
+void UYoruMoveComponent::HandleRollStepBack()
+{
+	MovementInputHandler(0.0f, true);
+	me->statComp->DecreaseStamina(15.0f);
+
+	if (HasMovementKeyInput())
+	{
+		me->SetPlayerState(EPlayerState::Rolling);
+		me->GetMesh()->GetAnimInstance()->Montage_Play(rollingMontage);
+		me->SetActorRotation({ 0,charMoveComp->GetLastInputVector().ToOrientationRotator().Yaw,0 });
+		me->statComp->HandleStaminaRegen(true, 0.75f);
+	}
+	else
+	{
+		me->SetPlayerState(EPlayerState::StepBack);
+		me->GetMesh()->GetAnimInstance()->Montage_Play(stepBackMontage);
+		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
 }

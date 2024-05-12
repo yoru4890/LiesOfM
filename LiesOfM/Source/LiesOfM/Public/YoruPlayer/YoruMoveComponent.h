@@ -7,7 +7,7 @@
 #include "InputActionvalue.h"
 #include "YoruMoveComponent.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LIESOFM_API UYoruMoveComponent : public UYoruBaseComponent
 {
 	GENERATED_BODY()
@@ -31,12 +31,16 @@ public:
 	void Jump(const FInputActionValue& value);
 	void ChangeWalk(const FInputActionValue& value);
 	void ChangeJog(const FInputActionValue& value);
-	void RunOrRolling(const FInputActionValue& value);
-	inline bool HasMovementKeyInput() const;
+	void Run(const FInputActionValue& value);
 	void StopRunning();
-	void MovementInputHandler(float duration, bool isStopInput);
+	void RollOrStepBack(const FInputActionValue& value);
 
-	void SetMovementInputFalse() { isMovementInput = false; }
+	UFUNCTION(BlueprintCallable)
+	void MovementInputHandler(float duration, bool isStopInput);
+	void HandleRollStepBack();
+	void SetMovementInputTrue() { isMovementInput = true; }
+
+	inline bool HasMovementKeyInput() const;
 
 private:
 	UPROPERTY(VisibleAnywhere, Category ="Yoru|Input")
@@ -57,14 +61,25 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> runRollAction;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> rollingMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> stepBackMontage;
+
 	float elapsedTimePressedMove{};
 	float elapsedTimePressedRunOrRolling{};
 	float moveSpeed{};
 	bool isMovementInput{ true };
 
+
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
 	double mouseSpeed{ 35.0 };
+
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Hit")
+	bool canBeHit{ true };
 
 	FTimerHandle inputTimeHandle{};
 };

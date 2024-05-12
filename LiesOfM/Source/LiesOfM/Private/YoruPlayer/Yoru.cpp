@@ -74,3 +74,8 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 
 }
+
+void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)
+{
+	currentPlayerState = state;
+}

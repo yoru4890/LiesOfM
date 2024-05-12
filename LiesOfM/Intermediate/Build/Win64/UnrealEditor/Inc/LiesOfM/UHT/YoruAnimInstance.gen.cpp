@@ -37,9 +37,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_owner;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_moveComp_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_charMoveComp_MetaData[];
 #endif
-		static const UECodeGen_Private::FObjectPropertyParams NewProp_moveComp;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_charMoveComp;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_velocity_MetaData[];
 #endif
@@ -100,13 +100,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_owner = { "owner", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAnimInstance, owner), Z_Construct_UClass_AYoru_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_owner_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_owner_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveComp_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp_MetaData[] = {
 		{ "Category", "Yoru|Character" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAnimInstance.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveComp = { "moveComp", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAnimInstance, moveComp), Z_Construct_UClass_UCharacterMovementComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveComp_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveComp_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp = { "charMoveComp", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAnimInstance, charMoveComp), Z_Construct_UClass_UCharacterMovementComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_velocity_MetaData[] = {
 		{ "Category", "Yoru|Character" },
@@ -178,7 +178,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isWalking = { "isWalking", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruAnimInstance), &Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isWalking_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isWalking_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isWalking_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruAnimInstance_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_owner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_velocity,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_moveSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isFalling,
@@ -225,9 +225,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruAnimInstance, UYoruAnimInstance::StaticClass, TEXT("UYoruAnimInstance"), &Z_Registration_Info_UClass_UYoruAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAnimInstance), 893402957U) },
+		{ Z_Construct_UClass_UYoruAnimInstance, UYoruAnimInstance::StaticClass, TEXT("UYoruAnimInstance"), &Z_Registration_Info_UClass_UYoruAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAnimInstance), 4095468815U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_1757443738(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_3464901539(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
