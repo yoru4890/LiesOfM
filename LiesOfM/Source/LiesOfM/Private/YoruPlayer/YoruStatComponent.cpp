@@ -3,6 +3,8 @@
 
 #include "YoruPlayer/YoruStatComponent.h"
 #include "YoruPlayer/Yoru.h"
+#include "YoruPlayer/YoruMoveComponent.h"
+#include "YoruPlayer/YoruWidgetComponent.h"
 
 
 UYoruStatComponent::UYoruStatComponent()
@@ -12,7 +14,6 @@ UYoruStatComponent::UYoruStatComponent()
 void UYoruStatComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void UYoruStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -37,8 +38,49 @@ float UYoruStatComponent::GetStaminaRatio()
 	return currentStamina / maxStamina;
 }
 
-void UYoruStatComponent::TempTemp()
+bool UYoruStatComponent::CheckStamina(float staminaNeeded) const noexcept
 {
-	onUpdateStamina.Broadcast();
-	onRegenerateStamina.Broadcast(true);
+	return currentStamina >= staminaNeeded;
+}
+
+void UYoruStatComponent::HandleStaminaRegen(bool isStartRegen, float duration)
+{
+	if (isStartRegen)
+	{
+
+		GetWorld()->GetTimerManager().SetTimer(handleStamina, this, &UYoruStatComponent::CallRegenerateStartStamina, 0.05f, true, duration);
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().ClearTimer(handleStamina);
+		CallRegenerateStopStamina();
+	}
+}
+
+void UYoruStatComponent::RunTick()
+{
+	if (currentStamina > 0.0f)
+	{
+		DecreaseStamina(0.1f);
+		CallUpdateStamina();
+	}
+	else
+	{
+		me->moveComp->StopRunning();
+	}
+}
+
+void UYoruStatComponent::CaculateStaminaRegen()
+{
+	if (GetStaminaRatio() >= 1.0)
+	{
+		CallRegenerateStopStamina();
+		currentStamina = maxStamina;
+	}
+	else
+	{
+
+		currentStamina += StaminaRegen;
+	}
+	CallUpdateStamina();
 }

@@ -51,6 +51,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_moveChangeAction;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_runRollAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_runRollAction;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_mouseSpeed_MetaData[];
 #endif
 		static const UECodeGen_Private::FDoublePropertyParams NewProp_mouseSpeed;
@@ -105,6 +109,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveChangeAction = { "moveChangeAction", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, moveChangeAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveChangeAction_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveChangeAction_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction_MetaData[] = {
+		{ "Category", "Yoru|Input" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction = { "runRollAction", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, runRollAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_mouseSpeed_MetaData[] = {
 		{ "Category", "Yoru|Mouse" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
@@ -117,6 +128,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_lookAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_jumpAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveChangeAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_mouseSpeed,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruMoveComponent_Statics::StaticCppClassTypeInfo = {
@@ -157,9 +169,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 270174946U) },
+		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 408828912U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_761070894(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_3374274966(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

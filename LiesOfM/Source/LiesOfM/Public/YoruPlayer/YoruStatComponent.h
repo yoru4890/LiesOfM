@@ -28,15 +28,25 @@ public:
 
 	float GetStaminaRatio();
 
+	inline bool CheckStamina(float staminaNeeded) const noexcept;
+
+	void HandleStaminaRegen(bool isStartRegen, float duration);
+
+	void CallUpdateStamina() { onUpdateStamina.Broadcast(); }
+	void CallRegenerateStartStamina() { onRegenerateStamina.Broadcast(true); }
+	void CallRegenerateStopStamina() { onRegenerateStamina.Broadcast(false); }
+
+	void RunTick();
+
 	UFUNCTION()
-	void TempTemp();
+	void CaculateStaminaRegen();
 
 public:
 	FUpdateStaminaDelegate onUpdateStamina;
 	FRegenerateStaminaDelegate onRegenerateStamina;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
-	float currentStamina{ 30.0f };
+	float currentStamina{ 60.0f };
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
 	float maxStamina{ 60.0f };
@@ -52,4 +62,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Speed")
 	float runSpeed{ 600.0f };
+
+	FTimerHandle handleStamina{};
 };

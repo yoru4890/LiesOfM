@@ -30,7 +30,13 @@ public:
 	void Look(const FInputActionValue& value);
 	void Jump(const FInputActionValue& value);
 	void ChangeWalk(const FInputActionValue& value);
-	void ChangeRun(const FInputActionValue& value);
+	void ChangeJog(const FInputActionValue& value);
+	void RunOrRolling(const FInputActionValue& value);
+	inline bool HasMovementKeyInput() const;
+	void StopRunning();
+	void MovementInputHandler(float duration, bool isStopInput);
+
+	void SetMovementInputFalse() { isMovementInput = false; }
 
 private:
 	UPROPERTY(VisibleAnywhere, Category ="Yoru|Input")
@@ -48,10 +54,17 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> moveChangeAction;
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> runRollAction;
+
 	float elapsedTimePressedMove{};
+	float elapsedTimePressedRunOrRolling{};
 	float moveSpeed{};
+	bool isMovementInput{ true };
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
 	double mouseSpeed{ 35.0 };
+
+	FTimerHandle inputTimeHandle{};
 };

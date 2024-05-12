@@ -29,9 +29,11 @@ AYoru::AYoru()
 	mainCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("mainCamera"));
 	mainCamera->SetupAttachment(mainSpringArmComp);
 
-	moveComp = CreateDefaultSubobject<UYoruMoveComponent>(TEXT("moveComp"));
 
 	statComp = CreateDefaultSubobject<UYoruStatComponent>(TEXT("statComp"));
+
+	moveComp = CreateDefaultSubobject<UYoruMoveComponent>(TEXT("moveComp"));
+
 
 	widgetComp = CreateDefaultSubobject<UYoruWidgetComponent>(TEXT("widgetComp"));
 
@@ -62,6 +64,13 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
+	if (moveComp)
+	{
+		moveComp->SetupPlayerInputComponent(PlayerInputComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("fuck"));
+	}
 
 }

@@ -34,7 +34,7 @@ void UYoruWidgetComponent::BeginPlay()
 		widgetCombat = CreateWidget(GetWorld()->GetFirstPlayerController(), widgetClass);
 		widgetCombat->AddToViewport();
 		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
-		//UpdateStamina();
+		UpdateStamina();
 	}
 	else
 	{
@@ -46,7 +46,7 @@ void UYoruWidgetComponent::BeginPlay()
 		FOnTimelineFloat TimelineCallback;
 		FOnTimelineEventStatic TimelineFinishedCallback;
 
-		TimelineCallback.BindUFunction(this, FName("TempUpdate"));
+		TimelineCallback.BindUFunction(this, FName("StaminaRegenTick"));
 		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("TempFinish") });
 		staminaRegenerationLooper.AddInterpFloat(curve, TimelineCallback);
 		staminaRegenerationLooper.SetTimelineFinishedFunc(TimelineFinishedCallback);
@@ -64,11 +64,12 @@ void UYoruWidgetComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	staminaRegenerationLooper.TickTimeline(DeltaTime);
 }
 
-void UYoruWidgetComponent::TempUpdate()
+void UYoruWidgetComponent::StaminaRegenTick()
 {
-	timelineValue = staminaRegenerationLooper.GetPlaybackPosition();
-	float currentValue = curve->GetFloatValue(timelineValue);
-	UE_LOG(LogTemp, Warning, TEXT("%f"), currentValue);
+	/*timelineValue = staminaRegenerationLooper.GetPlaybackPosition();
+	float currentValue = curve->GetFloatValue(timelineValue);*/
+
+	me->statComp->CaculateStaminaRegen();
 }
 
 void UYoruWidgetComponent::TempFinish()
@@ -80,6 +81,7 @@ void UYoruWidgetComponent::staminaRegenerationToggle(bool isStart)
 {
 	if (isStart)
 	{
+
 		staminaRegenerationLooper.PlayFromStart();
 	}
 	else

@@ -12,19 +12,24 @@ class LIESOFM_API AYoru : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AYoru();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+public:
+	enum class EPlayerState
+	{
+		NONE,
+		Running,
+
+		SIZE
+	};
+
 
 public:
 	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
@@ -34,6 +39,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	inline void SetisPressedMovementInput(bool isPressed) { isPressedMovementInput = isPressed; }
 
+	EPlayerState GetPlayerState() const noexcept { return currentPlayerState; }
+	void SetPlayerState(const EPlayerState& state) { currentPlayerState = state; }
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
@@ -53,4 +60,6 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isPressedMovementInput{};
+
+	EPlayerState currentPlayerState{ EPlayerState::NONE };
 };

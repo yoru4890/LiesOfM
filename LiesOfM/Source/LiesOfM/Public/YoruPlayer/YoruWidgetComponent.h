@@ -7,14 +7,11 @@
 #include "Components/TimeLineComponent.h"
 #include "YoruWidgetComponent.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LIESOFM_API UYoruWidgetComponent : public UYoruBaseComponent
 {
 	GENERATED_BODY()
-	
+
 public:
 	UYoruWidgetComponent();
 
@@ -38,7 +35,7 @@ public:
 	UCurveFloat* curve{};
 
 	UFUNCTION()
-	void TempUpdate();
+	void StaminaRegenTick();
 
 	UFUNCTION()
 	void TempFinish();
@@ -51,5 +48,4 @@ public:
 
 	float timelineValue{};
 	FTimeline staminaRegenerationLooper;
-
 };

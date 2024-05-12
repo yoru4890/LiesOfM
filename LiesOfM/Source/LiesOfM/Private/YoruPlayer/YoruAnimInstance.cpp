@@ -29,7 +29,14 @@ void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		isPressedMovementInput = owner->GetisPressedMovementInput();
 		velocity = moveComp->Velocity;
 		moveSpeed = velocity.Size2D();
-
 		isFalling = moveComp->IsFalling();
+		if (moveComp->MaxWalkSpeed == 150.0f)
+		{
+			isWalking = true;
+		}
+		else
+		{
+			isWalking = false;
+		}
 	}
 }

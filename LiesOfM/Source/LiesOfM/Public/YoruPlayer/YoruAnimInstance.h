@@ -44,4 +44,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
 	bool isFootUp{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	bool isWalking{};
 };

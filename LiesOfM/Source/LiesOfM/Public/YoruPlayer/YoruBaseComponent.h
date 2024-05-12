@@ -26,4 +26,7 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Reference")
 	class AYoru* me;
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Reference")
+	class UCharacterMovementComponent* charMoveComp;
 };

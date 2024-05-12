@@ -13,6 +13,7 @@ void UYoruBaseComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	me = Cast<AYoru>(GetOwner());
+	charMoveComp = me->GetCharacterMovement();
 }
 
 void UYoruBaseComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

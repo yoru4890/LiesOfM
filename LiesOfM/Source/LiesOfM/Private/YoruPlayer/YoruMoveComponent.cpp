@@ -48,6 +48,13 @@ UYoruMoveComponent::UYoruMoveComponent()
 	{
 		moveChangeAction = moveChangeActionFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> runRollActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_Yoru_Run_Roll.IA_Yoru_Run_Roll'"));
+
+	if (runRollActionFinder.Succeeded())
+	{
+		runRollAction = runRollActionFinder.Object;
+	}
 }
 
 void UYoruMoveComponent::BeginPlay()
@@ -83,7 +90,9 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	enhancedInputComponet->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
 	enhancedInputComponet->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
 	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
-	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeRun);
+	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
+	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::RunOrRolling);
+	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -91,9 +100,6 @@ void UYoruMoveComponent::Move(const FInputActionValue& value)
 	me->SetisPressedMovementInput(true);
 	
 	elapsedTimePressedMove += me->GetWorld()->DeltaTimeSeconds;
-	
-
-	UE_LOG(LogTemp, Warning, TEXT("%f"), elapsedTimePressedMove);
 
 	moveSpeed = FMath::Clamp(elapsedTimePressedMove, 0.3f, 1.0f);
 
@@ -140,15 +146,74 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
 	me->Jump();
-	me->statComp->TempTemp();
 }
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
 {
-	me->GetCharacterMovement()->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
+	if (isMovementInput && me->GetPlayerState() != AYoru::EPlayerState::Running)
+	{
+		charMoveComp->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
+	}
 }
 
-void UYoruMoveComponent::ChangeRun(const FInputActionValue& value)
+void UYoruMoveComponent::ChangeJog(const FInputActionValue& value)
 {
-	me->GetCharacterMovement()->MaxWalkSpeed = me->GetStatComp()->runSpeed;
+	if (isMovementInput && me->GetPlayerState() != AYoru::EPlayerState::Running)
+	{
+		charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;
+	}
+}
+
+void UYoruMoveComponent::RunOrRolling(const FInputActionValue& value)
+{
+	if (isMovementInput && HasMovementKeyInput())
+	{
+		if (me->GetPlayerState() == AYoru::EPlayerState::Running)
+		{
+			me->statComp->RunTick();
+		}
+		else
+		{
+			if (me->statComp->CheckStamina(30.0f))
+			{
+				me->statComp->HandleStaminaRegen(false, 0.75f);
+				charMoveComp->MaxWalkSpeed = me->statComp->runSpeed;
+				me->SetPlayerState(AYoru::EPlayerState::Running);
+			}
+		}
+	}
+	else
+	{
+		StopRunning();
+	}
+}
+
+bool UYoruMoveComponent::HasMovementKeyInput() const
+{
+	return charMoveComp->GetLastInputVector() != FVector::ZeroVector;
+}
+
+void UYoruMoveComponent::StopRunning()
+{
+	charMoveComp->MaxWalkSpeed = me->statComp->jogSpeed;
+
+	if (!(me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("temp"));
+		me->SetPlayerState(AYoru::EPlayerState::NONE);
+		me->statComp->HandleStaminaRegen(true, 0.75f);
+	}
+}
+
+void UYoruMoveComponent::MovementInputHandler(float duration, bool isStopInput)
+{
+	if (isStopInput)
+	{
+		isMovementInput = false;
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().ClearTimer(inputTimeHandle);
+		GetWorld()->GetTimerManager().SetTimer(inputTimeHandle, this, &UYoruMoveComponent::SetMovementInputFalse, duration, false);
+	}
 }
