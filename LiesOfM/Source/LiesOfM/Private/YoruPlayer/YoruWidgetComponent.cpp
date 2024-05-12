@@ -3,6 +3,9 @@
 
 #include "YoruPlayer/YoruWidgetComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/ProgressBar.h"
+#include "YoruPlayer/Yoru.h"
+#include "YoruPlayer/YoruStatComponent.h"
 
 UYoruWidgetComponent::UYoruWidgetComponent()
 {
@@ -30,6 +33,8 @@ void UYoruWidgetComponent::BeginPlay()
 	{
 		widgetCombat = CreateWidget(GetWorld()->GetFirstPlayerController(), widgetClass);
 		widgetCombat->AddToViewport();
+		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
+		//UpdateStamina();
 	}
 	else
 	{
@@ -43,9 +48,12 @@ void UYoruWidgetComponent::BeginPlay()
 
 		TimelineCallback.BindUFunction(this, FName("TempUpdate"));
 		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("TempFinish") });
-		myTimeline.AddInterpFloat(curve, TimelineCallback);
-		myTimeline.SetTimelineFinishedFunc(TimelineFinishedCallback);
+		staminaRegenerationLooper.AddInterpFloat(curve, TimelineCallback);
+		staminaRegenerationLooper.SetTimelineFinishedFunc(TimelineFinishedCallback);
+		staminaRegenerationLooper.SetLooping(true);
 	}
+	me->statComp->onUpdateStamina.AddUObject(this, &UYoruWidgetComponent::UpdateStamina);
+	me->statComp->onRegenerateStamina.AddUObject(this, &UYoruWidgetComponent::staminaRegenerationToggle);
 
 }
 
@@ -53,12 +61,12 @@ void UYoruWidgetComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	myTimeline.TickTimeline(DeltaTime);
+	staminaRegenerationLooper.TickTimeline(DeltaTime);
 }
 
 void UYoruWidgetComponent::TempUpdate()
 {
-	timelineValue = myTimeline.GetPlaybackPosition();
+	timelineValue = staminaRegenerationLooper.GetPlaybackPosition();
 	float currentValue = curve->GetFloatValue(timelineValue);
 	UE_LOG(LogTemp, Warning, TEXT("%f"), currentValue);
 }
@@ -68,7 +76,19 @@ void UYoruWidgetComponent::TempFinish()
 	UE_LOG(LogTemp, Warning, TEXT("Finished"));
 }
 
-void UYoruWidgetComponent::TempToggle()
+void UYoruWidgetComponent::staminaRegenerationToggle(bool isStart)
 {
-	myTimeline.PlayFromStart();
+	if (isStart)
+	{
+		staminaRegenerationLooper.PlayFromStart();
+	}
+	else
+	{
+		staminaRegenerationLooper.Stop();
+	}
+}
+
+void UYoruWidgetComponent::UpdateStamina()
+{
+	staminaBar->SetPercent(me->statComp->GetStaminaRatio());
 }

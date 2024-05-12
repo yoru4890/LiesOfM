@@ -6,9 +6,9 @@
 #include "YoruPlayer/YoruBaseComponent.h"
 #include "YoruStatComponent.generated.h"
 
-/**
- *
- */
+DECLARE_MULTICAST_DELEGATE(FUpdateStaminaDelegate);
+DECLARE_MULTICAST_DELEGATE_OneParam(FRegenerateStaminaDelegate, bool);
+
 UCLASS()
 class LIESOFM_API UYoruStatComponent : public UYoruBaseComponent
 {
@@ -26,7 +26,15 @@ public:
 public:
 	float DecreaseStamina(float amount);
 
+	float GetStaminaRatio();
+
+	UFUNCTION()
+	void TempTemp();
+
 public:
+	FUpdateStaminaDelegate onUpdateStamina;
+	FRegenerateStaminaDelegate onRegenerateStamina;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
 	float currentStamina{ 30.0f };
 

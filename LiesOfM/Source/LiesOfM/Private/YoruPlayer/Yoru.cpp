@@ -51,7 +51,6 @@ void AYoru::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
 }
 
 void AYoru::Tick(float DeltaTime)
@@ -66,4 +65,3 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-

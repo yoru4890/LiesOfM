@@ -2,6 +2,8 @@
 
 
 #include "YoruPlayer/YoruStatComponent.h"
+#include "YoruPlayer/Yoru.h"
+
 
 UYoruStatComponent::UYoruStatComponent()
 {
@@ -10,6 +12,7 @@ UYoruStatComponent::UYoruStatComponent()
 void UYoruStatComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 void UYoruStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -27,4 +30,15 @@ float UYoruStatComponent::DecreaseStamina(float amount)
 	}
 
 	return currentStamina;
+}
+
+float UYoruStatComponent::GetStaminaRatio()
+{
+	return currentStamina / maxStamina;
+}
+
+void UYoruStatComponent::TempTemp()
+{
+	onUpdateStamina.Broadcast();
+	onRegenerateStamina.Broadcast(true);
 }

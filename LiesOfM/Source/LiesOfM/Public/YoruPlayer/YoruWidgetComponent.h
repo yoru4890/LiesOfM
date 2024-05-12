@@ -31,6 +31,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
 	UUserWidget* widgetCombat;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
+	class UProgressBar* staminaBar;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Timeline")
 	UCurveFloat* curve{};
 
@@ -41,10 +44,12 @@ public:
 	void TempFinish();
 
 	UFUNCTION()
-	void TempToggle();
+	void staminaRegenerationToggle(bool isStart);
 
+	UFUNCTION()
+	void UpdateStamina();
 
 	float timelineValue{};
-	FTimeline myTimeline;
+	FTimeline staminaRegenerationLooper;
 
 };

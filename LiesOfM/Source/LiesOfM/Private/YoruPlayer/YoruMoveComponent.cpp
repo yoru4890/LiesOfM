@@ -140,7 +140,7 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
 	me->Jump();
-	me->widgetComp->TempToggle();
+	me->statComp->TempTemp();
 }
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)

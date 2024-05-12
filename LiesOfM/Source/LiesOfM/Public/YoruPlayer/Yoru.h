@@ -27,6 +27,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
+	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
+
+	UFUNCTION(BlueprintCallable)
+	inline bool GetisPressedMovementInput() const noexcept { return isPressedMovementInput; }
+	UFUNCTION(BlueprintCallable)
+	inline void SetisPressedMovementInput(bool isPressed) { isPressedMovementInput = isPressed; }
+
+public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
 
@@ -41,14 +49,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruWidgetComponent> widgetComp{};
-
-public:
-	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
-
-	UFUNCTION(BlueprintCallable)
-	inline bool GetisPressedMovementInput() const noexcept { return isPressedMovementInput; }
-	UFUNCTION(BlueprintCallable)
-	inline void SetisPressedMovementInput(bool isPressed) { isPressedMovementInput = isPressed; }
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
