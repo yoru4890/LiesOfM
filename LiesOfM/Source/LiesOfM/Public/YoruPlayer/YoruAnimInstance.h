@@ -50,4 +50,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
 	bool isCrouch{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	bool isUseGreatSword{ true };
 };

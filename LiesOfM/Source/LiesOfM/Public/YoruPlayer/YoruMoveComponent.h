@@ -35,11 +35,14 @@ public:
 	void StopRunning();
 	void RollOrStepBack(const FInputActionValue& value);
 	void ChangeCrouch(const FInputActionValue& value);
+	void ChangeWeapon(const FInputActionValue& value);
 
 	UFUNCTION(BlueprintCallable)
 	void MovementInputHandler(float duration, bool isStopInput);
 	void HandleRollStepBack();
 	void SetMovementInputTrue() { isMovementInput = true; }
+	void EquipRightWeapon();
+	void UnEquipRightWeapon();
 
 	inline bool HasMovementKeyInput() const;
 
@@ -65,17 +68,27 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> crouchAction;
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> changeWeaponAction;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> rollingMontage;
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> stepBackMontage;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> equipMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> unEquipMontage;
+
 	float elapsedTimePressedMove{};
 	float elapsedTimePressedRunOrRolling{};
 	float moveSpeed{};
 	bool isMovementInput{ true };
-
+	bool isUseRightWeapon{ true };
+	bool isHaveRightWeapon{ true };
 
 
 public:
@@ -86,4 +99,5 @@ public:
 	bool canBeHit{ true };
 
 	FTimerHandle inputTimeHandle{};
+	FTimerHandle equipTimeHandle{};
 };

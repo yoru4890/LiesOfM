@@ -29,6 +29,14 @@ AYoru::AYoru()
 	mainCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("mainCamera"));
 	mainCamera->SetupAttachment(mainSpringArmComp);
 
+	rightWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("rightWeapon"));
+	rightWeapon->SetupAttachment(GetMesh(), TEXT("hand_rSocket_GreatSword"));
+
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> greatSwordFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_BlackKnight/SK_Blade_BlackKnight.SK_Blade_BlackKnight'"));
+	if (greatSwordFinder.Succeeded())
+	{
+		rightWeapon->SetSkeletalMesh(greatSwordFinder.Object);
+	}
 
 	statComp = CreateDefaultSubobject<UYoruStatComponent>(TEXT("statComp"));
 

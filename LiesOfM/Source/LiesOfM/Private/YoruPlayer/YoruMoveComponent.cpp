@@ -63,6 +63,13 @@ UYoruMoveComponent::UYoruMoveComponent()
 		crouchAction = crouchActionFinder.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> changeWeaponActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_ChangeWeapon.IA_ChangeWeapon'"));
+
+	if (changeWeaponActionFinder.Succeeded())
+	{
+		changeWeaponAction = changeWeaponActionFinder.Object;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> rollingMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_Rolling.AM_Rolling'"));
 
 	if (rollingMontageFinder.Succeeded())
@@ -75,6 +82,20 @@ UYoruMoveComponent::UYoruMoveComponent()
 	if (stepBackMontageFinder.Succeeded())
 	{
 		stepBackMontage = stepBackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> equipMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordEquip.AM_GreatSwordEquip'"));
+
+	if (equipMontageFinder.Succeeded())
+	{
+		equipMontage = equipMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> unEquipMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordUnEquip.AM_GreatSwordUnEquip'"));
+
+	if (unEquipMontageFinder.Succeeded())
+	{
+		unEquipMontage = unEquipMontageFinder.Object;
 	}
 }
 
@@ -116,6 +137,7 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
 	enhancedInputComponet->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
+	enhancedInputComponet->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -180,6 +202,11 @@ void UYoruMoveComponent::Jump(const FInputActionValue& value)
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
 {
+	if (me->currentPlayerState == EPlayerState::Crouch)
+	{
+		return;
+	}
+
 	if (isMovementInput && me->GetPlayerState() != EPlayerState::Running)
 	{
 		charMoveComp->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
@@ -188,6 +215,11 @@ void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
 
 void UYoruMoveComponent::ChangeJog(const FInputActionValue& value)
 {
+	if (me->currentPlayerState == EPlayerState::Crouch)
+	{
+		return;
+	}
+
 	if (isMovementInput && me->GetPlayerState() != EPlayerState::Running)
 	{
 		charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;
@@ -196,6 +228,10 @@ void UYoruMoveComponent::ChangeJog(const FInputActionValue& value)
 
 void UYoruMoveComponent::Run(const FInputActionValue& value)
 {
+	if (me->currentPlayerState == EPlayerState::Crouch)
+	{
+		return;
+	}
 	if (isMovementInput && HasMovementKeyInput())
 	{
 		if (me->GetPlayerState() == EPlayerState::Running)
@@ -225,6 +261,10 @@ bool UYoruMoveComponent::HasMovementKeyInput() const
 
 void UYoruMoveComponent::StopRunning()
 {
+	if (me->currentPlayerState == EPlayerState::Crouch)
+	{
+		return;
+	}
 	charMoveComp->MaxWalkSpeed = me->statComp->jogSpeed;
 
 	if (!(me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
@@ -262,6 +302,26 @@ void UYoruMoveComponent::ChangeCrouch(const FInputActionValue& value)
 
 }
 
+void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
+{
+	if (!HasMovementKeyInput())
+	{
+		if (isUseRightWeapon)
+		{
+			me->GetMesh()->GetAnimInstance()->Montage_Play(unEquipMontage);
+			GetWorld()->GetTimerManager().SetTimer(equipTimeHandle, this, &UYoruMoveComponent::UnEquipRightWeapon, 0.5f, false);
+		}
+		else
+		{
+			if (isHaveRightWeapon)
+			{
+				me->GetMesh()->GetAnimInstance()->Montage_Play(equipMontage);
+				EquipRightWeapon();
+			}
+		}
+	}
+}
+
 
 void UYoruMoveComponent::MovementInputHandler(float duration, bool isStopInput)
 {
@@ -294,4 +354,18 @@ void UYoruMoveComponent::HandleRollStepBack()
 		me->GetMesh()->GetAnimInstance()->Montage_Play(stepBackMontage);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
+}
+
+void UYoruMoveComponent::EquipRightWeapon()
+{
+	isUseRightWeapon = true;
+	me->currentRightWeaponState = EUseWeaponState::GREATSWORD;
+	me->rightWeapon->SetVisibility(true);
+}
+
+void UYoruMoveComponent::UnEquipRightWeapon()
+{
+	isUseRightWeapon = false;
+	me->currentRightWeaponState = EUseWeaponState::NONE;
+	me->rightWeapon->SetVisibility(false);
 }

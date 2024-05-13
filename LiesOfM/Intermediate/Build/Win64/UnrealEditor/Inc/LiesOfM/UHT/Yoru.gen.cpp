@@ -11,6 +11,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 // Cross Module References
 	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_AYoru();
 	LIESOFM_API UClass* Z_Construct_UClass_AYoru_NoRegister();
@@ -18,6 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruStatComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruWidgetComponent_NoRegister();
 	LIESOFM_API UEnum* Z_Construct_UEnum_LiesOfM_EPlayerState();
+	LIESOFM_API UEnum* Z_Construct_UEnum_LiesOfM_EUseWeaponState();
 	UPackage* Z_Construct_UPackage__Script_LiesOfM();
 // End Cross Module References
 	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EPlayerState;
@@ -85,6 +87,63 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EPlayerState.InnerSingleton, Z_Construct_UEnum_LiesOfM_EPlayerState_Statics::EnumParams);
 		}
 		return Z_Registration_Info_UEnum_EPlayerState.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EUseWeaponState;
+	static UEnum* EUseWeaponState_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EUseWeaponState.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EUseWeaponState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_LiesOfM_EUseWeaponState, (UObject*)Z_Construct_UPackage__Script_LiesOfM(), TEXT("EUseWeaponState"));
+		}
+		return Z_Registration_Info_UEnum_EUseWeaponState.OuterSingleton;
+	}
+	template<> LIESOFM_API UEnum* StaticEnum<EUseWeaponState>()
+	{
+		return EUseWeaponState_StaticEnum();
+	}
+	struct Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enumerators[] = {
+		{ "EUseWeaponState::NONE", (int64)EUseWeaponState::NONE },
+		{ "EUseWeaponState::GREATSWORD", (int64)EUseWeaponState::GREATSWORD },
+		{ "EUseWeaponState::SIZE", (int64)EUseWeaponState::SIZE },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "GREATSWORD.DisplayName", "GREATSWORD" },
+		{ "GREATSWORD.Name", "EUseWeaponState::GREATSWORD" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+		{ "NONE.DisplayName", "NONE" },
+		{ "NONE.Name", "EUseWeaponState::NONE" },
+		{ "SIZE.Name", "EUseWeaponState::SIZE" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_LiesOfM,
+		nullptr,
+		"EUseWeaponState",
+		"EUseWeaponState",
+		Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enumerators,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enumerators),
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::EnumClass,
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::Enum_MetaDataParams)
+	};
+	UEnum* Z_Construct_UEnum_LiesOfM_EUseWeaponState()
+	{
+		if (!Z_Registration_Info_UEnum_EUseWeaponState.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EUseWeaponState.InnerSingleton, Z_Construct_UEnum_LiesOfM_EUseWeaponState_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EUseWeaponState.InnerSingleton;
 	}
 	DEFINE_FUNCTION(AYoru::execSetPlayerState)
 	{
@@ -261,6 +320,10 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_mainCamera;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_rightWeapon_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_rightWeapon;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_moveComp_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_moveComp;
@@ -272,6 +335,16 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_widgetComp_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_widgetComp;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_currentPlayerState_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentPlayerState_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_currentPlayerState;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_currentRightWeaponState_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentRightWeaponState_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_currentRightWeaponState;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_isPressedMovementInput_MetaData[];
 #endif
@@ -316,6 +389,14 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_mainCamera = { "mainCamera", nullptr, (EPropertyFlags)0x001400000008000c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, mainCamera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_mainCamera_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_mainCamera_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_rightWeapon_MetaData[] = {
+		{ "Category", "Yoru|Compoent" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_rightWeapon = { "rightWeapon", nullptr, (EPropertyFlags)0x001400000008000c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, rightWeapon), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_rightWeapon_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_rightWeapon_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_moveComp_MetaData[] = {
 		{ "Category", "Yoru|Component" },
 		{ "EditInline", "true" },
@@ -339,6 +420,22 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_widgetComp = { "widgetComp", nullptr, (EPropertyFlags)0x001400000008000c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, widgetComp), Z_Construct_UClass_UYoruWidgetComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_widgetComp_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_widgetComp_MetaData) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_MetaData[] = {
+		{ "Category", "Yoru" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState = { "currentPlayerState", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, currentPlayerState), Z_Construct_UEnum_LiesOfM_EPlayerState, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_MetaData) }; // 709294459
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_MetaData[] = {
+		{ "Category", "Yoru" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState = { "currentRightWeaponState", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, currentRightWeaponState), Z_Construct_UEnum_LiesOfM_EUseWeaponState, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_MetaData) }; // 2514565648
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_isPressedMovementInput_MetaData[] = {
 		{ "Category", "Yoru|Input" },
@@ -353,9 +450,14 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AYoru_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_mainSpringArmComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_mainCamera,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_rightWeapon,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_moveComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_statComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_widgetComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_isPressedMovementInput,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AYoru_Statics::StaticCppClassTypeInfo = {
@@ -398,11 +500,12 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo[] = {
 		{ EPlayerState_StaticEnum, TEXT("EPlayerState"), &Z_Registration_Info_UEnum_EPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 709294459U) },
+		{ EUseWeaponState_StaticEnum, TEXT("EUseWeaponState"), &Z_Registration_Info_UEnum_EUseWeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2514565648U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 1170866192U) },
+		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 2048563889U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_232524744(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_1453637061(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo));

@@ -109,6 +109,8 @@
     <None Include="..\..\LiesOfM.uproject"/>
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
+    <None Include="..\..\.gitignore"/>
+    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>

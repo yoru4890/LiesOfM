@@ -47,5 +47,14 @@ void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		{
 			isCrouch = false;
 		}
+
+		if (owner->currentRightWeaponState == EUseWeaponState::GREATSWORD)
+		{
+			isUseGreatSword = true;
+		}
+		else
+		{
+			isUseGreatSword = false;
+		}
 	}
 }

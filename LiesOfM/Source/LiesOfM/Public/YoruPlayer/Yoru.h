@@ -18,6 +18,15 @@ enum class EPlayerState : uint8
 	SIZE
 };
 
+UENUM(BlueprintType)
+enum class EUseWeaponState : uint8
+{
+	NONE UMETA(DisplayName = "NONE"),
+	GREATSWORD UMETA(DisplayName = "GREATSWORD"),
+
+	SIZE
+};
+
 
 UCLASS()
 class LIESOFM_API AYoru : public ACharacter
@@ -46,12 +55,17 @@ public:
 	EPlayerState GetPlayerState() const noexcept { return currentPlayerState; }
 	UFUNCTION(BlueprintCallable, Category = Test)
 	void SetPlayerState(const TEnumAsByte<EPlayerState>& state);
+
+	void myDelay(float duration);
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class UCameraComponent> mainCamera{};
+
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
+	TObjectPtr<class USkeletalMeshComponent> rightWeapon{};
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruMoveComponent> moveComp{};
@@ -62,9 +76,13 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruWidgetComponent> widgetComp{};
 
+	UPROPERTY(BlueprintReadWrite)
+	EPlayerState currentPlayerState{ EPlayerState::NONE };
+
+	UPROPERTY(BlueprintReadWrite)
+	EUseWeaponState currentRightWeaponState{ EUseWeaponState::GREATSWORD };
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isPressedMovementInput{};
-
-	EPlayerState currentPlayerState{ EPlayerState::NONE };
 };
