@@ -47,7 +47,7 @@ AYoru::AYoru()
 	PrimaryActorTick.bCanEverTick = true;
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->MaxWalkSpeed = statComp->runSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = statComp->jogSpeed;
 }
 void AYoru::BeginPlay()
 {

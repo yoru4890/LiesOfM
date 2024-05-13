@@ -38,5 +38,14 @@ void UYoruAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		{
 			isWalking = false;
 		}
+
+		if (owner->GetPlayerState() == EPlayerState::Crouch)
+		{
+			isCrouch = true;
+		}
+		else
+		{
+			isCrouch = false;
+		}
 	}
 }

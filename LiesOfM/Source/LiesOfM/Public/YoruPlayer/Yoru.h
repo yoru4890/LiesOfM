@@ -13,6 +13,7 @@ enum class EPlayerState : uint8
 	Running UMETA(DisplayName = "Running"),
 	Rolling UMETA(DisplayName = "Rolling"),
 	StepBack UMETA(DisplayName = "StepBack"),
+	Crouch UMETA(DisplayName = "Crouch"),
 
 	SIZE
 };

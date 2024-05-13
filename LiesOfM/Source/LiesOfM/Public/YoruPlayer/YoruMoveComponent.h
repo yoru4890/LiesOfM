@@ -34,6 +34,7 @@ public:
 	void Run(const FInputActionValue& value);
 	void StopRunning();
 	void RollOrStepBack(const FInputActionValue& value);
+	void ChangeCrouch(const FInputActionValue& value);
 
 	UFUNCTION(BlueprintCallable)
 	void MovementInputHandler(float duration, bool isStopInput);
@@ -60,6 +61,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> runRollAction;
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> crouchAction;
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> rollingMontage;

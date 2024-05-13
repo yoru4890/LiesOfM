@@ -56,6 +56,13 @@ UYoruMoveComponent::UYoruMoveComponent()
 		runRollAction = runRollActionFinder.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> crouchActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_YoruCrouch.IA_YoruCrouch'"));
+
+	if (crouchActionFinder.Succeeded())
+	{
+		crouchAction = crouchActionFinder.Object;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> rollingMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_Rolling.AM_Rolling'"));
 
 	if (rollingMontageFinder.Succeeded())
@@ -108,6 +115,7 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
 	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
+	enhancedInputComponet->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -160,7 +168,14 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
-	me->Jump();
+	if (me->GetPlayerState() == EPlayerState::Crouch)
+	{
+		ChangeCrouch(value);
+	}
+	else
+	{
+		me->Jump();
+	}
 }
 
 void UYoruMoveComponent::ChangeWalk(const FInputActionValue& value)
@@ -228,6 +243,25 @@ void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 		me->statComp->CallUpdateStamina();
 	}
 }
+
+void UYoruMoveComponent::ChangeCrouch(const FInputActionValue& value)
+{
+	if (!HasMovementKeyInput())
+	{
+		if (me->GetPlayerState() != EPlayerState::Crouch)
+		{
+			me->SetPlayerState(EPlayerState::Crouch);
+			charMoveComp->MaxWalkSpeed = me->GetStatComp()->walkSpeed;
+		}
+		else
+		{
+			me->SetPlayerState(EPlayerState::NONE);
+			charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;
+		}
+	}
+
+}
+
 
 void UYoruMoveComponent::MovementInputHandler(float duration, bool isStopInput)
 {
