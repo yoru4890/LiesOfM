@@ -40,6 +40,27 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\LiesOfM.cpp">
       <Filter>Source\LiesOfM\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\TOMDataTable.cpp">
+      <Filter>Source\LiesOfM\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Enemy">
+      <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
+      <Filter>Source\LiesOfM\Private\Enemy</Filter>
+    </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Interface">
+      <UniqueIdentifier>{7C759666-5707-33DA-ABC4-A8B90C93CEA4}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
+      <Filter>Source\LiesOfM\Private\Interface</Filter>
+    </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Weapon">
+      <UniqueIdentifier>{3419D55D-CDD2-37FE-B130-14109502CB0D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Weapon\WeaponBase.cpp">
+      <Filter>Source\LiesOfM\Private\Weapon</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\YoruPlayer">
       <UniqueIdentifier>{56EDF5BC-DEE3-3143-B19A-A7648498461F}</UniqueIdentifier>
     </Filter>
@@ -72,6 +93,27 @@
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LiesOfM.h">
       <Filter>Source\LiesOfM\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\TOMDataTable.h">
+      <Filter>Source\LiesOfM\Public</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Enemy">
+      <UniqueIdentifier>{3E167887-9D10-37E2-91E0-5622CF20F263}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h">
+      <Filter>Source\LiesOfM\Public\Enemy</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Interface">
+      <UniqueIdentifier>{B7448E84-AB7C-3C3C-B9C6-68453E62666D}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
+      <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Weapon">
+      <UniqueIdentifier>{7BC0057A-25DD-3326-A056-19878E9951FA}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Weapon\WeaponBase.h">
+      <Filter>Source\LiesOfM\Public\Weapon</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\YoruPlayer">
       <UniqueIdentifier>{4DAF3C70-BE5B-38E8-BB7C-C1C78F96B4AE}</UniqueIdentifier>

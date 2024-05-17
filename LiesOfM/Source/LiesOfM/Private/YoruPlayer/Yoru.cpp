@@ -7,6 +7,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "YoruPlayer/YoruStatComponent.h"
 #include "YoruPlayer/YoruWidgetComponent.h"
+#include <EnhancedInputComponent.h>
+#include <EnhancedInputSubsystems.h>
+#include <InputMappingContext.h>
+#include "YoruPlayer/YoruAttackComponent.h"
 
 AYoru::AYoru()
 {
@@ -29,27 +33,32 @@ AYoru::AYoru()
 	mainCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("mainCamera"));
 	mainCamera->SetupAttachment(mainSpringArmComp);
 
-	rightWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("rightWeapon"));
-	rightWeapon->SetupAttachment(GetMesh(), TEXT("hand_rSocket_GreatSword"));
+	//rightWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("rightWeapon"));
+	//rightWeapon->SetupAttachment(GetMesh(), TEXT("hand_rSocket_GreatSword"));
 
-	ConstructorHelpers::FObjectFinder<USkeletalMesh> greatSwordFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_BlackKnight/SK_Blade_BlackKnight.SK_Blade_BlackKnight'"));
-	if (greatSwordFinder.Succeeded())
-	{
-		rightWeapon->SetSkeletalMesh(greatSwordFinder.Object);
-	}
+	//ConstructorHelpers::FObjectFinder<USkeletalMesh> greatSwordFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_BlackKnight/SK_Blade_BlackKnight.SK_Blade_BlackKnight'"));
+	//if (greatSwordFinder.Succeeded())
+	//{
+	//	rightWeapon->SetSkeletalMesh(greatSwordFinder.Object);
+	//}
 
 	statComp = CreateDefaultSubobject<UYoruStatComponent>(TEXT("statComp"));
-
 	moveComp = CreateDefaultSubobject<UYoruMoveComponent>(TEXT("moveComp"));
-
-
 	widgetComp = CreateDefaultSubobject<UYoruWidgetComponent>(TEXT("widgetComp"));
+	attackComp = CreateDefaultSubobject<UYoruAttackComponent>(TEXT("attackComp"));
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 
 	if (animInstanceFinder.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(animInstanceFinder.Class);
+	}
+
+	static ConstructorHelpers::FObjectFinder<UInputMappingContext> iMContextFinder(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/AAA/Input/IMC_Yoru.IMC_Yoru'"));
+
+	if (iMContextFinder.Succeeded())
+	{
+		defaultInputMappingContext = iMContextFinder.Object;
 	}
 
 	PrimaryActorTick.bCanEverTick = true;
@@ -60,6 +69,17 @@ AYoru::AYoru()
 void AYoru::BeginPlay()
 {
 	Super::BeginPlay();
+
+	APlayerController* playerController = Cast<APlayerController>(GetController());
+	if (playerController)
+	{
+		UEnhancedInputLocalPlayerSubsystem* subSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer());
+
+		if (subSystem)
+		{
+			subSystem->AddMappingContext(defaultInputMappingContext, 0);
+		}
+	}
 
 }
 
@@ -72,15 +92,10 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	if (moveComp)
-	{
-		moveComp->SetupPlayerInputComponent(PlayerInputComponent);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("fuck"));
-	}
+	UEnhancedInputComponent* enhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
+	moveComp->SetupPlayerInputComponent(enhancedInputComponent);
+	attackComp->SetupPlayerInputComponent(enhancedInputComponent);
 }
 
 void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)

@@ -1,0 +1,24 @@
+[
+	{
+		"Name": "GreatSword",
+		"runningAttackMontage": "None",
+		"rollingAttackMontage": "None",
+		"backStabMontage": "None",
+		"riposteMontage": "None",
+		"lightAttakMontages": [
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordlightAttack1.AM_GreatSwordlightAttack1'",
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordlightAttack2.AM_GreatSwordlightAttack2'",
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordlightAttack3.AM_GreatSwordlightAttack3'"
+		],
+		"HeavyAttakMontages": []
+	},
+	{
+		"Name": "Temp",
+		"runningAttackMontage": "None",
+		"rollingAttackMontage": "None",
+		"backStabMontage": "None",
+		"riposteMontage": "None",
+		"lightAttakMontages": [],
+		"HeavyAttakMontages": []
+	}
+]

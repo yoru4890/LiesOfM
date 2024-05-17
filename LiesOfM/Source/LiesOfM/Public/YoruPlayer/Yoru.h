@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interface/DamageInteractions.h"
 #include "Yoru.generated.h"
 
 UENUM(BlueprintType)
@@ -14,6 +15,12 @@ enum class EPlayerState : uint8
 	Rolling UMETA(DisplayName = "Rolling"),
 	StepBack UMETA(DisplayName = "StepBack"),
 	Crouch UMETA(DisplayName = "Crouch"),
+	LightAttack UMETA(DisplayName = "LightAttack"),
+	HeavyAttack UMETA(DisplayName = "HeavyAttack"),
+	RunningAttack UMETA(DisplayName = "RunningAttack"),
+	RollingAttack UMETA(DisplayName = "RollingAttack"),
+	BackStab UMETA(DisplayName = "BackStab"),
+	Riposte UMETA(DisplayName = "Riposte"),
 
 	SIZE
 };
@@ -29,7 +36,7 @@ enum class EUseWeaponState : uint8
 
 
 UCLASS()
-class LIESOFM_API AYoru : public ACharacter
+class LIESOFM_API AYoru : public ACharacter, public IDamageInteractions
 {
 	GENERATED_BODY()
 
@@ -55,8 +62,6 @@ public:
 	EPlayerState GetPlayerState() const noexcept { return currentPlayerState; }
 	UFUNCTION(BlueprintCallable, Category = Test)
 	void SetPlayerState(const TEnumAsByte<EPlayerState>& state);
-
-	void myDelay(float duration);
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
@@ -64,8 +69,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class UCameraComponent> mainCamera{};
 
-	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
-	TObjectPtr<class USkeletalMeshComponent> rightWeapon{};
+	//UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
+	//TObjectPtr<class USkeletalMeshComponent> rightWeapon{};
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruMoveComponent> moveComp{};
@@ -76,11 +81,22 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruWidgetComponent> widgetComp{};
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
+	TObjectPtr<class UYoruAttackComponent> attackComp{};
+
 	UPROPERTY(BlueprintReadWrite)
 	EPlayerState currentPlayerState{ EPlayerState::NONE };
 
 	UPROPERTY(BlueprintReadWrite)
 	EUseWeaponState currentRightWeaponState{ EUseWeaponState::GREATSWORD };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Weapon")
+	class AWeaponBase* equippedWeapon{};
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
+
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor) override {};
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")

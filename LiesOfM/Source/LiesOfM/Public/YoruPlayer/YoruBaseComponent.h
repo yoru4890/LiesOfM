@@ -21,7 +21,7 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) {};
+	virtual void SetupPlayerInputComponent(class UEnhancedInputComponent* enhancedInputComponent) {};
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Reference")

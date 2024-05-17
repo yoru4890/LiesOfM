@@ -10,16 +10,10 @@
 #include "YoruPlayer/YoruStatComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "YoruPlayer/YoruWidgetComponent.h"
-
+#include "Weapon/WeaponBase.h"
 
 UYoruMoveComponent::UYoruMoveComponent()
 {
-	static ConstructorHelpers::FObjectFinder<UInputMappingContext> iMContextFinder(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/AAA/Input/IMC_Yoru.IMC_Yoru'"));
-
-	if (iMContextFinder.Succeeded())
-	{
-		defaultInputMappingContext = iMContextFinder.Object;
-	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> moveActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_YoruMove.IA_YoruMove'"));
 
@@ -103,17 +97,7 @@ void UYoruMoveComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	APlayerController* playerController = Cast<APlayerController>(me->GetController());
-	if (playerController)
-	{
-		UEnhancedInputLocalPlayerSubsystem* subSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer());
-
-		if (subSystem)
-		{
-			subSystem->AddMappingContext(defaultInputMappingContext, 0);
-		}
-	}
-
+	SpawnWeapon();
 }
 
 void UYoruMoveComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -122,22 +106,20 @@ void UYoruMoveComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	
 }
 
-void UYoruMoveComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void UYoruMoveComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enhancedInputComponent)
 {
-	UEnhancedInputComponent* enhancedInputComponet = Cast<UEnhancedInputComponent>(PlayerInputComponent);
-
-	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
-	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::NoMove);
-	enhancedInputComponet->BindAction(moveAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::NoMove);
-	enhancedInputComponet->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
-	enhancedInputComponet->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
-	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
-	enhancedInputComponet->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
-	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
-	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
-	enhancedInputComponet->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
-	enhancedInputComponet->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
-	enhancedInputComponet->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::NoMove);
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::NoMove);
+	enhancedInputComponent->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
+	enhancedInputComponent->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
+	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
+	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
+	enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
+	enhancedInputComponent->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -356,16 +338,50 @@ void UYoruMoveComponent::HandleRollStepBack()
 	}
 }
 
+void UYoruMoveComponent::SetMovementInputTrue()
+{
+	isMovementInput = true;
+	me->currentPlayerState = EPlayerState::NONE;
+}
+
 void UYoruMoveComponent::EquipRightWeapon()
 {
 	isUseRightWeapon = true;
 	me->currentRightWeaponState = EUseWeaponState::GREATSWORD;
-	me->rightWeapon->SetVisibility(true);
+	me->equippedWeapon->weaponMesh->SetVisibility(true);
 }
 
 void UYoruMoveComponent::UnEquipRightWeapon()
 {
 	isUseRightWeapon = false;
 	me->currentRightWeaponState = EUseWeaponState::NONE;
-	me->rightWeapon->SetVisibility(false);
+	me->equippedWeapon->weaponMesh->SetVisibility(false);
+}
+
+void UYoruMoveComponent::SpawnWeapon()
+{
+	UObject* spawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/Engine.Blueprint'/Game/AAA/Blueprints/Weapon/BP_Weapon.BP_Weapon'")));
+
+	UBlueprint* generatedBP = Cast<UBlueprint>(spawnActor);
+
+	if (!spawnActor)
+	{
+		return;
+	}
+
+	UClass* spawnClass = spawnActor->StaticClass();
+
+	if (!spawnClass)
+	{
+		return;
+	}
+
+	FTransform tempTransform{ me->GetMesh()->GetSocketTransform(TEXT("hand_rSocket_GreatSword")) };
+
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = me;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	me->equippedWeapon = GetWorld()->SpawnActor<AWeaponBase>(generatedBP->GeneratedClass, tempTransform, spawnParams);
+
+	me->equippedWeapon->AttachToComponent(me->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("hand_rSocket_GreatSword"));
 }

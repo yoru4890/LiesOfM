@@ -22,7 +22,7 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UEnhancedInputComponent* enhancedInputComponent) override;
 
 public:
 	void Move(const FInputActionValue& value);
@@ -40,15 +40,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void MovementInputHandler(float duration, bool isStopInput);
 	void HandleRollStepBack();
-	void SetMovementInputTrue() { isMovementInput = true; }
+	void SetMovementInputTrue();
 	void EquipRightWeapon();
 	void UnEquipRightWeapon();
+	void SpawnWeapon();
+	bool GetIsMovementInput() const noexcept { return isMovementInput; }
 
 	inline bool HasMovementKeyInput() const;
 
 private:
-	UPROPERTY(VisibleAnywhere, Category ="Yoru|Input")
-	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
+
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> moveAction;

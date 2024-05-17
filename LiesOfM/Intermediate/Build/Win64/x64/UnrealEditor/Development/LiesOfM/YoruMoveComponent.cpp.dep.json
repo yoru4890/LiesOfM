@@ -21,6 +21,8 @@
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\interface\\damageinteractions.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\damageinteractions.generated.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoru.generated.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\enhancedinputcomponent.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputaction.h",
@@ -72,7 +74,9 @@
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yoruwidgetcomponent.h",
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\components\\timelinecomponent.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\timelinecomponent.generated.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoruwidgetcomponent.generated.h"
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yoruwidgetcomponent.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\weapon\\weaponbase.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\weaponbase.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

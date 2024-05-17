@@ -14,27 +14,28 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define LIESOFM_Yoru_generated_h
 
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_SPARSE_DATA
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_SPARSE_DATA_PROPERTY_ACCESSORS
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_SPARSE_DATA
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execSetPlayerState); \
 	DECLARE_FUNCTION(execSetisPressedMovementInput); \
 	DECLARE_FUNCTION(execGetisPressedMovementInput);
 
 
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_ACCESSORS
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_INCLASS_NO_PURE_DECLS \
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_ACCESSORS
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAYoru(); \
 	friend struct Z_Construct_UClass_AYoru_Statics; \
 public: \
 	DECLARE_CLASS(AYoru, ACharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/LiesOfM"), NO_API) \
-	DECLARE_SERIALIZER(AYoru)
+	DECLARE_SERIALIZER(AYoru) \
+	virtual UObject* _getUObject() const override { return const_cast<AYoru*>(this); }
 
 
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_ENHANCED_CONSTRUCTORS \
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AYoru(AYoru&&); \
@@ -46,17 +47,17 @@ public: \
 	NO_API virtual ~AYoru();
 
 
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_31_PROLOG
-#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_GENERATED_BODY \
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_38_PROLOG
+#define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_SPARSE_DATA \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_SPARSE_DATA_PROPERTY_ACCESSORS \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_ACCESSORS \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_INCLASS_NO_PURE_DECLS \
-	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_34_ENHANCED_CONSTRUCTORS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_SPARSE_DATA \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_ACCESSORS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_INCLASS_NO_PURE_DECLS \
+	FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_41_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -73,6 +74,12 @@ template<> LIESOFM_API UClass* StaticClass<class AYoru>();
 	op(EPlayerState::Rolling) \
 	op(EPlayerState::StepBack) \
 	op(EPlayerState::Crouch) \
+	op(EPlayerState::LightAttack) \
+	op(EPlayerState::HeavyAttack) \
+	op(EPlayerState::RunningAttack) \
+	op(EPlayerState::RollingAttack) \
+	op(EPlayerState::BackStab) \
+	op(EPlayerState::Riposte) \
 	op(EPlayerState::SIZE) 
 
 enum class EPlayerState : uint8;

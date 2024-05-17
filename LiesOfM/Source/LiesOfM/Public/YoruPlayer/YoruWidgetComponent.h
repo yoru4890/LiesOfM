@@ -48,4 +48,5 @@ public:
 
 	float timelineValue{};
 	FTimeline staminaRegenerationLooper;
+
 };
