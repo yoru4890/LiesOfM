@@ -27,7 +27,7 @@ void AEnemyBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
-void AEnemyBase::ReceiveDamage(float damageAmount, AActor* attackingActor)
+void AEnemyBase::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
 {
 	if (DecreaseHealth(damageAmount))
 	{

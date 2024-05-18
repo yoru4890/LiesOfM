@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "YoruPlayer/YoruWidgetComponent.h"
 #include "Weapon/WeaponBase.h"
+#include "YoruPlayer/YoruDefenceComponent.h"
 
 UYoruMoveComponent::UYoruMoveComponent()
 {
@@ -260,6 +261,7 @@ void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 {
 	if (isMovementInput && me->statComp->CheckStamina(8.0f))
 	{
+		me->defenceComp->ChangeHittable();
 		me->statComp->HandleStaminaRegen(false, 0.75f);
 		HandleRollStepBack();
 		me->statComp->CallUpdateStamina();
@@ -327,6 +329,7 @@ void UYoruMoveComponent::HandleRollStepBack()
 	{
 		me->SetPlayerState(EPlayerState::Rolling);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(rollingMontage);
+		me->defenceComp->SetInvincibilityTime(0.9f);
 		me->SetActorRotation({ 0,charMoveComp->GetLastInputVector().ToOrientationRotator().Yaw,0 });
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
@@ -334,6 +337,7 @@ void UYoruMoveComponent::HandleRollStepBack()
 	{
 		me->SetPlayerState(EPlayerState::StepBack);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(stepBackMontage);
+		me->defenceComp->SetInvincibilityTime(0.8f);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
 }

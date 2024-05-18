@@ -34,6 +34,17 @@ public:
 	TArray<TObjectPtr<UAnimMontage>> HeavyAttakMontages;
 };
 
+USTRUCT(BlueprintType)
+struct FPlayerData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	FPlayerData() {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Anim")
+	TArray<TObjectPtr<UAnimMontage>> hitReactionMontages;
+};
+
 UCLASS()
 class LIESOFM_API ATOMDataTable : public AActor
 {

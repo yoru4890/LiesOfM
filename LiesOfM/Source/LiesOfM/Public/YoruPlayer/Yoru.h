@@ -84,6 +84,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruAttackComponent> attackComp{};
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
+	TObjectPtr<class UYoruDefenceComponent> defenceComp{};
+
 	UPROPERTY(BlueprintReadWrite)
 	EPlayerState currentPlayerState{ EPlayerState::NONE };
 
@@ -96,9 +99,18 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
 
-	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor) override {};
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Utility")
+	class UTOMGameInstance* singleGameInstance;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
+
+	TArray<FName> GetDataTableRowNames() const noexcept { return dataTableRowNames; }
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isPressedMovementInput{};
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|DataTable")
+	TArray<FName> dataTableRowNames{};
 };

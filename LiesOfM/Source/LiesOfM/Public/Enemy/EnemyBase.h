@@ -23,7 +23,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor) override;
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
 
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseHealth(float amount);

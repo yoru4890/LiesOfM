@@ -11,6 +11,8 @@
 #include <EnhancedInputSubsystems.h>
 #include <InputMappingContext.h>
 #include "YoruPlayer/YoruAttackComponent.h"
+#include "YoruPlayer/YoruDefenceComponent.h"
+#include "TOMGameInstance.h"
 
 AYoru::AYoru()
 {
@@ -46,6 +48,7 @@ AYoru::AYoru()
 	moveComp = CreateDefaultSubobject<UYoruMoveComponent>(TEXT("moveComp"));
 	widgetComp = CreateDefaultSubobject<UYoruWidgetComponent>(TEXT("widgetComp"));
 	attackComp = CreateDefaultSubobject<UYoruAttackComponent>(TEXT("attackComp"));
+	defenceComp = CreateDefaultSubobject<UYoruDefenceComponent>(TEXT("defenceComp"));
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 
@@ -60,6 +63,8 @@ AYoru::AYoru()
 	{
 		defaultInputMappingContext = iMContextFinder.Object;
 	}
+
+
 
 	PrimaryActorTick.bCanEverTick = true;
 	bUseControllerRotationYaw = false;
@@ -80,7 +85,9 @@ void AYoru::BeginPlay()
 			subSystem->AddMappingContext(defaultInputMappingContext, 0);
 		}
 	}
-
+	
+	singleGameInstance = Cast<UTOMGameInstance>(GetGameInstance());
+	dataTableRowNames = singleGameInstance->playerDataTable->GetRowNames();
 }
 
 void AYoru::Tick(float DeltaTime)
@@ -101,4 +108,9 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)
 {
 	currentPlayerState = state;
+}
+
+void AYoru::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
+{
+	defenceComp->HitReaction(damageAmount, attackingActor, hitResult);
 }

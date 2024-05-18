@@ -43,6 +43,9 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\TOMDataTable.cpp">
       <Filter>Source\LiesOfM\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\TOMGameInstance.cpp">
+      <Filter>Source\LiesOfM\Private</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Enemy">
       <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
     </Filter>
@@ -95,6 +98,9 @@
       <Filter>Source\LiesOfM\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMDataTable.h">
+      <Filter>Source\LiesOfM\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\TOMGameInstance.h">
       <Filter>Source\LiesOfM\Public</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Enemy">

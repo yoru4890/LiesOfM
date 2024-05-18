@@ -1,0 +1,11 @@
+[
+	{
+		"Name": "Player0",
+		"hitReactionMontages": [
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/HitReaction/AM_FrontHitReaction.AM_FrontHitReaction'",
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/HitReaction/AM_RightHitReaction.AM_RightHitReaction'",
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/HitReaction/AM_BackHitReaction.AM_BackHitReaction'",
+			"/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/HitReaction/AM_LeftHitReaction.AM_LeftHitReaction'"
+		]
+	}
+]

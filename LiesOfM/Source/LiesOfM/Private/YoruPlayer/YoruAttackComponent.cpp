@@ -102,6 +102,8 @@ UAnimMontage* UYoruAttackComponent::GetCorrectAttackAnimation()
 	me->currentPlayerState = EPlayerState::LightAttack;
 
 	return CheckIfCounterExceedsAttack(animData->lightAttakMontages);
+
+
 }
 
 UAnimMontage* UYoruAttackComponent::CheckIfCounterExceedsAttack(const TArray<UAnimMontage*>& animations)
@@ -147,7 +149,7 @@ void UYoruAttackComponent::ApplyLineTrace()
 			if (hitResult.GetActor()->GetClass()->IsChildOf<AEnemyBase>() && !hitActors.Contains(hitResult.GetActor()))
 			{
 				hitActors.Add(hitResult.GetActor());
-				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me);
+				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me, hitResult);
 			}
 		}
 	}
