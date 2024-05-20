@@ -23,6 +23,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UTOMGameInstance_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruAttackComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruDefenceComponent_NoRegister();
+	LIESOFM_API UClass* Z_Construct_UClass_UYoruLockonComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruMoveComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruStatComponent_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruWidgetComponent_NoRegister();
@@ -171,6 +172,21 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		}
 		return Z_Registration_Info_UEnum_EUseWeaponState.InnerSingleton;
 	}
+	DEFINE_FUNCTION(AYoru::execSetIsLockon)
+	{
+		P_GET_UBOOL(Z_Param_lockon);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->SetIsLockon(Z_Param_lockon);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AYoru::execGetIsLockon)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(bool*)Z_Param__Result=P_THIS->GetIsLockon();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(AYoru::execReceiveDamage)
 	{
 		P_GET_PROPERTY(FFloatProperty,Z_Param_damageAmount);
@@ -208,12 +224,53 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	{
 		UClass* Class = AYoru::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "GetIsLockon", &AYoru::execGetIsLockon },
 			{ "GetisPressedMovementInput", &AYoru::execGetisPressedMovementInput },
 			{ "ReceiveDamage", &AYoru::execReceiveDamage },
+			{ "SetIsLockon", &AYoru::execSetIsLockon },
 			{ "SetisPressedMovementInput", &AYoru::execSetisPressedMovementInput },
 			{ "SetPlayerState", &AYoru::execSetPlayerState },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_AYoru_GetIsLockon_Statics
+	{
+		struct Yoru_eventGetIsLockon_Parms
+		{
+			bool ReturnValue;
+		};
+		static void NewProp_ReturnValue_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	void Z_Construct_UFunction_AYoru_GetIsLockon_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+	{
+		((Yoru_eventGetIsLockon_Parms*)Obj)->ReturnValue = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AYoru_GetIsLockon_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Yoru_eventGetIsLockon_Parms), &Z_Construct_UFunction_AYoru_GetIsLockon_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AYoru_GetIsLockon_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AYoru_GetIsLockon_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AYoru_GetIsLockon_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AYoru_GetIsLockon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AYoru, nullptr, "GetIsLockon", nullptr, nullptr, Z_Construct_UFunction_AYoru_GetIsLockon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_GetIsLockon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AYoru_GetIsLockon_Statics::Yoru_eventGetIsLockon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_GetIsLockon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AYoru_GetIsLockon_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_GetIsLockon_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_AYoru_GetIsLockon_Statics::Yoru_eventGetIsLockon_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_AYoru_GetIsLockon()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AYoru_GetIsLockon_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_AYoru_GetisPressedMovementInput_Statics
 	{
@@ -301,6 +358,45 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AYoru_ReceiveDamage_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AYoru_SetIsLockon_Statics
+	{
+		struct Yoru_eventSetIsLockon_Parms
+		{
+			bool lockon;
+		};
+		static void NewProp_lockon_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_lockon;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	void Z_Construct_UFunction_AYoru_SetIsLockon_Statics::NewProp_lockon_SetBit(void* Obj)
+	{
+		((Yoru_eventSetIsLockon_Parms*)Obj)->lockon = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AYoru_SetIsLockon_Statics::NewProp_lockon = { "lockon", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Yoru_eventSetIsLockon_Parms), &Z_Construct_UFunction_AYoru_SetIsLockon_Statics::NewProp_lockon_SetBit, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AYoru_SetIsLockon_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AYoru_SetIsLockon_Statics::NewProp_lockon,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AYoru_SetIsLockon_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AYoru_SetIsLockon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AYoru, nullptr, "SetIsLockon", nullptr, nullptr, Z_Construct_UFunction_AYoru_SetIsLockon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetIsLockon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AYoru_SetIsLockon_Statics::Yoru_eventSetIsLockon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetIsLockon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AYoru_SetIsLockon_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_SetIsLockon_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_AYoru_SetIsLockon_Statics::Yoru_eventSetIsLockon_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_AYoru_SetIsLockon()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AYoru_SetIsLockon_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -426,6 +522,10 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_defenceComp_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_defenceComp;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_lockonComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_lockonComp;
 		static const UECodeGen_Private::FBytePropertyParams NewProp_currentPlayerState_Underlying;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentPlayerState_MetaData[];
@@ -458,6 +558,11 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_dataTableRowNames_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_dataTableRowNames;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_isLockon_MetaData[];
+#endif
+		static void NewProp_isLockon_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_isLockon;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -469,8 +574,10 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_AYoru_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_AYoru_GetIsLockon, "GetIsLockon" }, // 210853662
 		{ &Z_Construct_UFunction_AYoru_GetisPressedMovementInput, "GetisPressedMovementInput" }, // 3997279820
 		{ &Z_Construct_UFunction_AYoru_ReceiveDamage, "ReceiveDamage" }, // 3718222093
+		{ &Z_Construct_UFunction_AYoru_SetIsLockon, "SetIsLockon" }, // 584351737
 		{ &Z_Construct_UFunction_AYoru_SetisPressedMovementInput, "SetisPressedMovementInput" }, // 2097408035
 		{ &Z_Construct_UFunction_AYoru_SetPlayerState, "SetPlayerState" }, // 3547521180
 	};
@@ -544,6 +651,14 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_defenceComp = { "defenceComp", nullptr, (EPropertyFlags)0x001400000008000c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, defenceComp), Z_Construct_UClass_UYoruDefenceComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_defenceComp_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_defenceComp_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_lockonComp_MetaData[] = {
+		{ "Category", "Yoru|Component" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_lockonComp = { "lockonComp", nullptr, (EPropertyFlags)0x001400000008000c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, lockonComp), Z_Construct_UClass_UYoruLockonComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_lockonComp_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_lockonComp_MetaData) };
 	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_MetaData[] = {
@@ -600,6 +715,17 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 #endif
 	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_dataTableRowNames = { "dataTableRowNames", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AYoru, dataTableRowNames), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_dataTableRowNames_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_dataTableRowNames_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AYoru_Statics::NewProp_isLockon_MetaData[] = {
+		{ "Category", "Yoru|Input" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	void Z_Construct_UClass_AYoru_Statics::NewProp_isLockon_SetBit(void* Obj)
+	{
+		((AYoru*)Obj)->isLockon = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AYoru_Statics::NewProp_isLockon = { "isLockon", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AYoru), &Z_Construct_UClass_AYoru_Statics::NewProp_isLockon_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::NewProp_isLockon_MetaData), Z_Construct_UClass_AYoru_Statics::NewProp_isLockon_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AYoru_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_mainSpringArmComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_mainCamera,
@@ -608,6 +734,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_widgetComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_attackComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_defenceComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_lockonComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState_Underlying,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentPlayerState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_currentRightWeaponState_Underlying,
@@ -618,6 +745,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_isPressedMovementInput,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_dataTableRowNames_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_dataTableRowNames,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AYoru_Statics::NewProp_isLockon,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_AYoru_Statics::InterfaceParams[] = {
 			{ Z_Construct_UClass_UDamageInteractions_NoRegister, (int32)VTABLE_OFFSET(AYoru, IDamageInteractions), false },  // 807609110
@@ -666,9 +794,9 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		{ EUseWeaponState_StaticEnum, TEXT("EUseWeaponState"), &Z_Registration_Info_UEnum_EUseWeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2514565648U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 221148848U) },
+		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 2435439134U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_2588767676(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_2975474(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo));

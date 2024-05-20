@@ -87,6 +87,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruDefenceComponent> defenceComp{};
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
+	TObjectPtr<class UYoruLockonComponent> lockonComp{};
+
 	UPROPERTY(BlueprintReadWrite)
 	EPlayerState currentPlayerState{ EPlayerState::NONE };
 
@@ -107,10 +110,19 @@ public:
 
 	TArray<FName> GetDataTableRowNames() const noexcept { return dataTableRowNames; }
 
+	UFUNCTION(BlueprintCallable)
+	bool GetIsLockon() const noexcept { return isLockon; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetIsLockon(bool lockon) { isLockon = lockon; }
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isPressedMovementInput{};
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|DataTable")
 	TArray<FName> dataTableRowNames{};
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	bool isLockon{};
 };

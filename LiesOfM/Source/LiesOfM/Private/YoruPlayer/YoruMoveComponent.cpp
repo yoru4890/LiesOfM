@@ -146,6 +146,7 @@ void UYoruMoveComponent::NoMove(const FInputActionValue& value)
 
 void UYoruMoveComponent::Look(const FInputActionValue& value)
 {
+	if (me->GetIsLockon()) return;
 	double valueX{ value.Get<FVector2D>().X };
 	double valueY{ value.Get<FVector2D>().Y };
 	double controlPitch{ me->GetControlRotation().Pitch };

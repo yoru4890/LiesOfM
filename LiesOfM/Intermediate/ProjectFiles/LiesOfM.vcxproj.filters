@@ -82,6 +82,9 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruDefenceComponent.cpp">
       <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruLockonComponent.cpp">
+      <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruMoveComponent.cpp">
       <Filter>Source\LiesOfM\Private\YoruPlayer</Filter>
     </ClCompile>
@@ -137,6 +140,9 @@
       <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruDefenceComponent.h">
+      <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruLockonComponent.h">
       <Filter>Source\LiesOfM\Public\YoruPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruMoveComponent.h">

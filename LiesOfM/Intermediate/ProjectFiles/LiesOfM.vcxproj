@@ -171,6 +171,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruLockonComponent.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\YoruPlayer\YoruMoveComponent.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -197,6 +202,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruAttackComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruBaseComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruDefenceComponent.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruLockonComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruMoveComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruStatComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\YoruWidgetComponent.h"/>

@@ -13,6 +13,7 @@
 #include "YoruPlayer/YoruAttackComponent.h"
 #include "YoruPlayer/YoruDefenceComponent.h"
 #include "TOMGameInstance.h"
+#include "YoruPlayer/YoruLockonComponent.h"
 
 AYoru::AYoru()
 {
@@ -49,6 +50,7 @@ AYoru::AYoru()
 	widgetComp = CreateDefaultSubobject<UYoruWidgetComponent>(TEXT("widgetComp"));
 	attackComp = CreateDefaultSubobject<UYoruAttackComponent>(TEXT("attackComp"));
 	defenceComp = CreateDefaultSubobject<UYoruDefenceComponent>(TEXT("defenceComp"));
+	lockonComp = CreateDefaultSubobject<UYoruLockonComponent>(TEXT("lockonComp"));
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 
@@ -103,6 +105,7 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	moveComp->SetupPlayerInputComponent(enhancedInputComponent);
 	attackComp->SetupPlayerInputComponent(enhancedInputComponent);
+	lockonComp->SetupPlayerInputComponent(enhancedInputComponent);
 }
 
 void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)
