@@ -68,7 +68,6 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 
 void UYoruDefenceComponent::HandleHit()
 {
-	ChangeHittable();
 	me->moveComp->MovementInputHandler(0.0f, true);
 	me->attackComp->StopLineTrace();
 	SetInvincibilityTime(1.0f);
@@ -76,18 +75,12 @@ void UYoruDefenceComponent::HandleHit()
 
 void UYoruDefenceComponent::SetInvincibilityTime(float duration)
 {
+	isHittable = false;
 	GetWorld()->GetTimerManager().SetTimer(invincibilityTimeHandle, this, &UYoruDefenceComponent::ChangeHittable, duration, false);
 }
 
 void UYoruDefenceComponent::ChangeHittable()
 {
-	if (isHittable)
-	{
-		isHittable = false;
-	}
-	else
-	{
-		isHittable = true;
-	}
+	isHittable = true;
 }
 

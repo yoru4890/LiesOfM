@@ -3,11 +3,14 @@
 
 #include "YoruPlayer/YoruLockonComponent.h"
 #include "YoruPlayer/Yoru.h"
+#include "Components/WidgetComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include <InputMappingContext.h>
 #include "Camera/CameraComponent.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Enemy/EnemyBase.h"
 
 UYoruLockonComponent::UYoruLockonComponent()
 {
@@ -40,10 +43,11 @@ void UYoruLockonComponent::TryLockon()
 	{
 		if (CheckTrace())
 		{
-			lockonTarget = FindFrontClosedOne();
+			lockonTarget = Cast<AEnemyBase>(FindFrontClosedOne());
 			if (lockonTarget)
 			{
 				me->SetIsLockon(true);
+				me->lockonWidget->SetVisibility(true);
 				GetWorld()->GetTimerManager().SetTimer(lockonTimer, this, &UYoruLockonComponent::LookTarget, GetWorld()->GetDeltaSeconds(), true);
 			}
 			else
@@ -73,41 +77,47 @@ bool UYoruLockonComponent::CheckTrace()
 
 AActor* UYoruLockonComponent::FindFrontClosedOne()
 {
-	AActor* tempTarget{};
-	float minDistance{ 700.0f };
+	AActor* hitActor{};
+	float minDistance{ 900.0f };
 
 	for (const FHitResult& hitResult : outHits)
 	{
-		FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->GetActorLocation()).GetSafeNormal2D() };
-		double distance{ (hitResult.GetActor()->GetActorLocation() - me->GetActorLocation()).Length() };
-		FVector direction{ me->GetActorRotation().Vector().GetSafeNormal2D() };
+		
+		FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).GetSafeNormal2D() };
+		double distance{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).Length() };
+		FVector direction{ me->mainCamera->GetComponentRotation().Vector().GetSafeNormal2D() };
 		double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
-		if (degree < 30.0f)
+		if (degree < 25.0f)
 		{
 			if (minDistance >= distance)
 			{
 				minDistance = distance;
-				lockonTarget = hitResult.GetActor();
+				hitActor = hitResult.GetActor();
 			}
 		}
 	}
 
-	return lockonTarget;
+	return hitActor;
 }
 
 void UYoruLockonComponent::LookTarget()
 {
 	FVector start{ me->mainCamera->GetComponentLocation() };
 	FVector end{ lockonTarget->GetActorLocation() };
-	end.Z = (end.Z - (end - start).Length() / 5);
+	FRotator result{ (end - start).Rotation() };
+	if (result.Pitch <= -60.0f)
+	{
+		result.Pitch = -60.0f;
+	}
 
-	me->GetController()->SetControlRotation((end - start).Rotation());
-	
+	me->GetController()->SetControlRotation(result);
+	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("spine_05")));
 }
 
 void UYoruLockonComponent::StopLockon()
 {
 	me->SetIsLockon(false);
+	me->lockonWidget->SetVisibility(false);
 	lockonTarget = nullptr;
 	GetWorld()->GetTimerManager().ClearTimer(lockonTimer);
 }

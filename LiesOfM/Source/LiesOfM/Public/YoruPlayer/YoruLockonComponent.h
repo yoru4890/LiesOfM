@@ -36,7 +36,7 @@ private:
 	float radius{700.0f};
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lockonAction;
-	AActor* lockonTarget{};
+	class AEnemyBase* lockonTarget{};
 
 	FTimerHandle lockonTimer{};
 };

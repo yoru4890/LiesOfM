@@ -31,6 +31,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
 	class UProgressBar* staminaBar;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
+	TSubclassOf<class UUserWidget> lockonWidgetClass;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Timeline")
 	UCurveFloat* curve{};
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LiesOfMModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fd0b9155e99221d8d5d278ca0a71d2167ced5d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b5af63bd34100ac29f80806c0bc8b268c3ccf7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("LiesOfMModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LiesOfMModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

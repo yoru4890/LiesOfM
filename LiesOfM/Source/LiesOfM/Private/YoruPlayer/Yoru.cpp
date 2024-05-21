@@ -14,6 +14,7 @@
 #include "YoruPlayer/YoruDefenceComponent.h"
 #include "TOMGameInstance.h"
 #include "YoruPlayer/YoruLockonComponent.h"
+#include "Components/WidgetComponent.h"
 
 AYoru::AYoru()
 {
@@ -52,6 +53,12 @@ AYoru::AYoru()
 	defenceComp = CreateDefaultSubobject<UYoruDefenceComponent>(TEXT("defenceComp"));
 	lockonComp = CreateDefaultSubobject<UYoruLockonComponent>(TEXT("lockonComp"));
 
+	lockonWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("lockonWidget"));
+	lockonWidget->SetupAttachment(RootComponent);
+	lockonWidget->SetWidgetSpace(EWidgetSpace::Screen);
+	lockonWidget->SetDrawSize({ 15,15 });
+	lockonWidget->SetVisibility(false);
+
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animInstanceFinder(TEXT("/Game/AAA/Blueprints/Yoru/ABP_Yoru.ABP_Yoru_C"));
 
 	if (animInstanceFinder.Succeeded())
@@ -65,8 +72,6 @@ AYoru::AYoru()
 	{
 		defaultInputMappingContext = iMContextFinder.Object;
 	}
-
-
 
 	PrimaryActorTick.bCanEverTick = true;
 	bUseControllerRotationYaw = false;

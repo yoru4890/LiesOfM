@@ -330,7 +330,7 @@ void UYoruMoveComponent::HandleRollStepBack()
 	{
 		me->SetPlayerState(EPlayerState::Rolling);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(rollingMontage);
-		me->defenceComp->SetInvincibilityTime(0.9f);
+		me->defenceComp->SetInvincibilityTime(0.6f);
 		me->SetActorRotation({ 0,charMoveComp->GetLastInputVector().ToOrientationRotator().Yaw,0 });
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
@@ -338,7 +338,7 @@ void UYoruMoveComponent::HandleRollStepBack()
 	{
 		me->SetPlayerState(EPlayerState::StepBack);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(stepBackMontage);
-		me->defenceComp->SetInvincibilityTime(0.8f);
+		me->defenceComp->SetInvincibilityTime(0.6f);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
 }

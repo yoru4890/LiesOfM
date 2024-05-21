@@ -90,6 +90,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Component")
 	TObjectPtr<class UYoruLockonComponent> lockonComp{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Component")
+	TObjectPtr<class UWidgetComponent> lockonWidget{};
+
 	UPROPERTY(BlueprintReadWrite)
 	EPlayerState currentPlayerState{ EPlayerState::NONE };
 

@@ -6,6 +6,7 @@
 #include "Components/ProgressBar.h"
 #include "YoruPlayer/Yoru.h"
 #include "YoruPlayer/YoruStatComponent.h"
+#include "Components/WidgetComponent.h"
 
 UYoruWidgetComponent::UYoruWidgetComponent()
 {
@@ -16,6 +17,13 @@ UYoruWidgetComponent::UYoruWidgetComponent()
 	if (widgetFinder.Succeeded())
 	{
 		widgetClass = widgetFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> lockonWidgetFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/AAA/Widget/WB_Lockon.WB_Lockon_C'"));
+
+	if (lockonWidgetFinder.Succeeded())
+	{
+		lockonWidgetClass = lockonWidgetFinder.Class;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UCurveFloat> curveFinder(TEXT("/Script/Engine.CurveFloat'/Game/AAA/Curves/C_Temp.C_Temp'"));
@@ -35,6 +43,8 @@ void UYoruWidgetComponent::BeginPlay()
 		widgetCombat->AddToViewport();
 		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
 		UpdateStamina();
+
+		me->lockonWidget->SetWidgetClass(lockonWidgetClass);
 	}
 	else
 	{

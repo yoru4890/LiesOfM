@@ -2,6 +2,8 @@
 
 
 #include "Enemy/EnemyBase.h"
+#include "YoruPlayer/Yoru.h"
+#include "YoruPlayer/YoruLockonComponent.h"
 
 AEnemyBase::AEnemyBase()
 {
@@ -32,6 +34,7 @@ void AEnemyBase::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 	if (DecreaseHealth(damageAmount))
 	{
 		Destroy();
+		Cast<AYoru>(attackingActor)->lockonComp->StopLockon();
 	}
 	else
 	{
