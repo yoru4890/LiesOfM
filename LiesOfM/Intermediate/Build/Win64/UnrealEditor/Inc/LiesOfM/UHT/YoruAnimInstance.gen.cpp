@@ -79,10 +79,18 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 		static void NewProp_isCrouch_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_isCrouch;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_isUseGreatSword_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_useWeaponState_MetaData[];
 #endif
-		static void NewProp_isUseGreatSword_SetBit(void* Obj);
-		static const UECodeGen_Private::FBoolPropertyParams NewProp_isUseGreatSword;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_useWeaponState;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_isLockon_MetaData[];
+#endif
+		static void NewProp_isLockon_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_isLockon;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_angle_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_angle;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -198,16 +206,30 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isCrouch = { "isCrouch", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruAnimInstance), &Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isCrouch_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isCrouch_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isCrouch_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_useWeaponState_MetaData[] = {
 		{ "Category", "Yoru|Character" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAnimInstance.h" },
 	};
 #endif
-	void Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword_SetBit(void* Obj)
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_useWeaponState = { "useWeaponState", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAnimInstance, useWeaponState), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_useWeaponState_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_useWeaponState_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon_MetaData[] = {
+		{ "Category", "Yoru|Character" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon_SetBit(void* Obj)
 	{
-		((UYoruAnimInstance*)Obj)->isUseGreatSword = 1;
+		((UYoruAnimInstance*)Obj)->isLockon = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword = { "isUseGreatSword", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruAnimInstance), &Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword_MetaData) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon = { "isLockon", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruAnimInstance), &Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_angle_MetaData[] = {
+		{ "Category", "Yoru|Character" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAnimInstance.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_angle = { "angle", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAnimInstance, angle), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_angle_MetaData), Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_angle_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruAnimInstance_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_owner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_charMoveComp,
@@ -219,7 +241,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isFootUp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isWalking,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isCrouch,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isUseGreatSword,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_useWeaponState,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_isLockon,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAnimInstance_Statics::NewProp_angle,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruAnimInstance_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruAnimInstance>::IsAbstract,
@@ -259,9 +283,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAnimInstance() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruAnimInstance, UYoruAnimInstance::StaticClass, TEXT("UYoruAnimInstance"), &Z_Registration_Info_UClass_UYoruAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAnimInstance), 1134993771U) },
+		{ Z_Construct_UClass_UYoruAnimInstance, UYoruAnimInstance::StaticClass, TEXT("UYoruAnimInstance"), &Z_Registration_Info_UClass_UYoruAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAnimInstance), 2649602101U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_436584685(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_2052489673(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAnimInstance_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

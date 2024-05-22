@@ -122,3 +122,23 @@ void AYoru::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHit
 {
 	defenceComp->HitReaction(damageAmount, attackingActor, hitResult);
 }
+
+void AYoru::SetIsLockon(bool lockon)
+{
+	isLockon = lockon;
+	ChangeCamera(lockon);
+}
+
+void AYoru::ChangeCamera(bool isLockonMove)
+{
+	if (isLockonMove)
+	{
+		bUseControllerRotationYaw = true;
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+	}
+	else
+	{
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+	}
+}

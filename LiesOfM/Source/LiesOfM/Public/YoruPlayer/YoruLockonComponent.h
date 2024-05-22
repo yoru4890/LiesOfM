@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "YoruPlayer/YoruBaseComponent.h"
+#include "InputActionvalue.h"
 #include "YoruLockonComponent.generated.h"
 
 UCLASS()
@@ -27,15 +28,21 @@ public:
 	bool CheckTrace();
 
 	AActor* FindFrontClosedOne();
+	AActor* FindLeftClosedOne();
+	AActor* FindRightClosedOne();
 
 	void LookTarget();
 	void StopLockon();
+	void ChangeLockon(const FInputActionValue& value);
 
 private:
 	TArray<FHitResult> outHits;
 	float radius{700.0f};
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lockonAction;
+
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> lockonChangeAction;
 	class AEnemyBase* lockonTarget{};
 
 	FTimerHandle lockonTimer{};

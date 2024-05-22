@@ -173,6 +173,14 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		}
 		return Z_Registration_Info_UEnum_EUseWeaponState.InnerSingleton;
 	}
+	DEFINE_FUNCTION(AYoru::execChangeCamera)
+	{
+		P_GET_UBOOL(Z_Param_isLockonMove);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ChangeCamera(Z_Param_isLockonMove);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(AYoru::execSetIsLockon)
 	{
 		P_GET_UBOOL(Z_Param_lockon);
@@ -225,6 +233,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	{
 		UClass* Class = AYoru::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "ChangeCamera", &AYoru::execChangeCamera },
 			{ "GetIsLockon", &AYoru::execGetIsLockon },
 			{ "GetisPressedMovementInput", &AYoru::execGetisPressedMovementInput },
 			{ "ReceiveDamage", &AYoru::execReceiveDamage },
@@ -233,6 +242,45 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 			{ "SetPlayerState", &AYoru::execSetPlayerState },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_AYoru_ChangeCamera_Statics
+	{
+		struct Yoru_eventChangeCamera_Parms
+		{
+			bool isLockonMove;
+		};
+		static void NewProp_isLockonMove_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_isLockonMove;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	void Z_Construct_UFunction_AYoru_ChangeCamera_Statics::NewProp_isLockonMove_SetBit(void* Obj)
+	{
+		((Yoru_eventChangeCamera_Parms*)Obj)->isLockonMove = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AYoru_ChangeCamera_Statics::NewProp_isLockonMove = { "isLockonMove", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Yoru_eventChangeCamera_Parms), &Z_Construct_UFunction_AYoru_ChangeCamera_Statics::NewProp_isLockonMove_SetBit, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AYoru_ChangeCamera_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AYoru_ChangeCamera_Statics::NewProp_isLockonMove,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AYoru_ChangeCamera_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/Yoru.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AYoru_ChangeCamera_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AYoru, nullptr, "ChangeCamera", nullptr, nullptr, Z_Construct_UFunction_AYoru_ChangeCamera_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_ChangeCamera_Statics::PropPointers), sizeof(Z_Construct_UFunction_AYoru_ChangeCamera_Statics::Yoru_eventChangeCamera_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_ChangeCamera_Statics::Function_MetaDataParams), Z_Construct_UFunction_AYoru_ChangeCamera_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AYoru_ChangeCamera_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_AYoru_ChangeCamera_Statics::Yoru_eventChangeCamera_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_AYoru_ChangeCamera()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AYoru_ChangeCamera_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_AYoru_GetIsLockon_Statics
 	{
@@ -579,6 +627,7 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AYoru_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_AYoru_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_AYoru_ChangeCamera, "ChangeCamera" }, // 2083668526
 		{ &Z_Construct_UFunction_AYoru_GetIsLockon, "GetIsLockon" }, // 210853662
 		{ &Z_Construct_UFunction_AYoru_GetisPressedMovementInput, "GetisPressedMovementInput" }, // 3997279820
 		{ &Z_Construct_UFunction_AYoru_ReceiveDamage, "ReceiveDamage" }, // 3718222093
@@ -808,9 +857,9 @@ void EmptyLinkFunctionForGeneratedCodeYoru() {}
 		{ EUseWeaponState_StaticEnum, TEXT("EUseWeaponState"), &Z_Registration_Info_UEnum_EUseWeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2514565648U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 2877186029U) },
+		{ Z_Construct_UClass_AYoru, AYoru::StaticClass, TEXT("AYoru"), &Z_Registration_Info_UClass_AYoru, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AYoru), 3392271299U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_1659335268(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_2370159956(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_Yoru_h_Statics::EnumInfo));

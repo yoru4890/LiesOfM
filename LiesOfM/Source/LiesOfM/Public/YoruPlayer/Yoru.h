@@ -117,7 +117,9 @@ public:
 	bool GetIsLockon() const noexcept { return isLockon; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetIsLockon(bool lockon) { isLockon = lockon; }
+	void SetIsLockon(bool lockon);
+	UFUNCTION(BlueprintCallable)
+	void ChangeCamera(bool isLockonMove);
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")

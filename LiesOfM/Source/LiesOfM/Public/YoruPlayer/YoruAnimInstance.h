@@ -52,5 +52,11 @@ protected:
 	bool isCrouch{};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
-	bool isUseGreatSword{ true };
+	int useWeaponState{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	bool isLockon{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Yoru|Character")
+	float angle{};
 };

@@ -218,6 +218,8 @@ void UYoruMoveComponent::Run(const FInputActionValue& value)
 	}
 	if (isMovementInput && HasMovementKeyInput())
 	{
+		me->ChangeCamera(false);
+
 		if (me->GetPlayerState() == EPlayerState::Running)
 		{
 			me->statComp->RunTick();
@@ -253,6 +255,7 @@ void UYoruMoveComponent::StopRunning()
 
 	if (!(me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
+		me->ChangeCamera(me->GetIsLockon());
 		me->SetPlayerState(EPlayerState::NONE);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
 	}
@@ -262,6 +265,7 @@ void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 {
 	if (isMovementInput && me->statComp->CheckStamina(8.0f))
 	{
+
 		me->defenceComp->ChangeHittable();
 		me->statComp->HandleStaminaRegen(false, 0.75f);
 		HandleRollStepBack();
@@ -328,6 +332,7 @@ void UYoruMoveComponent::HandleRollStepBack()
 
 	if (HasMovementKeyInput())
 	{
+		me->ChangeCamera(false);
 		me->SetPlayerState(EPlayerState::Rolling);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(rollingMontage);
 		me->defenceComp->SetInvincibilityTime(0.6f);

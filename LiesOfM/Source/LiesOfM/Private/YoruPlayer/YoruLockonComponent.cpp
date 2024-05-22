@@ -11,6 +11,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Enemy/EnemyBase.h"
+#include "YoruPlayer/YoruMoveComponent.h"
 
 UYoruLockonComponent::UYoruLockonComponent()
 {
@@ -20,6 +21,14 @@ UYoruLockonComponent::UYoruLockonComponent()
 	{
 		lockonAction = lockonActionFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> lockonChangeActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_LockonChange.IA_LockonChange'"));
+
+	if (lockonChangeActionFinder.Succeeded())
+	{
+		lockonChangeAction = lockonChangeActionFinder.Object;
+	}
+
 }
 
 void UYoruLockonComponent::BeginPlay()
@@ -35,6 +44,7 @@ void UYoruLockonComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 void UYoruLockonComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enhancedInputComponent)
 {
 	enhancedInputComponent->BindAction(lockonAction, ETriggerEvent::Started, this, &UYoruLockonComponent::TryLockon);
+	enhancedInputComponent->BindAction(lockonChangeAction, ETriggerEvent::Started, this, &UYoruLockonComponent::ChangeLockon);
 }
 
 void UYoruLockonComponent::TryLockon()
@@ -52,7 +62,7 @@ void UYoruLockonComponent::TryLockon()
 			}
 			else
 			{
-				
+
 			}
 		}
 		else
@@ -71,6 +81,7 @@ bool UYoruLockonComponent::CheckTrace()
 	FVector start{ me->GetActorLocation() };
 	FVector end{ me->GetActorLocation() };
 	TArray<AActor*> ignoreActors;
+	ignoreActors.Add(lockonTarget);
 
 	return UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, ETraceTypeQuery::TraceTypeQuery5, false, ignoreActors, EDrawDebugTrace::ForDuration, outHits, true);
 }
@@ -82,13 +93,13 @@ AActor* UYoruLockonComponent::FindFrontClosedOne()
 
 	for (const FHitResult& hitResult : outHits)
 	{
-		
 		FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).GetSafeNormal2D() };
 		double distance{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).Length() };
 		FVector direction{ me->mainCamera->GetComponentRotation().Vector().GetSafeNormal2D() };
 		double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
-		if (degree < 25.0f)
+		if (degree < 15.0f)
 		{
+
 			if (minDistance >= distance)
 			{
 				minDistance = distance;
@@ -98,6 +109,80 @@ AActor* UYoruLockonComponent::FindFrontClosedOne()
 	}
 
 	return hitActor;
+}
+
+AActor* UYoruLockonComponent::FindLeftClosedOne()
+{
+	AActor* hitActor{};
+	float minDistance{ 900.0f };
+
+	for (const FHitResult& hitResult : outHits)
+	{
+		FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).GetSafeNormal2D() };
+		double distance{ (hitResult.GetActor()->GetActorLocation() - lockonTarget->GetActorLocation()).Length() };
+		FVector direction{ me->mainCamera->GetComponentRotation().Vector().GetSafeNormal2D() };
+		FVector rightDirection{ FRotationMatrix(me->mainCamera->GetComponentRotation()).GetScaledAxis(EAxis::Y).GetSafeNormal2D() };
+		double rightDotResult{ FVector::DotProduct(rightDirection, hitdirection) };
+		double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
+		if (rightDotResult < 0)
+		{
+			degree *= -1;
+		}
+		if (degree < 0)
+		{
+			if (minDistance >= distance)
+			{
+				minDistance = distance;
+				hitActor = hitResult.GetActor();
+			}
+		}
+	}
+
+	if (hitActor)
+	{
+		return hitActor;
+	}
+	else
+	{
+		return lockonTarget;
+	}
+}
+
+AActor* UYoruLockonComponent::FindRightClosedOne()
+{
+	AActor* hitActor{};
+	float minDistance{ 900.0f };
+
+	for (const FHitResult& hitResult : outHits)
+	{
+		FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->mainCamera->GetComponentLocation()).GetSafeNormal2D() };
+		double distance{ (hitResult.GetActor()->GetActorLocation() - lockonTarget->GetActorLocation()).Length() };
+		FVector direction{ me->mainCamera->GetComponentRotation().Vector().GetSafeNormal2D() };
+		FVector rightDirection{ FRotationMatrix(me->mainCamera->GetComponentRotation()).GetScaledAxis(EAxis::Y).GetSafeNormal2D() };
+		double rightDotResult{ FVector::DotProduct(rightDirection, hitdirection) };
+		double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
+		if (rightDotResult < 0)
+		{
+			degree *= -1;
+		}
+		if (degree > 0)
+		{
+			if (minDistance >= distance)
+			{
+				minDistance = distance;
+				hitActor = hitResult.GetActor();
+			}
+		}
+	}
+
+	if (hitActor)
+	{
+		return hitActor;
+	}
+	else
+	{
+		return lockonTarget;
+	}
 }
 
 void UYoruLockonComponent::LookTarget()
@@ -111,6 +196,8 @@ void UYoruLockonComponent::LookTarget()
 	}
 
 	me->GetController()->SetControlRotation(result);
+
+
 	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("spine_05")));
 }
 
@@ -120,4 +207,40 @@ void UYoruLockonComponent::StopLockon()
 	me->lockonWidget->SetVisibility(false);
 	lockonTarget = nullptr;
 	GetWorld()->GetTimerManager().ClearTimer(lockonTimer);
+}
+
+void UYoruLockonComponent::ChangeLockon(const FInputActionValue& value)
+{
+	if (me->GetIsLockon())
+	{
+		if (CheckTrace())
+		{
+			double valueY{value.Get<float>()};
+
+			if (valueY < 0)
+			{
+				lockonTarget = Cast<AEnemyBase>(FindLeftClosedOne());
+			}
+			else if (valueY > 0)
+			{
+				lockonTarget = Cast<AEnemyBase>(FindRightClosedOne());
+			}
+
+			if (lockonTarget)
+			{
+				me->SetIsLockon(true);
+				me->lockonWidget->SetVisibility(true);
+				GetWorld()->GetTimerManager().SetTimer(lockonTimer, this, &UYoruLockonComponent::LookTarget, GetWorld()->GetDeltaSeconds(), true);
+			}
+			else
+			{
+
+			}
+		}
+		else
+		{
+
+		}
+
+	}
 }

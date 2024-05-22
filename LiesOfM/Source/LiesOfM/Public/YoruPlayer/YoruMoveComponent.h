@@ -93,6 +93,8 @@ private:
 
 
 public:
+
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Mouse")
 	double mouseSpeed{ 35.0 };
 
