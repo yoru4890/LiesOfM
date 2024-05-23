@@ -7,9 +7,25 @@
 #include "TOMGameInstance.h"
 #include "YoruPlayer/YoruMoveComponent.h"
 #include "YoruPlayer/YoruAttackComponent.h"
+#include <EnhancedInputComponent.h>
+#include <EnhancedInputSubsystems.h>
+#include <InputMappingContext.h>
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
+	static ConstructorHelpers::FObjectFinder<UInputAction> blockActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_Blocking.IA_Blocking'"));
+
+	if (blockActionFinder.Succeeded())
+	{
+		blockAction = blockActionFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> blockMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_Blocking.AM_Blocking'"));
+
+	if (blockMontageFinder.Succeeded())
+	{
+		blockMontage = blockMontageFinder.Object;
+	}
 }
 
 void UYoruDefenceComponent::BeginPlay()
@@ -26,7 +42,9 @@ void UYoruDefenceComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 void UYoruDefenceComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enhancedInputComponent)
 {
-
+	enhancedInputComponent->BindAction(blockAction, ETriggerEvent::Started, this, &UYoruDefenceComponent::Block);
+	enhancedInputComponent->BindAction(blockAction, ETriggerEvent::Canceled, this, &UYoruDefenceComponent::UnBlock);
+	enhancedInputComponent->BindAction(blockAction, ETriggerEvent::Completed, this, &UYoruDefenceComponent::UnBlock);
 }
 
 void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
@@ -82,5 +100,18 @@ void UYoruDefenceComponent::SetInvincibilityTime(float duration)
 void UYoruDefenceComponent::ChangeHittable()
 {
 	isHittable = true;
+}
+
+void UYoruDefenceComponent::Block()
+{
+	if (me->currentPlayerState == EPlayerState::NONE)
+	{
+		me->GetMesh()->GetAnimInstance()->Montage_Play(blockMontage);
+	}
+}
+
+void UYoruDefenceComponent::UnBlock()
+{
+	me->GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, blockMontage);
 }
 

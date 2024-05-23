@@ -111,6 +111,7 @@ void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	moveComp->SetupPlayerInputComponent(enhancedInputComponent);
 	attackComp->SetupPlayerInputComponent(enhancedInputComponent);
 	lockonComp->SetupPlayerInputComponent(enhancedInputComponent);
+	defenceComp->SetupPlayerInputComponent(enhancedInputComponent);
 }
 
 void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)

@@ -9,6 +9,8 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 // Cross Module References
+	ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
+	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruBaseComponent();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruDefenceComponent();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruDefenceComponent_NoRegister();
@@ -28,6 +30,14 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_blockAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_blockAction;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_blockMontage_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_blockMontage;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_isHittable_MetaData[];
 #endif
@@ -49,6 +59,20 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 	};
 #endif
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction_MetaData[] = {
+		{ "Category", "Yoru|Input" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction = { "blockAction", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, blockAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage_MetaData[] = {
+		{ "Category", "Yoru|Montage" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage = { "blockMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, blockMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable_MetaData[] = {
 		{ "Category", "Yoru | Hit" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
@@ -60,6 +84,8 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable = { "isHittable", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruDefenceComponent), &Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruDefenceComponent_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruDefenceComponent_Statics::StaticCppClassTypeInfo = {
@@ -100,9 +126,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 1340764632U) },
+		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3859418267U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_3813893527(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_202637059(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

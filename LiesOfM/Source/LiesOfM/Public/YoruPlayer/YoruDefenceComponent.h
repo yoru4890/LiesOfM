@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "YoruPlayer/YoruBaseComponent.h"
+#include "InputActionvalue.h"
 #include "YoruDefenceComponent.generated.h"
 
 UCLASS()
@@ -27,6 +28,15 @@ public:
 	void HandleHit();
 	void SetInvincibilityTime(float duration);
 	void ChangeHittable();
+	void Block();
+	void UnBlock();
+
+private:
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> blockAction;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> blockMontage;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru | Hit")

@@ -265,7 +265,7 @@ void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 {
 	if (isMovementInput && me->statComp->CheckStamina(8.0f))
 	{
-
+		charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;
 		me->defenceComp->ChangeHittable();
 		me->statComp->HandleStaminaRegen(false, 0.75f);
 		HandleRollStepBack();
@@ -293,6 +293,8 @@ void UYoruMoveComponent::ChangeCrouch(const FInputActionValue& value)
 
 void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 {
+	if (me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()) return;
+
 	if (!HasMovementKeyInput())
 	{
 		if (isUseRightWeapon)
