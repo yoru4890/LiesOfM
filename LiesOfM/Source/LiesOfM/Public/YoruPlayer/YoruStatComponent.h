@@ -8,6 +8,7 @@
 
 DECLARE_MULTICAST_DELEGATE(FUpdateStaminaDelegate);
 DECLARE_MULTICAST_DELEGATE_OneParam(FRegenerateStaminaDelegate, bool);
+DECLARE_MULTICAST_DELEGATE(FUpdateHPDelegate);
 
 UCLASS()
 class LIESOFM_API UYoruStatComponent : public UYoruBaseComponent
@@ -25,8 +26,10 @@ public:
 
 public:
 	float DecreaseStamina(float amount);
+	float DecreaseHP(float amount);
 
 	float GetStaminaRatio();
+	float GetHPRatio();
 
 	inline bool CheckStamina(float staminaNeeded) const noexcept;
 
@@ -44,6 +47,7 @@ public:
 public:
 	FUpdateStaminaDelegate onUpdateStamina;
 	FRegenerateStaminaDelegate onRegenerateStamina;
+	FUpdateHPDelegate onUpdateHP;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
 	float currentStamina{ 60.0f };
@@ -62,6 +66,12 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Speed")
 	float runSpeed{ 600.0f };
+
+	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
+	float currentHP{ 50.0f };
+
+	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
+	float maxHP{ 100.0f };
 
 	FTimerHandle handleStamina{};
 };

@@ -57,7 +57,11 @@
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\inputmappingcontext.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\source\\enhancedinput\\public\\enhancedactionkeymapping.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\enhancedactionkeymapping.generated.h",
-            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputmappingcontext.generated.h"
+            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\inputmappingcontext.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\animation\\changeparryinganimnotify.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\changeparryinganimnotify.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yorustatcomponent.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yorustatcomponent.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

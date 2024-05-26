@@ -33,9 +33,28 @@ float UYoruStatComponent::DecreaseStamina(float amount)
 	return currentStamina;
 }
 
+float UYoruStatComponent::DecreaseHP(float amount)
+{
+	currentHP -= amount;
+
+	if (currentHP < 0)
+	{
+		currentHP = 0;
+	}
+
+	onUpdateHP.Broadcast();
+
+	return currentHP;
+}
+
 float UYoruStatComponent::GetStaminaRatio()
 {
 	return currentStamina / maxStamina;
+}
+
+float UYoruStatComponent::GetHPRatio()
+{
+	return currentHP / maxHP;
 }
 
 bool UYoruStatComponent::CheckStamina(float staminaNeeded) const noexcept
@@ -47,7 +66,6 @@ void UYoruStatComponent::HandleStaminaRegen(bool isStartRegen, float duration)
 {
 	if (isStartRegen)
 	{
-
 		GetWorld()->GetTimerManager().SetTimer(handleStamina, this, &UYoruStatComponent::CallRegenerateStartStamina, 0.05f, true, duration);
 	}
 	else
@@ -79,7 +97,6 @@ void UYoruStatComponent::CaculateStaminaRegen()
 	}
 	else
 	{
-
 		currentStamina += StaminaRegen;
 	}
 	CallUpdateStamina();

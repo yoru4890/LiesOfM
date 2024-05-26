@@ -21,6 +21,7 @@ enum class EPlayerState : uint8
 	RollingAttack UMETA(DisplayName = "RollingAttack"),
 	BackStab UMETA(DisplayName = "BackStab"),
 	Riposte UMETA(DisplayName = "Riposte"),
+	Blocking UMETA(DisplayName = "Blocking"),
 
 	SIZE
 };

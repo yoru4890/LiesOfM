@@ -46,6 +46,12 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\TOMGameInstance.cpp">
       <Filter>Source\LiesOfM\Private</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Animation">
+      <UniqueIdentifier>{EA083FFA-9DF3-3262-89C0-7D093ABD441D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Animation\ChangeParryingAnimNotify.cpp">
+      <Filter>Source\LiesOfM\Private\Animation</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Enemy">
       <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
     </Filter>
@@ -105,6 +111,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMGameInstance.h">
       <Filter>Source\LiesOfM\Public</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Animation">
+      <UniqueIdentifier>{665E52E3-B2FC-390A-B7A7-26C19C9F898A}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h">
+      <Filter>Source\LiesOfM\Public\Animation</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Enemy">
       <UniqueIdentifier>{3E167887-9D10-37E2-91E0-5622CF20F263}</UniqueIdentifier>

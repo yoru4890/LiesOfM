@@ -37,20 +37,47 @@ UYoruWidgetComponent::UYoruWidgetComponent()
 void UYoruWidgetComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	InitWidget();
+	InitTimeline();
+	InitDelegate();
+}
+
+void UYoruWidgetComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	staminaRegenerationLooper.TickTimeline(DeltaTime);
+}
+
+void UYoruWidgetComponent::InitDelegate()
+{
+	me->statComp->onUpdateStamina.AddUObject(this, &UYoruWidgetComponent::UpdateStamina);
+	me->statComp->onRegenerateStamina.AddUObject(this, &UYoruWidgetComponent::staminaRegenerationToggle);
+	me->statComp->onUpdateHP.AddUObject(this, &UYoruWidgetComponent::UpdateHP);
+}
+
+void UYoruWidgetComponent::InitWidget()
+{
 	if (widgetClass)
 	{
 		widgetCombat = CreateWidget(GetWorld()->GetFirstPlayerController(), widgetClass);
 		widgetCombat->AddToViewport();
 		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
+		HPBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("HPBar"));
 		UpdateStamina();
+		UpdateHP();
 
 		me->lockonWidget->SetWidgetClass(lockonWidgetClass);
 	}
 	else
 	{
-		return;
+		
 	}
+}
 
+void UYoruWidgetComponent::InitTimeline()
+{
 	if (curve)
 	{
 		FOnTimelineFloat TimelineCallback;
@@ -62,16 +89,6 @@ void UYoruWidgetComponent::BeginPlay()
 		staminaRegenerationLooper.SetTimelineFinishedFunc(TimelineFinishedCallback);
 		staminaRegenerationLooper.SetLooping(true);
 	}
-	me->statComp->onUpdateStamina.AddUObject(this, &UYoruWidgetComponent::UpdateStamina);
-	me->statComp->onRegenerateStamina.AddUObject(this, &UYoruWidgetComponent::staminaRegenerationToggle);
-
-}
-
-void UYoruWidgetComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	staminaRegenerationLooper.TickTimeline(DeltaTime);
 }
 
 void UYoruWidgetComponent::StaminaRegenTick()
@@ -103,4 +120,9 @@ void UYoruWidgetComponent::staminaRegenerationToggle(bool isStart)
 void UYoruWidgetComponent::UpdateStamina()
 {
 	staminaBar->SetPercent(me->statComp->GetStaminaRatio());
+}
+
+void UYoruWidgetComponent::UpdateHP()
+{
+	HPBar->SetPercent(me->statComp->GetHPRatio());
 }

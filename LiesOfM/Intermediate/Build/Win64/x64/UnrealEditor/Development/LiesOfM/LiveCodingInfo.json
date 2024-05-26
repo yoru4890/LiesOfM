@@ -1,5 +1,39 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.LiesOfM.cpp.obj": [
+			"ChangeParryingAnimNotify.gen.cpp.obj",
+			"DamageInteractions.gen.cpp.obj",
+			"EnemyBase.gen.cpp.obj",
+			"TOMDataTable.gen.cpp.obj",
+			"TOMGameInstance.gen.cpp.obj",
+			"WeaponBase.gen.cpp.obj",
+			"YoruAnimInstance.gen.cpp.obj",
+			"YoruAttackComponent.gen.cpp.obj",
+			"YoruBaseComponent.gen.cpp.obj",
+			"YoruLockonComponent.gen.cpp.obj",
+			"YoruMoveComponent.gen.cpp.obj",
+			"YoruWidgetComponent.gen.cpp.obj",
+			"EnemyBase.cpp.obj",
+			"DamageInteractions.cpp.obj",
+			"LiesOfM.cpp.obj",
+			"TOMDataTable.cpp.obj",
+			"TOMGameInstance.cpp.obj",
+			"WeaponBase.cpp.obj",
+			"YoruAnimInstance.cpp.obj",
+			"YoruAttackComponent.cpp.obj",
+			"YoruBaseComponent.cpp.obj",
+			"YoruLockonComponent.cpp.obj",
+			"YoruMoveComponent.cpp.obj",
+			"LiesOfM.init.gen.cpp.obj",
+			"Yoru.gen.cpp.obj",
+			"YoruDefenceComponent.gen.cpp.obj",
+			"YoruStatComponent.gen.cpp.obj",
+			"ChangeParryingAnimNotify.cpp.obj",
+			"Yoru.cpp.obj",
+			"YoruDefenceComponent.cpp.obj",
+			"YoruStatComponent.cpp.obj",
+			"YoruWidgetComponent.cpp.obj"
+		]
 	}
 }

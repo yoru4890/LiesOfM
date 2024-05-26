@@ -30,6 +30,9 @@ public:
 	void ChangeHittable();
 	void Block();
 	void UnBlock();
+	void ChangeParrying();
+	void InitAnimNotify();
+	bool CheckParrying() const noexcept;
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
@@ -41,6 +44,9 @@ private:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru | Hit")
 	bool isHittable{true};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru | Hit")
+	bool isParrying{};
 
 	FTimerHandle invincibilityTimeHandle{};
 };

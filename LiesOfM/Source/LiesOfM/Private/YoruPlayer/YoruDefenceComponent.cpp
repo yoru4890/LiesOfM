@@ -10,6 +10,8 @@
 #include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include <InputMappingContext.h>
+#include "Animation/ChangeParryingAnimNotify.h"
+#include "YoruPlayer/YoruStatComponent.h"
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
@@ -32,6 +34,7 @@ void UYoruDefenceComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	InitAnimNotify();
 	
 }
 
@@ -52,6 +55,8 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 	if (isHittable)
 	{
 		HandleHit();
+
+		me->statComp->DecreaseHP(damageAmount);
 
 		FPlayerData* hitReactionAnimData = me->singleGameInstance->playerDataTable->FindRow<FPlayerData>(me->GetDataTableRowNames()[0], FString(""));
 		TArray<UAnimMontage*> temp = hitReactionAnimData->hitReactionMontages;
@@ -112,6 +117,34 @@ void UYoruDefenceComponent::Block()
 
 void UYoruDefenceComponent::UnBlock()
 {
+	isParrying = false;
 	me->GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, blockMontage);
+}
+
+void UYoruDefenceComponent::ChangeParrying()
+{
+	isParrying = !isParrying;
+	UE_LOG(LogTemp, Warning, TEXT("%d"), isParrying);
+}
+
+void UYoruDefenceComponent::InitAnimNotify()
+{
+	if (blockMontage)
+	{
+		TArray<FAnimNotifyEvent> notifyEvents{ blockMontage->Notifies };
+
+		for (FAnimNotifyEvent eventNotify : notifyEvents)
+		{
+			if (UChangeParryingAnimNotify* startNotify = Cast<UChangeParryingAnimNotify>(eventNotify.Notify))
+			{
+				startNotify->onNotified.AddUObject(this, &UYoruDefenceComponent::ChangeParrying);
+			}
+		}
+	}
+}
+
+bool UYoruDefenceComponent::CheckParrying() const noexcept
+{
+	return isParrying;
 }
 

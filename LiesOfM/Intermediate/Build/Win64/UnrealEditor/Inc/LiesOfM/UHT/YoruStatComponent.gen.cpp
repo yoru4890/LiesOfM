@@ -87,6 +87,14 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_runSpeed_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_runSpeed;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentHP_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_currentHP;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_maxHP_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_maxHP;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -148,6 +156,20 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed = { "runSpeed", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, runSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentHP_MetaData[] = {
+		{ "Category", "Your|HP" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentHP = { "currentHP", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, currentHP), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentHP_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentHP_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxHP_MetaData[] = {
+		{ "Category", "Your|HP" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxHP = { "maxHP", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruStatComponent, maxHP), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxHP_MetaData), Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxHP_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruStatComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentStamina,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxStamina,
@@ -155,6 +177,8 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_walkSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_jogSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_runSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_currentHP,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruStatComponent_Statics::NewProp_maxHP,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruStatComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruStatComponent>::IsAbstract,
@@ -194,9 +218,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 3717595688U) },
+		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 778944964U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_2228802271(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_2846056867(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
