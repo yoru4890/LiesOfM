@@ -14,6 +14,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruStatComponent_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_LiesOfM();
 // End Cross Module References
+	DEFINE_FUNCTION(UYoruStatComponent::execTempUpdateHP)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->TempUpdateHP();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(UYoruStatComponent::execCaculateStaminaRegen)
 	{
 		P_FINISH;
@@ -26,6 +33,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		UClass* Class = UYoruStatComponent::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "CaculateStaminaRegen", &UYoruStatComponent::execCaculateStaminaRegen },
+			{ "TempUpdateHP", &UYoruStatComponent::execTempUpdateHP },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -48,6 +56,28 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruStatComponent_CaculateStaminaRegen_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruStatComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruStatComponent, nullptr, "TempUpdateHP", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -106,6 +136,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UYoruStatComponent_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_UYoruStatComponent_CaculateStaminaRegen, "CaculateStaminaRegen" }, // 1111166192
+		{ &Z_Construct_UFunction_UYoruStatComponent_TempUpdateHP, "TempUpdateHP" }, // 2720987930
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruStatComponent_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -218,9 +249,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruStatComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 778944964U) },
+		{ Z_Construct_UClass_UYoruStatComponent, UYoruStatComponent::StaticClass, TEXT("UYoruStatComponent"), &Z_Registration_Info_UClass_UYoruStatComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruStatComponent), 2849441121U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_2846056867(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_3575598460(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

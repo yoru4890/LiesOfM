@@ -121,22 +121,7 @@ void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)
 
 void AYoru::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
 {
-	if (GetPlayerState() == EPlayerState::Blocking)
-	{
-		
-	}
-	else
-	{
-		if (defenceComp->CheckParrying())
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Parrying"));
-		}
-		else
-		{
-			defenceComp->HitReaction(damageAmount, attackingActor, hitResult);
-		}
-	}
-
+	defenceComp->HitReaction(damageAmount, attackingActor, hitResult);
 }
 
 void AYoru::SetIsLockon(bool lockon)

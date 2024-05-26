@@ -141,7 +141,7 @@ void UYoruAttackComponent::ApplyLineTrace()
 	TArray<FHitResult> outHits;
 	ignoreActors.Add(me->equippedWeapon);
 	ignoreActors.Add(me);
-	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, 15.0, ETraceTypeQuery::TraceTypeQuery3, false, ignoreActors, EDrawDebugTrace::ForDuration, outHits, true);
+	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, 15.0, ETraceTypeQuery::TraceTypeQuery3, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
 	if (isHit)
 	{
 		for (const auto& hitResult : outHits)

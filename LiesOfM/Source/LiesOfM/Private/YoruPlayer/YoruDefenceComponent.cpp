@@ -56,8 +56,6 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 	{
 		HandleHit();
 
-		me->statComp->DecreaseHP(damageAmount);
-
 		FPlayerData* hitReactionAnimData = me->singleGameInstance->playerDataTable->FindRow<FPlayerData>(me->GetDataTableRowNames()[0], FString(""));
 		TArray<UAnimMontage*> temp = hitReactionAnimData->hitReactionMontages;
 		FVector actorDirection{ me->GetActorRotation().Vector().GetSafeNormal2D() };
@@ -72,7 +70,21 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 
 		if (angle <= 45.0f && angle >= -45.0f)
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
+			if (isParrying)
+			{
+				if (!Parry())
+				{
+					me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
+				}
+			}
+			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			{
+				CaculateBlock(damageAmount);
+			}
+			else
+			{
+				me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
+			}
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
 		{
@@ -86,6 +98,8 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(temp[2]);
 		}
+
+		me->statComp->DecreaseHP(damageAmount);
 	}
 }
 
@@ -111,6 +125,7 @@ void UYoruDefenceComponent::Block()
 {
 	if (me->currentPlayerState == EPlayerState::NONE)
 	{
+		me->SetPlayerState(EPlayerState::Blocking);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(blockMontage);
 	}
 }
@@ -118,6 +133,7 @@ void UYoruDefenceComponent::Block()
 void UYoruDefenceComponent::UnBlock()
 {
 	isParrying = false;
+	me->SetPlayerState(EPlayerState::NONE);
 	me->GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, blockMontage);
 }
 
@@ -146,5 +162,37 @@ void UYoruDefenceComponent::InitAnimNotify()
 bool UYoruDefenceComponent::CheckParrying() const noexcept
 {
 	return isParrying;
+}
+
+void UYoruDefenceComponent::CaculateBlock(float& damageAmount)
+{
+	if (me->statComp->CheckStamina(15.0f))
+	{
+		damageAmount /= 2;
+		me->statComp->HandleStaminaRegen(false);
+		me->statComp->DecreaseStamina(15.0f);
+		me->statComp->HandleStaminaRegen(true, 0.75f);
+	}
+	else
+	{
+		damageAmount /= 2;
+		me->statComp->HandleStaminaRegen(false);
+		me->statComp->DecreaseStamina(15.0f);
+		me->statComp->HandleStaminaRegen(true, 1.5f);
+	}
+}
+
+bool UYoruDefenceComponent::Parry()
+{
+	if (me->statComp->CheckStamina(7.5f))
+	{
+		me->statComp->HandleStaminaRegen(false);
+		me->statComp->DecreaseStamina(7.5f);
+		me->statComp->HandleStaminaRegen(true, 0.75f);
+		UE_LOG(LogTemp, Warning, TEXT("Parry"));
+		return true;
+	}
+
+	return false;
 }
 

@@ -33,7 +33,7 @@ public:
 
 	inline bool CheckStamina(float staminaNeeded) const noexcept;
 
-	void HandleStaminaRegen(bool isStartRegen, float duration);
+	void HandleStaminaRegen(bool isStartRegen, float duration = 0.0f);
 
 	void CallUpdateStamina() { onUpdateStamina.Broadcast(); }
 	void CallRegenerateStartStamina() { onRegenerateStamina.Broadcast(true); }
@@ -43,6 +43,9 @@ public:
 
 	UFUNCTION()
 	void CaculateStaminaRegen();
+
+	UFUNCTION(BlueprintCallable)
+	void TempUpdateHP() { onUpdateHP.Broadcast(); }
 
 public:
 	FUpdateStaminaDelegate onUpdateStamina;

@@ -30,6 +30,8 @@ float UYoruStatComponent::DecreaseStamina(float amount)
 		currentStamina = 0;
 	}
 
+	onUpdateStamina.Broadcast();
+
 	return currentStamina;
 }
 

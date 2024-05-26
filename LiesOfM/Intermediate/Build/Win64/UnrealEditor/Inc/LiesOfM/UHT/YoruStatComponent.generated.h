@@ -19,6 +19,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_16_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruStatComponent_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execTempUpdateHP); \
 	DECLARE_FUNCTION(execCaculateStaminaRegen);
 
 

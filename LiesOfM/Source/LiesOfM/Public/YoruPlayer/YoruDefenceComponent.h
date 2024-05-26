@@ -33,6 +33,8 @@ public:
 	void ChangeParrying();
 	void InitAnimNotify();
 	bool CheckParrying() const noexcept;
+	void CaculateBlock(float& damageAmount);
+	bool Parry();
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
