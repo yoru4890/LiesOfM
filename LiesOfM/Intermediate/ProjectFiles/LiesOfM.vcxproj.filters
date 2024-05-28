@@ -64,6 +64,12 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Subsystems">
+      <UniqueIdentifier>{70838621-C70D-3B9E-88CC-6716F7F65EA4}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Subsystems\TOMAudioSubsystem.cpp">
+      <Filter>Source\LiesOfM\Private\Subsystems</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Weapon">
       <UniqueIdentifier>{3419D55D-CDD2-37FE-B130-14109502CB0D}</UniqueIdentifier>
     </Filter>
@@ -129,6 +135,12 @@
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Subsystems">
+      <UniqueIdentifier>{F9EA4E81-F84C-3B68-9050-DC5000D6555B}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Subsystems\TOMAudioSubsystem.h">
+      <Filter>Source\LiesOfM\Public\Subsystems</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Weapon">
       <UniqueIdentifier>{7BC0057A-25DD-3326-A056-19878E9951FA}</UniqueIdentifier>

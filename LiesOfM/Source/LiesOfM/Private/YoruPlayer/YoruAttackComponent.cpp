@@ -13,7 +13,9 @@
 #include "TOMDataTable.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Enemy/EnemyBase.h"
-
+#include "Subsystems/TOMAudioSubsystem.h"
+#include "SOund/SoundCue.h"
+#include "TOMGameInstance.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -31,6 +33,13 @@ UYoruAttackComponent::UYoruAttackComponent()
 	if (curveFinder.Succeeded())
 	{
 		curve = curveFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<USoundCue> soundFinder(TEXT("/Script/Engine.SoundCue'/Game/StarterContent/Audio/Collapse_Cue.Collapse_Cue'"));
+
+	if (soundFinder.Succeeded())
+	{
+		mySound = soundFinder.Object;
 	}
 }
 

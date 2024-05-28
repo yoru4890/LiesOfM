@@ -45,6 +45,39 @@ public:
 	TArray<TObjectPtr<UAnimMontage>> hitReactionMontages;
 };
 
+USTRUCT(BlueprintType)
+struct FSoundData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	FSoundData() {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	FString category;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	FString subCategory;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* sound;
+};
+
+USTRUCT(BlueprintType)
+struct FWeaponSoundData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	FWeaponSoundData() {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* parryingSound{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* blockingSound{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* swingSound{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* wallHitSound{};
+};
+
 UCLASS()
 class LIESOFM_API ATOMDataTable : public AActor
 {

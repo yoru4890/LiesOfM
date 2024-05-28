@@ -34,7 +34,7 @@ public:
 	void InitAnimNotify();
 	bool CheckParrying() const noexcept;
 	void CaculateBlock(float& damageAmount);
-	bool Parry();
+	bool Parry(float& damageAmount);
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
@@ -49,6 +49,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru | Hit")
 	bool isParrying{};
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> FX;
 
 	FTimerHandle invincibilityTimeHandle{};
 };

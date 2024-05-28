@@ -125,6 +125,8 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enha
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
 {
+	if (!isMovementInput) return;
+
 	me->SetisPressedMovementInput(true);
 	
 	elapsedTimePressedMove += me->GetWorld()->DeltaTimeSeconds;

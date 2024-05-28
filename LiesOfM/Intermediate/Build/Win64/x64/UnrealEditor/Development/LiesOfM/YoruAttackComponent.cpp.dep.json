@@ -81,7 +81,16 @@
             "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\assetregistry\\arfilter.h",
             "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetsystemlibrary.generated.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\enemy\\enemybase.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\enemybase.generated.h"
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\enemybase.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\subsystems\\tomaudiosubsystem.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\tomaudiosubsystem.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\sound\\soundcue.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\audioextensions\\public\\iaudioparametertransmitter.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\sound\\soundnode.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\soundnode.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\soundcue.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\tomgameinstance.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\tomgameinstance.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

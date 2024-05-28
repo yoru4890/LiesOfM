@@ -12,6 +12,8 @@
 #include <InputMappingContext.h>
 #include "Animation/ChangeParryingAnimNotify.h"
 #include "YoruPlayer/YoruStatComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
@@ -35,7 +37,7 @@ void UYoruDefenceComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	InitAnimNotify();
-	
+	FX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Parrying.NS_Parrying'"));
 }
 
 void UYoruDefenceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -54,6 +56,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 {
 	if (isHittable)
 	{
+		bool isHit{true};
 		HandleHit();
 
 		FPlayerData* hitReactionAnimData = me->singleGameInstance->playerDataTable->FindRow<FPlayerData>(me->GetDataTableRowNames()[0], FString(""));
@@ -72,18 +75,26 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		{
 			if (isParrying)
 			{
-				if (!Parry())
+				if (!Parry(damageAmount))
 				{
 					me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
+					UE_LOG(LogTemp, Warning, TEXT("first"));
+				}
+				else
+				{
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FX, hitResult.ImpactPoint + me->GetActorForwardVector() * 40);
+					isHit = false;
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
 			{
 				CaculateBlock(damageAmount);
+				isHit = false;
 			}
 			else
 			{
 				me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
+				UE_LOG(LogTemp, Warning, TEXT("%d"),me->GetPlayerState());
 			}
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
@@ -100,6 +111,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		}
 
 		me->statComp->DecreaseHP(damageAmount);
+		if (isHit)
+		{
+			SetInvincibilityTime(1.0f);
+		}
 	}
 }
 
@@ -107,7 +122,6 @@ void UYoruDefenceComponent::HandleHit()
 {
 	me->moveComp->MovementInputHandler(0.0f, true);
 	me->attackComp->StopLineTrace();
-	SetInvincibilityTime(1.0f);
 }
 
 void UYoruDefenceComponent::SetInvincibilityTime(float duration)
@@ -125,6 +139,7 @@ void UYoruDefenceComponent::Block()
 {
 	if (me->currentPlayerState == EPlayerState::NONE)
 	{
+		me->moveComp->MovementInputHandler(0.0f, true);
 		me->SetPlayerState(EPlayerState::Blocking);
 		me->GetMesh()->GetAnimInstance()->Montage_Play(blockMontage);
 	}
@@ -134,13 +149,13 @@ void UYoruDefenceComponent::UnBlock()
 {
 	isParrying = false;
 	me->SetPlayerState(EPlayerState::NONE);
+	me->moveComp->MovementInputHandler(0.2f, false);
 	me->GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, blockMontage);
 }
 
 void UYoruDefenceComponent::ChangeParrying()
 {
 	isParrying = !isParrying;
-	UE_LOG(LogTemp, Warning, TEXT("%d"), isParrying);
 }
 
 void UYoruDefenceComponent::InitAnimNotify()
@@ -175,6 +190,7 @@ void UYoruDefenceComponent::CaculateBlock(float& damageAmount)
 	}
 	else
 	{
+		UnBlock();
 		damageAmount /= 2;
 		me->statComp->HandleStaminaRegen(false);
 		me->statComp->DecreaseStamina(15.0f);
@@ -182,10 +198,11 @@ void UYoruDefenceComponent::CaculateBlock(float& damageAmount)
 	}
 }
 
-bool UYoruDefenceComponent::Parry()
+bool UYoruDefenceComponent::Parry(float& damageAmount)
 {
 	if (me->statComp->CheckStamina(7.5f))
 	{
+		damageAmount = 0;
 		me->statComp->HandleStaminaRegen(false);
 		me->statComp->DecreaseStamina(7.5f);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
