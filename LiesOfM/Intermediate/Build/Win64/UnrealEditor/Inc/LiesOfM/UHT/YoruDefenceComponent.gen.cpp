@@ -50,9 +50,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static void NewProp_isParrying_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_isParrying;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_FX_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_parryingFX_MetaData[];
 #endif
-		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_FX;
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_parryingFX;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_blockingFX_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_blockingFX;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -105,18 +109,26 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isParrying = { "isParrying", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruDefenceComponent), &Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isParrying_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isParrying_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isParrying_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_FX_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX_MetaData[] = {
 		{ "Category", "Default" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_FX = { "FX", nullptr, (EPropertyFlags)0x0014000000010005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, FX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_FX_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_FX_MetaData) };
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX = { "parryingFX", nullptr, (EPropertyFlags)0x0014000000010005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, parryingFX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX_MetaData[] = {
+		{ "Category", "Default" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX = { "blockingFX", nullptr, (EPropertyFlags)0x0014000000010005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, blockingFX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruDefenceComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isHittable,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_isParrying,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_FX,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruDefenceComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruDefenceComponent>::IsAbstract,
@@ -156,9 +168,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3433800750U) },
+		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3186855223U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_3123039663(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_1612395766(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

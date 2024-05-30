@@ -35,6 +35,9 @@ public:
 	bool CheckParrying() const noexcept;
 	void CaculateBlock(float& damageAmount);
 	bool Parry(float& damageAmount);
+	void InitData();
+	void InitFX();
+	FVector CaculateParryPoint(const FVector& impactPoint);
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
@@ -42,6 +45,11 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> blockMontage;
+
+	TArray<USoundBase*> parryingSound{};
+	TArray<USoundBase*> blockingSound{};
+	TArray<USoundBase*> blockFailSound{};
+	TArray<UAnimMontage*> hitReactions{};
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru | Hit")
@@ -51,7 +59,12 @@ public:
 	bool isParrying{};
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
-	TObjectPtr<class UNiagaraSystem> FX;
+	TObjectPtr<class UNiagaraSystem> parryingFX;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> blockingFX;
 
 	FTimerHandle invincibilityTimeHandle{};
+
+
 };

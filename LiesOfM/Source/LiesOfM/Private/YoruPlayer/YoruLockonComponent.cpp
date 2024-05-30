@@ -190,9 +190,10 @@ void UYoruLockonComponent::LookTarget()
 	FVector start{ me->mainCamera->GetComponentLocation() };
 	FVector end{ lockonTarget->GetActorLocation() };
 	FRotator result{ (end - start).Rotation() };
-	if (result.Pitch <= -60.0f)
+	result.Pitch -= 10.0f;
+	if (result.Pitch <= -50.0f)
 	{
-		result.Pitch = -60.0f;
+		result.Pitch = -50.0f;
 	}
 
 	me->GetController()->SetControlRotation(result);

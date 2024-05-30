@@ -15,6 +15,8 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "Subsystems/TOMAudioSubsystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "Weapon/WeaponBase.h"
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
@@ -38,7 +40,8 @@ void UYoruDefenceComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	InitAnimNotify();
-	FX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Parrying.NS_Parrying'"));
+	InitData();
+	InitFX();
 }
 
 void UYoruDefenceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -61,7 +64,8 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		HandleHit();
 
 		FPlayerData* hitReactionAnimData = me->singleGameInstance->playerDataTable->FindRow<FPlayerData>(me->GetDataTableRowNames()[0], FString(""));
-		TArray<UAnimMontage*> temp = hitReactionAnimData->hitReactionMontages;
+		hitReactions = hitReactionAnimData->hitReactionMontages;
+
 		FVector actorDirection{ me->GetActorRotation().Vector().GetSafeNormal2D() };
 		FVector actorRightDirection{ (FRotationMatrix(me->GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
 		FVector hitDirection{ (hitResult.ImpactPoint - me->GetActorLocation()).GetSafeNormal2D() };
@@ -74,41 +78,45 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 
 		if (angle <= 45.0f && angle >= -45.0f)
 		{
+			FVector parryPoint{ CaculateParryPoint(hitResult.ImpactPoint) };
+
 			if (isParrying)
 			{
 				if (!Parry(damageAmount))
 				{
-					me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
-					UE_LOG(LogTemp, Warning, TEXT("first"));
+					me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
 				}
 				else
 				{
-					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FX, hitResult.ImpactPoint + me->GetActorForwardVector() * 40);
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
+					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
 			{
 				CaculateBlock(damageAmount);
+				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), blockingFX, parryPoint);
+
 				isHit = false;
 			}
 			else
 			{
-				me->GetMesh()->GetAnimInstance()->Montage_Play(temp[0]);
-				UE_LOG(LogTemp, Warning, TEXT("%d"),me->GetPlayerState());
+				me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
 			}
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(temp[1]);
+			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
 		}
 		else if (angle < -45.0f && angle >= -135.0f)
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(temp[3]);
+			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
 		}
 		else
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(temp[2]);
+			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[2]);
 		}
 
 		me->statComp->DecreaseHP(damageAmount);
@@ -191,6 +199,8 @@ void UYoruDefenceComponent::CaculateBlock(float& damageAmount)
 	}
 	else
 	{
+		UGameplayStatics::PlaySound2D(this, blockFailSound[0]);
+		me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[4]);
 		UnBlock();
 		damageAmount /= 2;
 		me->statComp->HandleStaminaRegen(false);
@@ -203,15 +213,55 @@ bool UYoruDefenceComponent::Parry(float& damageAmount)
 {
 	if (me->statComp->CheckStamina(7.5f))
 	{
-		//me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->weaponSoundDataTable
 		damageAmount = 0;
 		me->statComp->HandleStaminaRegen(false);
 		me->statComp->DecreaseStamina(7.5f);
 		me->statComp->HandleStaminaRegen(true, 0.75f);
-		UE_LOG(LogTemp, Warning, TEXT("Parry"));
 		return true;
 	}
 
 	return false;
+}
+
+void UYoruDefenceComponent::InitData()
+{
+	auto soundDataTable { me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->weaponSoundDataTable };
+	FWeaponSoundData* soundData{ soundDataTable->FindRow<FWeaponSoundData>(FName("GreatSword"), FString("")) };
+	parryingSound = soundData->parryingSound;
+	blockingSound = soundData->blockingSound;
+	blockFailSound = soundData->blockFailSound;
+}
+
+void UYoruDefenceComponent::InitFX()
+{
+	parryingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Parrying.NS_Parrying'"));
+
+	blockingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blocking.NS_Blocking'"));
+}
+
+FVector UYoruDefenceComponent::CaculateParryPoint(const FVector& impactPoint)
+{
+	FVector target{};
+	FVector point0{ me->equippedWeapon->weaponMesh->GetSocketLocation("ParryPoint_0") };
+	FVector point1{ me->equippedWeapon->weaponMesh->GetSocketLocation("ParryPoint_1") };
+	FVector point2{ me->equippedWeapon->weaponMesh->GetSocketLocation("ParryPoint_2") };
+
+	double dist = std::abs(me->GetActorLocation().Z - 90.0 - impactPoint.Z);
+	UE_LOG(LogTemp, Warning, TEXT("%f"), dist);
+
+	if (dist > 120.0)
+	{
+		return point2;
+	}
+	else if (dist > 90.0)
+	{
+		return point1;
+	}
+	else
+	{
+		return point0;
+	}
+
+	return point1;
 }
 

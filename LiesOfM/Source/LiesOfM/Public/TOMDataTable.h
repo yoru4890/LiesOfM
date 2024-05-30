@@ -68,14 +68,16 @@ struct FWeaponSoundData : public FTableRowBase
 public:
 	FWeaponSoundData() {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* parryingSound{};
+	TArray<USoundBase*> parryingSound{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* blockingSound{};
+	TArray<USoundBase*> blockingSound{};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* swingSound{};
+	TArray<USoundBase*> swingSound{};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* wallHitSound{};
+	TArray<USoundBase*> wallHitSound{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	TArray<USoundBase*> blockFailSound{};
 };
 
 UCLASS()

@@ -6,7 +6,7 @@
 
 UTOMAudioSubsystem::UTOMAudioSubsystem()
 {
-	static ConstructorHelpers::FObjectFinder<UDataTable> weaponSoundDataFinder(TEXT("/Script/Engine.DataTable'/Game/Data/DT_SoundWeapon.DT_SoundWeapon'"));
+	static ConstructorHelpers::FObjectFinder<UDataTable> weaponSoundDataFinder(TEXT("/Script/Engine.DataTable'/Game/Data/DT_WeaponSound.DT_WeaponSound'"));
 	if (weaponSoundDataFinder.Succeeded())
 	{
 		weaponSoundDataTable = weaponSoundDataFinder.Object;

@@ -133,7 +133,19 @@
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaravariant.generated.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaracomponent.generated.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\subsystems\\tomaudiosubsystem.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\tomaudiosubsystem.generated.h"
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\tomaudiosubsystem.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystatics.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetsystemlibrary.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\assetregistry\\arfilter.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetsystemlibrary.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\sound\\dialoguetypes.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\dialoguetypes.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystaticstypes.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystaticstypes.generated.h",
+            "c:\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystatics.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\weapon\\weaponbase.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\weaponbase.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
