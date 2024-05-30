@@ -4,15 +4,18 @@
 #include "Subsystems/TOMAudioSubsystem.h"
 #include "TOMDataTable.h"
 
-void UTOMAudioSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+UTOMAudioSubsystem::UTOMAudioSubsystem()
 {
-	Super::Initialize(Collection);
-
-	static ConstructorHelpers::FObjectFinder<UDataTable> weaponSoundDataFinder(TEXT("/Script/Engine.DataTable'/Game/Data/DT_WeaponSound.DT_WeaponSound'"));
+	static ConstructorHelpers::FObjectFinder<UDataTable> weaponSoundDataFinder(TEXT("/Script/Engine.DataTable'/Game/Data/DT_SoundWeapon.DT_SoundWeapon'"));
 	if (weaponSoundDataFinder.Succeeded())
 	{
 		weaponSoundDataTable = weaponSoundDataFinder.Object;
 	}
+}
+
+void UTOMAudioSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+	Super::Initialize(Collection);
 }
 
 void UTOMAudioSubsystem::Deinitialize()

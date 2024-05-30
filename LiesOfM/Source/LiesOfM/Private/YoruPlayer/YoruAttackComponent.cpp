@@ -34,13 +34,6 @@ UYoruAttackComponent::UYoruAttackComponent()
 	{
 		curve = curveFinder.Object;
 	}
-
-	static ConstructorHelpers::FObjectFinder<USoundCue> soundFinder(TEXT("/Script/Engine.SoundCue'/Game/StarterContent/Audio/Collapse_Cue.Collapse_Cue'"));
-
-	if (soundFinder.Succeeded())
-	{
-		mySound = soundFinder.Object;
-	}
 }
 
 void UYoruAttackComponent::BeginPlay()

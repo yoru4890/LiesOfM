@@ -131,7 +131,9 @@
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaracomponent.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaravariant.h",
             "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaravariant.generated.h",
-            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaracomponent.generated.h"
+            "c:\\unrealengine\\ue_5.3\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaracomponent.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\subsystems\\tomaudiosubsystem.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\tomaudiosubsystem.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

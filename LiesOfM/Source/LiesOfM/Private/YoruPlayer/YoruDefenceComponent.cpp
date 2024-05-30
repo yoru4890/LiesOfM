@@ -14,6 +14,7 @@
 #include "YoruPlayer/YoruStatComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "Subsystems/TOMAudioSubsystem.h"
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
@@ -202,6 +203,7 @@ bool UYoruDefenceComponent::Parry(float& damageAmount)
 {
 	if (me->statComp->CheckStamina(7.5f))
 	{
+		//me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->weaponSoundDataTable
 		damageAmount = 0;
 		me->statComp->HandleStaminaRegen(false);
 		me->statComp->DecreaseStamina(7.5f);

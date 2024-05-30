@@ -16,10 +16,15 @@ class LIESOFM_API UTOMAudioSubsystem : public UGameInstanceSubsystem
 	
 
 public:
+	UTOMAudioSubsystem();
+
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
+	void PlaySound(USoundBase* sound);
+	void PlaySoundAtLocation(USoundBase* sound, const FVector& location);
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Data")
-	UDataTable* weaponSoundDataTable;
+	class UDataTable* weaponSoundDataTable;
 };

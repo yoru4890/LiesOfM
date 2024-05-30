@@ -67,6 +67,4 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
 	TArray<AActor*> hitActors{};
-
-	class USoundCue* mySound{};
 };
