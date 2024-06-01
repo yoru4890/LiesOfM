@@ -146,6 +146,31 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\CeilingBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\FloorBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\LevelElementBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\PropBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\WallBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Subsystems\TOMAudioSubsystem.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -207,6 +232,11 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\CeilingBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\FloorBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\LevelElementBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\PropBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\WallBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Subsystems\TOMAudioSubsystem.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Weapon\WeaponBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\Yoru.h"/>

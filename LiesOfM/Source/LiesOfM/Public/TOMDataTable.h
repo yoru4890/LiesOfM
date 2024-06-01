@@ -80,6 +80,21 @@ public:
 	TArray<USoundBase*> blockFailSound{};
 };
 
+USTRUCT(BlueprintType)
+struct FHurtSoundData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	FHurtSoundData() {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	TArray<USoundBase*> hurtSound{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	TArray<USoundBase*> deadSound{};
+
+};
+
 UCLASS()
 class LIESOFM_API ATOMDataTable : public AActor
 {

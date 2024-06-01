@@ -21,10 +21,10 @@ public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
-	void PlaySound(USoundBase* sound);
-	void PlaySoundAtLocation(USoundBase* sound, const FVector& location);
-
 public:
 	UPROPERTY(EditAnywhere, Category = "Data")
 	class UDataTable* weaponSoundDataTable;
+
+	UPROPERTY(EditAnywhere, Category = "Data")
+	class UDataTable* hurtSoundDataTable;
 };

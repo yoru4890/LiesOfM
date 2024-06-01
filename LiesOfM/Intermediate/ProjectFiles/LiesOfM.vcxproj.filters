@@ -64,6 +64,24 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\LevelDesign">
+      <UniqueIdentifier>{19EBD9FC-C9BA-326B-AEC0-71BE1D2483DD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\CeilingBase.cpp">
+      <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\FloorBase.cpp">
+      <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\LevelElementBase.cpp">
+      <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\PropBase.cpp">
+      <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\WallBase.cpp">
+      <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Subsystems">
       <UniqueIdentifier>{70838621-C70D-3B9E-88CC-6716F7F65EA4}</UniqueIdentifier>
     </Filter>
@@ -135,6 +153,24 @@
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\LevelDesign">
+      <UniqueIdentifier>{700F435D-D5C0-3705-80BF-16A786907AD8}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\CeilingBase.h">
+      <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\FloorBase.h">
+      <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\LevelElementBase.h">
+      <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\PropBase.h">
+      <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\WallBase.h">
+      <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Subsystems">
       <UniqueIdentifier>{F9EA4E81-F84C-3B68-9050-DC5000D6555B}</UniqueIdentifier>

@@ -49,6 +49,8 @@ private:
 	TArray<USoundBase*> parryingSound{};
 	TArray<USoundBase*> blockingSound{};
 	TArray<USoundBase*> blockFailSound{};
+	TArray<USoundBase*> hurtSound{};
+	TArray<USoundBase*> deadSound{};
 	TArray<UAnimMontage*> hitReactions{};
 
 public:

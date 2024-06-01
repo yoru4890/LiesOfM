@@ -2,17 +2,23 @@
 	"RemapUnityFiles": 
 	{
 		"Module.LiesOfM.cpp.obj": [
+			"CeilingBase.gen.cpp.obj",
 			"ChangeParryingAnimNotify.gen.cpp.obj",
 			"DamageInteractions.gen.cpp.obj",
 			"EnemyBase.gen.cpp.obj",
+			"FloorBase.gen.cpp.obj",
+			"LevelElementBase.gen.cpp.obj",
+			"PropBase.gen.cpp.obj",
 			"TOMAudioSubsystem.gen.cpp.obj",
 			"TOMDataTable.gen.cpp.obj",
 			"TOMGameInstance.gen.cpp.obj",
+			"WallBase.gen.cpp.obj",
 			"WeaponBase.gen.cpp.obj",
 			"Yoru.gen.cpp.obj",
 			"YoruAnimInstance.gen.cpp.obj",
 			"YoruAttackComponent.gen.cpp.obj",
 			"YoruBaseComponent.gen.cpp.obj",
+			"YoruDefenceComponent.gen.cpp.obj",
 			"YoruLockonComponent.gen.cpp.obj",
 			"YoruMoveComponent.gen.cpp.obj",
 			"YoruStatComponent.gen.cpp.obj",
@@ -27,15 +33,19 @@
 			"YoruAnimInstance.cpp.obj",
 			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
+			"YoruLockonComponent.cpp.obj",
 			"YoruMoveComponent.cpp.obj",
 			"YoruStatComponent.cpp.obj",
 			"YoruWidgetComponent.cpp.obj",
 			"LiesOfM.init.gen.cpp.obj",
-			"YoruDefenceComponent.gen.cpp.obj",
+			"CeilingBase.cpp.obj",
+			"FloorBase.cpp.obj",
+			"LevelElementBase.cpp.obj",
+			"PropBase.cpp.obj",
+			"WallBase.cpp.obj",
 			"TOMAudioSubsystem.cpp.obj",
 			"TOMDataTable.cpp.obj",
-			"YoruDefenceComponent.cpp.obj",
-			"YoruLockonComponent.cpp.obj"
+			"YoruDefenceComponent.cpp.obj"
 		]
 	}
 }

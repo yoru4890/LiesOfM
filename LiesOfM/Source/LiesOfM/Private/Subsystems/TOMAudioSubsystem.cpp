@@ -11,6 +11,12 @@ UTOMAudioSubsystem::UTOMAudioSubsystem()
 	{
 		weaponSoundDataTable = weaponSoundDataFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> hurtSoundDataFinder(TEXT("/Script/Engine.DataTable'/Game/Data/DT_HurtSoundData.DT_HurtSoundData'"));
+	if (hurtSoundDataFinder.Succeeded())
+	{
+		hurtSoundDataTable = hurtSoundDataFinder.Object;
+	}
 }
 
 void UTOMAudioSubsystem::Initialize(FSubsystemCollectionBase& Collection)

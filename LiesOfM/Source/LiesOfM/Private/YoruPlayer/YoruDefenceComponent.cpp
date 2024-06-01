@@ -85,6 +85,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 				if (!Parry(damageAmount))
 				{
 					me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
+					UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
 				}
 				else
 				{
@@ -104,19 +105,23 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 			else
 			{
 				me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
+				UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
 			}
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
+			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
 		}
 		else if (angle < -45.0f && angle >= -135.0f)
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
+			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
 		}
 		else
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[2]);
+			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
 		}
 
 		me->statComp->DecreaseHP(damageAmount);
@@ -225,11 +230,17 @@ bool UYoruDefenceComponent::Parry(float& damageAmount)
 
 void UYoruDefenceComponent::InitData()
 {
-	auto soundDataTable { me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->weaponSoundDataTable };
-	FWeaponSoundData* soundData{ soundDataTable->FindRow<FWeaponSoundData>(FName("GreatSword"), FString("")) };
-	parryingSound = soundData->parryingSound;
-	blockingSound = soundData->blockingSound;
-	blockFailSound = soundData->blockFailSound;
+	auto weaponSoundDataTable { me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->weaponSoundDataTable };
+	FWeaponSoundData* weaponSoundData{ weaponSoundDataTable->FindRow<FWeaponSoundData>(FName("GreatSword"), FString("")) };
+	parryingSound = weaponSoundData->parryingSound;
+	blockingSound = weaponSoundData->blockingSound;
+	blockFailSound = weaponSoundData->blockFailSound;
+	
+	auto hurtSoundDataTable{ me->GetGameInstance()->GetSubsystem<UTOMAudioSubsystem>()->hurtSoundDataTable };
+	FHurtSoundData* hurtSoundData{ hurtSoundDataTable->FindRow<FHurtSoundData>(FName("Player"), FString("")) };
+	hurtSound = hurtSoundData->hurtSound;
+	deadSound = hurtSoundData->deadSound;
+
 }
 
 void UYoruDefenceComponent::InitFX()
