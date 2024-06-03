@@ -125,6 +125,13 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		}
 
 		me->statComp->DecreaseHP(damageAmount);
+
+		if (me->currentRightWeaponState == EUseWeaponState::GREATSWORD)
+		{
+			me->moveComp->EquipRightWeapon();
+			me->moveComp->HiddenItem();
+		}
+
 		if (isHit)
 		{
 			SetInvincibilityTime(1.0f);

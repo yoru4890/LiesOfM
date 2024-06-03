@@ -78,7 +78,9 @@
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\weapon\\weaponbase.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\weaponbase.generated.h",
             "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\yoruplayer\\yorudefencecomponent.h",
-            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yorudefencecomponent.generated.h"
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\yorudefencecomponent.generated.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\source\\liesofm\\public\\item\\itembase.h",
+            "d:\\github\\game_project\\unreal_game\\liesofm\\liesofm\\intermediate\\build\\win64\\unrealeditor\\inc\\liesofm\\uht\\itembase.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

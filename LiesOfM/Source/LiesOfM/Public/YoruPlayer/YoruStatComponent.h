@@ -9,6 +9,7 @@
 DECLARE_MULTICAST_DELEGATE(FUpdateStaminaDelegate);
 DECLARE_MULTICAST_DELEGATE_OneParam(FRegenerateStaminaDelegate, bool);
 DECLARE_MULTICAST_DELEGATE(FUpdateHPDelegate);
+DECLARE_MULTICAST_DELEGATE_OneParam(FRegenerateHPDelegate, bool);
 
 UCLASS()
 class LIESOFM_API UYoruStatComponent : public UYoruBaseComponent
@@ -39,18 +40,30 @@ public:
 	void CallRegenerateStartStamina() { onRegenerateStamina.Broadcast(true); }
 	void CallRegenerateStopStamina() { onRegenerateStamina.Broadcast(false); }
 
+	void HandleHPRegen(bool isStartRegen, float duration = 0.0f);
+
+	void CallUpdateHP() { onUpdateHP.Broadcast(); }
+	void CallRegenerateStartHP() { onRegenerateHP.Broadcast(true); }
+	void CallRegenerateStopHP() { onRegenerateHP.Broadcast(false); }
+
 	void RunTick();
 
 	UFUNCTION()
 	void CaculateStaminaRegen();
 
+	UFUNCTION()
+	void CaculateHPRegen();
+
 	UFUNCTION(BlueprintCallable)
 	void TempUpdateHP() { onUpdateHP.Broadcast(); }
+
+
 
 public:
 	FUpdateStaminaDelegate onUpdateStamina;
 	FRegenerateStaminaDelegate onRegenerateStamina;
 	FUpdateHPDelegate onUpdateHP;
+	FRegenerateHPDelegate onRegenerateHP;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
 	float currentStamina{ 60.0f };
@@ -76,5 +89,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
 	float maxHP{ 100.0f };
 
+	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
+	float hpRegen{ 0.0f };
+
 	FTimerHandle handleStamina{};
+	FTimerHandle handleHP{};
 };

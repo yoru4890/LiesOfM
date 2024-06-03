@@ -77,6 +77,19 @@ void UYoruStatComponent::HandleStaminaRegen(bool isStartRegen, float duration)
 	}
 }
 
+void UYoruStatComponent::HandleHPRegen(bool isStartRegen, float duration)
+{
+	if (isStartRegen)
+	{
+		GetWorld()->GetTimerManager().SetTimer(handleHP, this, &UYoruStatComponent::CallRegenerateStartHP, 0.05f, true, duration);
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().ClearTimer(handleHP);
+		CallRegenerateStopHP();
+	}
+}
+
 void UYoruStatComponent::RunTick()
 {
 	if (currentStamina > 0.0f)
@@ -102,4 +115,18 @@ void UYoruStatComponent::CaculateStaminaRegen()
 		currentStamina += StaminaRegen;
 	}
 	CallUpdateStamina();
+}
+
+void UYoruStatComponent::CaculateHPRegen()
+{
+	if (GetHPRatio() >= 1.0)
+	{
+		CallRegenerateStopHP();
+		currentHP = maxHP;
+	}
+	else
+	{
+		currentHP += hpRegen;
+	}
+	CallUpdateHP();
 }

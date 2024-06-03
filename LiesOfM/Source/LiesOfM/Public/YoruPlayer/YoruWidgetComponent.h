@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
 	class UProgressBar* HPBar;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
+	class UTextBlock* PortionCountText;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
 	TSubclassOf<class UUserWidget> lockonWidgetClass;
 
@@ -48,10 +51,16 @@ public:
 	void StaminaRegenTick();
 
 	UFUNCTION()
+	void HPRegenTick();
+
+	UFUNCTION()
 	void TempFinish();
 
 	UFUNCTION()
-	void staminaRegenerationToggle(bool isStart);
+	void StaminaRegenerationToggle(bool isStart);
+
+	UFUNCTION()
+	void HPRegenerationToggle(bool isStart);
 
 	UFUNCTION()
 	void UpdateStamina();
@@ -59,7 +68,10 @@ public:
 	UFUNCTION()
 	void UpdateHP();
 
+	UFUNCTION()
+	void UpdatePortion();
+
 	float timelineValue{};
 	FTimeline staminaRegenerationLooper;
-
+	FTimeline HPRegenerationLooper;
 };

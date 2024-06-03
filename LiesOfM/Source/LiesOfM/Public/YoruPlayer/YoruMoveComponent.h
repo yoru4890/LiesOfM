@@ -25,6 +25,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UEnhancedInputComponent* enhancedInputComponent) override;
 
 public:
+	void InitFile();
 	void Move(const FInputActionValue& value);
 	void NoMove(const FInputActionValue& value);
 	void Look(const FInputActionValue& value);
@@ -36,14 +37,30 @@ public:
 	void RollOrStepBack(const FInputActionValue& value);
 	void ChangeCrouch(const FInputActionValue& value);
 	void ChangeWeapon(const FInputActionValue& value);
+	void UseItem();
 
 	UFUNCTION(BlueprintCallable)
 	void MovementInputHandler(float duration, bool isStopInput);
 	void HandleRollStepBack();
 	void SetMovementInputTrue();
+
+	UFUNCTION(BlueprintCallable)
 	void EquipRightWeapon();
+	UFUNCTION(BlueprintCallable)
 	void UnEquipRightWeapon();
+	UFUNCTION(BlueprintCallable)
+	void ShowItem();
+	UFUNCTION(BlueprintCallable)
+	void HiddenItem();
+	UFUNCTION(BlueprintCallable)
+	void CaculatePortion();
+	void StopCaculatePortion();
+
 	void SpawnWeapon();
+	void SpawnItem();
+
+	
+
 	bool GetIsMovementInput() const noexcept { return isMovementInput; }
 
 	inline bool HasMovementKeyInput() const;
@@ -72,6 +89,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> changeWeaponAction;
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> useItemAction;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> rollingMontage;
 
@@ -83,6 +103,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> unEquipMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> useItemMontage;
 
 	float elapsedTimePressedMove{};
 	float elapsedTimePressedRunOrRolling{};
@@ -101,6 +124,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Hit")
 	bool canBeHit{ true };
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Item")
+	int32 portionCount{ 5 };
+
 	FTimerHandle inputTimeHandle{};
 	FTimerHandle equipTimeHandle{};
+	FTimerHandle spawnTimeHandle{};
+	FTimerHandle HPTimeHandle{};
 };

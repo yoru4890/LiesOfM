@@ -103,6 +103,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Weapon")
 	class AWeaponBase* equippedWeapon{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Item")
+	class AItemBase* equippedItem{};
+
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputMappingContext> defaultInputMappingContext;
 

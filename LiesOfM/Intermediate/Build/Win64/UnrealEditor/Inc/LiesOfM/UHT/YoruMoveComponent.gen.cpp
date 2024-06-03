@@ -16,6 +16,41 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruMoveComponent_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_LiesOfM();
 // End Cross Module References
+	DEFINE_FUNCTION(UYoruMoveComponent::execCaculatePortion)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->CaculatePortion();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UYoruMoveComponent::execHiddenItem)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->HiddenItem();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UYoruMoveComponent::execShowItem)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ShowItem();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UYoruMoveComponent::execUnEquipRightWeapon)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->UnEquipRightWeapon();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UYoruMoveComponent::execEquipRightWeapon)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->EquipRightWeapon();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(UYoruMoveComponent::execMovementInputHandler)
 	{
 		P_GET_PROPERTY(FFloatProperty,Z_Param_duration);
@@ -29,9 +64,80 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 	{
 		UClass* Class = UYoruMoveComponent::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "CaculatePortion", &UYoruMoveComponent::execCaculatePortion },
+			{ "EquipRightWeapon", &UYoruMoveComponent::execEquipRightWeapon },
+			{ "HiddenItem", &UYoruMoveComponent::execHiddenItem },
 			{ "MovementInputHandler", &UYoruMoveComponent::execMovementInputHandler },
+			{ "ShowItem", &UYoruMoveComponent::execShowItem },
+			{ "UnEquipRightWeapon", &UYoruMoveComponent::execUnEquipRightWeapon },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "CaculatePortion", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "EquipRightWeapon", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "HiddenItem", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_HiddenItem()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_HiddenItem_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_UYoruMoveComponent_MovementInputHandler_Statics
 	{
@@ -76,6 +182,50 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "ShowItem", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_ShowItem()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_ShowItem_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "UnEquipRightWeapon", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UYoruMoveComponent);
 	UClass* Z_Construct_UClass_UYoruMoveComponent_NoRegister()
 	{
@@ -117,6 +267,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_changeWeaponAction;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_useItemAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_useItemAction;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_rollingMontage_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_rollingMontage;
@@ -133,6 +287,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_unEquipMontage;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_useItemMontage_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_useItemMontage;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_mouseSpeed_MetaData[];
 #endif
 		static const UECodeGen_Private::FDoublePropertyParams NewProp_mouseSpeed;
@@ -141,6 +299,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 		static void NewProp_canBeHit_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_canBeHit;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_portionCount_MetaData[];
+#endif
+		static const UECodeGen_Private::FIntPropertyParams NewProp_portionCount;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -151,7 +313,12 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UYoruMoveComponent_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_UYoruMoveComponent_CaculatePortion, "CaculatePortion" }, // 2695019804
+		{ &Z_Construct_UFunction_UYoruMoveComponent_EquipRightWeapon, "EquipRightWeapon" }, // 3050998919
+		{ &Z_Construct_UFunction_UYoruMoveComponent_HiddenItem, "HiddenItem" }, // 2925751229
 		{ &Z_Construct_UFunction_UYoruMoveComponent_MovementInputHandler, "MovementInputHandler" }, // 1628321773
+		{ &Z_Construct_UFunction_UYoruMoveComponent_ShowItem, "ShowItem" }, // 1999823505
+		{ &Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon, "UnEquipRightWeapon" }, // 2050398647
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -214,6 +381,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_changeWeaponAction = { "changeWeaponAction", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, changeWeaponAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_changeWeaponAction_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_changeWeaponAction_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemAction_MetaData[] = {
+		{ "Category", "Yoru|Input" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemAction = { "useItemAction", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, useItemAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemAction_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemAction_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollingMontage_MetaData[] = {
 		{ "Category", "Yoru|Montage" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
@@ -242,6 +416,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_unEquipMontage = { "unEquipMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, unEquipMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_unEquipMontage_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_unEquipMontage_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemMontage_MetaData[] = {
+		{ "Category", "Yoru|Montage" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemMontage = { "useItemMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, useItemMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemMontage_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemMontage_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_mouseSpeed_MetaData[] = {
 		{ "Category", "Yoru|Mouse" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
@@ -259,6 +440,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		((UYoruMoveComponent*)Obj)->canBeHit = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit = { "canBeHit", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UYoruMoveComponent), &Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount_MetaData[] = {
+		{ "Category", "Yoru|Item" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount = { "portionCount", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, portionCount), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruMoveComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_lookAction,
@@ -267,12 +455,15 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_runRollAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_crouchAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_changeWeaponAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollingMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_stepBackMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_equipMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_unEquipMontage,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_useItemMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_mouseSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruMoveComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruMoveComponent>::IsAbstract,
@@ -312,9 +503,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 683005899U) },
+		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 298868233U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_2824194871(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_500620617(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

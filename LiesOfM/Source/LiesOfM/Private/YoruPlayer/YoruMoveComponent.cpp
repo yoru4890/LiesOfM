@@ -12,10 +12,47 @@
 #include "YoruPlayer/YoruWidgetComponent.h"
 #include "Weapon/WeaponBase.h"
 #include "YoruPlayer/YoruDefenceComponent.h"
+#include "Item/ItemBase.h"
 
 UYoruMoveComponent::UYoruMoveComponent()
 {
+	InitFile();
+	
+}
 
+void UYoruMoveComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	SpawnWeapon();
+	GetWorld()->GetTimerManager().SetTimer(spawnTimeHandle, this, &UYoruMoveComponent::SpawnItem, 0.5f, false);
+}
+
+void UYoruMoveComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+}
+
+void UYoruMoveComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enhancedInputComponent)
+{
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::NoMove);
+	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::NoMove);
+	enhancedInputComponent->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
+	enhancedInputComponent->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
+	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
+	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
+	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
+	enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
+	enhancedInputComponent->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
+	enhancedInputComponent->BindAction(useItemAction, ETriggerEvent::Started, this, &UYoruMoveComponent::UseItem);
+}
+
+void UYoruMoveComponent::InitFile()
+{
 	static ConstructorHelpers::FObjectFinder<UInputAction> moveActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_YoruMove.IA_YoruMove'"));
 
 	if (moveActionFinder.Succeeded())
@@ -65,6 +102,13 @@ UYoruMoveComponent::UYoruMoveComponent()
 		changeWeaponAction = changeWeaponActionFinder.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> useItemActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_UseItem.IA_UseItem'"));
+
+	if (useItemActionFinder.Succeeded())
+	{
+		useItemAction = useItemActionFinder.Object;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> rollingMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_Rolling.AM_Rolling'"));
 
 	if (rollingMontageFinder.Succeeded())
@@ -92,35 +136,13 @@ UYoruMoveComponent::UYoruMoveComponent()
 	{
 		unEquipMontage = unEquipMontageFinder.Object;
 	}
-}
 
-void UYoruMoveComponent::BeginPlay()
-{
-	Super::BeginPlay();
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> useItemMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/UseItem/AM_UsePortion.AM_UsePortion'"));
 
-	SpawnWeapon();
-}
-
-void UYoruMoveComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
-}
-
-void UYoruMoveComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enhancedInputComponent)
-{
-	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Move);
-	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::NoMove);
-	enhancedInputComponent->BindAction(moveAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::NoMove);
-	enhancedInputComponent->BindAction(lookAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Look);
-	enhancedInputComponent->BindAction(jumpAction, ETriggerEvent::Started, this, &UYoruMoveComponent::Jump);
-	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::ChangeWalk);
-	enhancedInputComponent->BindAction(moveChangeAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::ChangeJog);
-	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Triggered, this, &UYoruMoveComponent::Run);
-	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Completed, this, &UYoruMoveComponent::StopRunning);
-	enhancedInputComponent->BindAction(runRollAction, ETriggerEvent::Canceled, this, &UYoruMoveComponent::RollOrStepBack);
-	enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
-	enhancedInputComponent->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
+	if (useItemMontageFinder.Succeeded())
+	{
+		useItemMontage = useItemMontageFinder.Object;
+	}
 }
 
 void UYoruMoveComponent::Move(const FInputActionValue& value)
@@ -315,6 +337,20 @@ void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 	}
 }
 
+void UYoruMoveComponent::UseItem()
+{
+	if (me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()) return;
+
+	if (!portionCount) return;
+
+	if (!HasMovementKeyInput())
+	{
+		MovementInputHandler(0.0f, true);
+		me->GetMesh()->GetAnimInstance()->Montage_Play(useItemMontage);
+		MovementInputHandler(0.5f, false);
+	}
+}
+
 
 void UYoruMoveComponent::MovementInputHandler(float duration, bool isStopInput)
 {
@@ -372,6 +408,31 @@ void UYoruMoveComponent::UnEquipRightWeapon()
 	me->equippedWeapon->weaponMesh->SetVisibility(false);
 }
 
+void UYoruMoveComponent::ShowItem()
+{
+	me->equippedItem->itemMesh->SetVisibility(true);
+}
+
+void UYoruMoveComponent::HiddenItem()
+{
+	me->equippedItem->itemMesh->SetVisibility(false);
+}
+
+void UYoruMoveComponent::CaculatePortion()
+{
+	portionCount--;
+	me->statComp->hpRegen = 0.2f;
+	me->statComp->HandleHPRegen(true);
+	GetWorld()->GetTimerManager().SetTimer(HPTimeHandle, this, &UYoruMoveComponent::StopCaculatePortion, 1.0f, false);
+}
+
+void UYoruMoveComponent::StopCaculatePortion()
+{
+	me->statComp->hpRegen = 0.0f;
+	me->statComp->HandleHPRegen(false);
+}
+
+
 void UYoruMoveComponent::SpawnWeapon()
 {
 	UObject* spawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/Engine.Blueprint'/Game/AAA/Blueprints/Weapon/BP_Weapon.BP_Weapon'")));
@@ -399,3 +460,33 @@ void UYoruMoveComponent::SpawnWeapon()
 
 	me->equippedWeapon->AttachToComponent(me->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("hand_rSocket_GreatSword"));
 }
+
+void UYoruMoveComponent::SpawnItem()
+{
+	UObject* spawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/Engine.Blueprint'/Game/AAA/Blueprints/Item/BP_Item.BP_Item'")));
+
+	UBlueprint* generatedBP = Cast<UBlueprint>(spawnActor);
+
+	if (!spawnActor)
+	{
+		return;
+	}
+
+	UClass* spawnClass = spawnActor->StaticClass();
+
+	if (!spawnClass)
+	{
+		return;
+	}
+
+	FTransform tempTransform{ me->GetMesh()->GetSocketTransform(TEXT("hand_rSocket_Item")) };
+
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = me;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	me->equippedItem = GetWorld()->SpawnActor<AItemBase>(generatedBP->GeneratedClass, tempTransform, spawnParams);
+
+	me->equippedItem->AttachToComponent(me->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("hand_rSocket_Item"));
+	HiddenItem();
+}
+

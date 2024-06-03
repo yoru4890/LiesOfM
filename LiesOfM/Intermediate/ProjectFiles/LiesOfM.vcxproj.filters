@@ -64,6 +64,12 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Item">
+      <UniqueIdentifier>{527A6F5E-081E-3FEE-BC99-F61783257CF0}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Item\ItemBase.cpp">
+      <Filter>Source\LiesOfM\Private\Item</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\LevelDesign">
       <UniqueIdentifier>{19EBD9FC-C9BA-326B-AEC0-71BE1D2483DD}</UniqueIdentifier>
     </Filter>
@@ -153,6 +159,12 @@
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Item">
+      <UniqueIdentifier>{95102E47-BDA9-3BD5-8D0F-21D73265C714}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Item\ItemBase.h">
+      <Filter>Source\LiesOfM\Public\Item</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\LevelDesign">
       <UniqueIdentifier>{700F435D-D5C0-3705-80BF-16A786907AD8}</UniqueIdentifier>

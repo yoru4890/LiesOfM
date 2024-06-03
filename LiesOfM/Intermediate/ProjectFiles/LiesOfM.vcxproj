@@ -146,6 +146,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Item\ItemBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\CeilingBase.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -232,6 +237,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Item\ItemBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\CeilingBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\FloorBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\LevelElementBase.h"/>
