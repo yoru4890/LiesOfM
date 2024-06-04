@@ -21,6 +21,7 @@ protected:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
 	class AYoru* owner{};
 
