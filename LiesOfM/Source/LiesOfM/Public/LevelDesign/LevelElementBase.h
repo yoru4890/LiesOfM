@@ -19,4 +19,8 @@ protected:
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+
+public:
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Yoru")
+	bool isBlockable{};
 };

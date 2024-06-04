@@ -67,4 +67,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
 	TArray<AActor*> hitActors{};
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> wallHitMontage;
 };

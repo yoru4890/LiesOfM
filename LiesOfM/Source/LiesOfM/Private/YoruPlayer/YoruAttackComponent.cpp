@@ -16,6 +16,8 @@
 #include "Subsystems/TOMAudioSubsystem.h"
 #include "SOund/SoundCue.h"
 #include "TOMGameInstance.h"
+#include "LevelDesign/LevelElementBase.h"
+#include "Interface/HitEffectInterface.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -33,6 +35,13 @@ UYoruAttackComponent::UYoruAttackComponent()
 	if (curveFinder.Succeeded())
 	{
 		curve = curveFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> wallHitMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSwordWallHit.AM_GreatSwordWallHit'"));
+
+	if (wallHitMontageFinder.Succeeded())
+	{
+		wallHitMontage = wallHitMontageFinder.Object;
 	}
 }
 
@@ -64,7 +73,7 @@ void UYoruAttackComponent::SetupPlayerInputComponent(UEnhancedInputComponent* en
 void UYoruAttackComponent::AttackCounterHandler()
 {
 	attackCounter++;
-	GetWorld()->GetTimerManager().SetTimer(attackTimeHandle, this, &UYoruAttackComponent::ResetAttackCounter, 2.0f, false);
+	GetWorld()->GetTimerManager().SetTimer(attackTimeHandle, this, &UYoruAttackComponent::ResetAttackCounter, 1.8f, false);
 }
 
 void UYoruAttackComponent::Attack()
@@ -152,6 +161,19 @@ void UYoruAttackComponent::ApplyLineTrace()
 			{
 				hitActors.Add(hitResult.GetActor());
 				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me, hitResult);
+			}
+			else if (hitResult.GetActor()->GetClass()->ImplementsInterface(UHitEffectInterface::StaticClass()) && !hitActors.Contains(hitResult.GetActor()))
+			{
+				hitActors.Add(hitResult.GetActor());
+				IHitEffectInterface::Execute_ReactToEffect(hitResult.GetActor(), hitResult.ImpactPoint);
+				
+				auto tempObject{ Cast<ALevelElementBase>(hitResult.GetActor()) };
+				if (tempObject && tempObject->isBlockable)
+				{
+					StopLineTrace();
+					me->GetMesh()->GetAnimInstance()->Montage_Play(wallHitMontage);
+					me->moveComp->MovementInputHandler(1.3f, false);
+				}
 			}
 		}
 	}

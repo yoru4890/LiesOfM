@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.gitignore" />
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -70,6 +71,9 @@
       <UniqueIdentifier>{7C759666-5707-33DA-ABC4-A8B90C93CEA4}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
+      <Filter>Source\LiesOfM\Private\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\HitEffectInterface.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Item">
@@ -175,6 +179,9 @@
       <UniqueIdentifier>{B7448E84-AB7C-3C3C-B9C6-68453E62666D}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
+      <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\HitEffectInterface.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Item">

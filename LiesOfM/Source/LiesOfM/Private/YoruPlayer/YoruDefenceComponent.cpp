@@ -86,6 +86,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 				{
 					me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
 					UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 				}
 				else
 				{
@@ -106,22 +107,26 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 			{
 				me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[0]);
 				UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 			}
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
 			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 		}
 		else if (angle < -45.0f && angle >= -135.0f)
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
 			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 		}
 		else
 		{
 			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[2]);
 			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 		}
 
 		me->statComp->DecreaseHP(damageAmount);
@@ -255,6 +260,7 @@ void UYoruDefenceComponent::InitFX()
 	parryingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Parrying.NS_Parrying'"));
 
 	blockingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blocking.NS_Blocking'"));
+	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
 }
 
 FVector UYoruDefenceComponent::CaculateParryPoint(const FVector& impactPoint)
@@ -265,7 +271,6 @@ FVector UYoruDefenceComponent::CaculateParryPoint(const FVector& impactPoint)
 	FVector point2{ me->equippedWeapon->weaponMesh->GetSocketLocation("ParryPoint_2") };
 
 	double dist = std::abs(me->GetActorLocation().Z - 90.0 - impactPoint.Z);
-	UE_LOG(LogTemp, Warning, TEXT("%f"), dist);
 
 	if (dist > 120.0)
 	{

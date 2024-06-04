@@ -10,6 +10,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 // Cross Module References
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCurveFloat_NoRegister();
 	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruAttackComponent();
@@ -169,6 +170,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_hitActors_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_hitActors;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallHitMontage_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_wallHitMontage;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -217,11 +222,19 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors = { "hitActors", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, hitActors), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage_MetaData[] = {
+		{ "Category", "Yoru|Montage" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAttackComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage = { "wallHitMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, wallHitMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruAttackComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_lightAttackAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruAttackComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruAttackComponent>::IsAbstract,
@@ -261,9 +274,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 2684230099U) },
+		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 671237584U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_3468835640(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_3774554891(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

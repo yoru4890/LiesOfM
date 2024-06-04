@@ -110,6 +110,7 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
+    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -156,6 +157,11 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\HitEffectInterface.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -254,6 +260,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAnimInstance.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\HitEffectInterface.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Item\ItemBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\CeilingBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\FloorBase.h"/>
