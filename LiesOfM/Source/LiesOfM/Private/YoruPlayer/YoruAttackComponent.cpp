@@ -176,6 +176,7 @@ void UYoruAttackComponent::ApplyLineTrace()
 				}
 			}
 		}
+		
 	}
 }
 

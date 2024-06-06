@@ -26,4 +26,9 @@ public:
 private:
 	class APawn* PlayerPawn{};
 	class AEnemyCommon* owner{};
+
+	UPROPERTY(EditAnywhere)
+	class UBehaviorTree* ownedBT{};
+
+	TArray<FVector> PatrolLocation{ {2500, -500,0}, {3000, -1000,0} };
 };

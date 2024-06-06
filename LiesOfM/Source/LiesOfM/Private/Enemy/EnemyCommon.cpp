@@ -2,6 +2,7 @@
 
 
 #include "Enemy/EnemyCommon.h"
+#include "Enemy/EnemyCommonAIController.h"
 
 AEnemyCommon::AEnemyCommon()
 {
@@ -64,8 +65,6 @@ AEnemyCommon::AEnemyCommon()
 	{
 		hitReactionMontage3 = hitReactionMontageFinder3.Object;
 	}
-
-
 }
 
 void AEnemyCommon::BeginPlay()
@@ -112,5 +111,13 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 	else
 	{
 		GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage3);
+	}
+}
+
+void AEnemyCommon::CommonAttack()
+{
+	if (!(GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackMontage)))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(attackMontage);
 	}
 }

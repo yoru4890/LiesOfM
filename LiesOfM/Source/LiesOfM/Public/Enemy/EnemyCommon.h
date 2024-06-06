@@ -48,4 +48,5 @@ public:
 	TObjectPtr<UAnimMontage> hitReactionMontage3;
 public:
 
+	void CommonAttack();
 };

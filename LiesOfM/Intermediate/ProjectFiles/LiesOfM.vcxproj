@@ -136,6 +136,21 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTService_BlackboardBaseTest.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTaskNodeTest.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTask_BlackboardBaseTest.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -255,6 +270,9 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMDataTable.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMGameInstance.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTService_BlackboardBaseTest.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTaskNodeTest.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTask_BlackboardBaseTest.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommon.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAIController.h"/>

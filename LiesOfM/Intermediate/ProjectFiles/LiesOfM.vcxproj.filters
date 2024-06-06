@@ -55,6 +55,15 @@
     <Filter Include="Source\LiesOfM\Private\Enemy">
       <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTService_BlackboardBaseTest.cpp">
+      <Filter>Source\LiesOfM\Private\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTaskNodeTest.cpp">
+      <Filter>Source\LiesOfM\Private\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTask_BlackboardBaseTest.cpp">
+      <Filter>Source\LiesOfM\Private\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
       <Filter>Source\LiesOfM\Private\Enemy</Filter>
     </ClCompile>
@@ -163,6 +172,15 @@
     <Filter Include="Source\LiesOfM\Public\Enemy">
       <UniqueIdentifier>{3E167887-9D10-37E2-91E0-5622CF20F263}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTService_BlackboardBaseTest.h">
+      <Filter>Source\LiesOfM\Public\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTaskNodeTest.h">
+      <Filter>Source\LiesOfM\Public\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTask_BlackboardBaseTest.h">
+      <Filter>Source\LiesOfM\Public\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h">
       <Filter>Source\LiesOfM\Public\Enemy</Filter>
     </ClInclude>
