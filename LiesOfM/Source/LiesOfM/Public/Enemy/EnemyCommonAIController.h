@@ -19,16 +19,15 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
+	virtual void OnPossess(APawn* InPawn) override;
 public:
-	virtual void Tick(float DeltaSeconds) override;
+	void RunAI();
+	void StopAI();
 
 private:
-	class APawn* PlayerPawn{};
-	class AEnemyCommon* owner{};
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UBlackboardData> ownedBB{};
 
 	UPROPERTY(EditAnywhere)
-	class UBehaviorTree* ownedBT{};
-
-	TArray<FVector> PatrolLocation{ {2500, -500,0}, {3000, -1000,0} };
+	TObjectPtr<class UBehaviorTree> ownedBT{};
 };

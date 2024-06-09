@@ -83,7 +83,7 @@ bool UYoruLockonComponent::CheckTrace()
 	TArray<AActor*> ignoreActors;
 	ignoreActors.Add(lockonTarget);
 
-	return UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, ETraceTypeQuery::TraceTypeQuery5, false, ignoreActors, EDrawDebugTrace::ForDuration, outHits, true);
+	return UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, ETraceTypeQuery::TraceTypeQuery5, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
 }
 
 AActor* UYoruLockonComponent::FindFrontClosedOne()
@@ -191,15 +191,15 @@ void UYoruLockonComponent::LookTarget()
 	FVector end{ lockonTarget->GetActorLocation() };
 	FRotator result{ (end - start).Rotation() };
 	result.Pitch -= 10.0f;
-	if (result.Pitch <= -50.0f)
+	if (result.Pitch <= -30.0f)
 	{
-		result.Pitch = -50.0f;
+		result.Pitch = -30.0f;
 	}
 
 	me->GetController()->SetControlRotation(result);
 
 
-	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("spine_05")));
+	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("Spine2")));
 }
 
 void UYoruLockonComponent::StopLockon()

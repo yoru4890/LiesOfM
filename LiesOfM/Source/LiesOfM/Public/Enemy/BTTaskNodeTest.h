@@ -6,9 +6,6 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTaskNodeTest.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LIESOFM_API UBTTaskNodeTest : public UBTTaskNode
 {

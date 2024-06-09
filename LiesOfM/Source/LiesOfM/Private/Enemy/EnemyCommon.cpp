@@ -3,17 +3,21 @@
 
 #include "Enemy/EnemyCommon.h"
 #include "Enemy/EnemyCommonAIController.h"
+#include "Weapon/WeaponBase.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Collision/CollisionChannel.h"
+#include "YoruPlayer/Yoru.h"
 
 AEnemyCommon::AEnemyCommon()
 {
-	weaponComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
+	daggerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> weaponMeshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Dual_Blade/Dual_Blade_BronzeScythe/SK_Dual_Blade_BronzeScythe.SK_Dual_Blade_BronzeScythe'"));
 
 	if (weaponMeshFinder.Succeeded())
 	{
-		weaponComp->SetSkeletalMesh(weaponMeshFinder.Object);
-		weaponComp->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Dagger"));
+		daggerWeapon->SetSkeletalMesh(weaponMeshFinder.Object);
+		daggerWeapon->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Dagger"));
 	}
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/AAA/Animations/Enemy/Common1/Knight_D_Pelegrini.Knight_D_Pelegrini'"));
@@ -70,11 +74,37 @@ AEnemyCommon::AEnemyCommon()
 void AEnemyCommon::BeginPlay()
 {
 	Super::BeginPlay();
+
+	switch (enemyWeapon)
+	{
+	case EEnemyCommonWeapon::None:
+		break;
+	case EEnemyCommonWeapon::Dagger:
+		break;
+	case EEnemyCommonWeapon::Bow:
+		daggerWeapon->SetVisibility(false);
+		SpawnBow();
+		break;
+	case EEnemyCommonWeapon::Size:
+		break;
+	default:
+		break;
+	}
 }
 
 void AEnemyCommon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (attackElapsedTime >= attackCooltime)
+	{
+		attackElapsedTime = 0;
+		OnAttackFinished.ExecuteIfBound();
+	}
+	else if(attackElapsedTime)
+	{
+		attackElapsedTime += DeltaTime;
+	}
 }
 
 void AEnemyCommon::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -84,7 +114,8 @@ void AEnemyCommon::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
 {
-	GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage);
+	currentEnemyState = EEnemyState::BeingAttacked;
+	OnBeingAttacked.ExecuteIfBound();
 
 	FVector actorDirection{ GetActorRotation().Vector().GetSafeNormal2D() };
 	FVector actorRightDirection{ (FRotationMatrix(GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
@@ -116,8 +147,151 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 
 void AEnemyCommon::CommonAttack()
 {
+	currentEnemyState = EEnemyState::Attacking;
+
 	if (!(GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackMontage)))
 	{
 		GetMesh()->GetAnimInstance()->Montage_Play(attackMontage);
 	}
+}
+
+void AEnemyCommon::SpawnBow()
+{
+	UObject* spawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/Engine.Blueprint'/Game/AAA/Blueprints/Weapon/BP_Bow.BP_Bow'")));
+
+	UBlueprint* generatedBP = Cast<UBlueprint>(spawnActor);
+
+	if (!spawnActor)
+	{
+		return;
+	}
+
+	UClass* spawnClass = spawnActor->StaticClass();
+
+	if (!spawnClass)
+	{
+		return;
+	}
+
+	FTransform tempTransform{ GetMesh()->GetSocketTransform(TEXT("LeftHandSocket_Bow")) };
+
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = this;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	bow = GetWorld()->SpawnActor<AWeaponBase>(generatedBP->GeneratedClass, tempTransform, spawnParams);
+
+	bow->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("LeftHandSocket_Bow"));
+}
+
+void AEnemyCommon::NotifyAttackEnd()
+{
+	OnAttackFinished.ExecuteIfBound();
+}
+
+void AEnemyCommon::TriggerTrace()
+{
+	hitActors.Reset();
+	GetWorld()->GetTimerManager().SetTimer(lineTraceTimeHandle, this, &AEnemyCommon::ApplyTrace, 0.01, true);
+}
+
+void AEnemyCommon::ApplyTrace()
+{
+	FVector start{ daggerWeapon->GetSocketLocation(TEXT("StartPoint")) };
+	FVector end{ daggerWeapon->GetSocketLocation(TEXT("EndPoint")) };
+	TArray<AActor*> ignoreActors;
+	TArray<FHitResult> outHits;
+	ignoreActors.Add(this);
+	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, 15.0, TCHANNEL_ENEMYDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
+	if (isHit)
+	{
+		for (const auto& hitResult : outHits)
+		{
+			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
+			{
+				hitActors.Add(hitResult.GetActor());
+				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), this, hitResult);
+			}
+		}
+
+	}
+}
+
+void AEnemyCommon::StopTrace()
+{
+	GetWorld()->GetTimerManager().ClearTimer(lineTraceTimeHandle);
+}
+
+float AEnemyCommon::CaculateDamage()
+{
+	float attackDamage{};
+	switch (enemyWeapon)
+	{
+		case EEnemyCommonWeapon::Dagger:
+			attackDamage = 20.0f;
+			break;
+		case EEnemyCommonWeapon::Bow:
+			attackDamage = 15.0f;
+			break;
+		default:
+			break;
+	}
+	return attackDamage;
+}
+
+float AEnemyCommon::GetAIPatrolRadius()
+{
+	return 800.0f;
+}
+
+float AEnemyCommon::GetAIDetectRange()
+{
+	return 600.0f;
+}
+
+float AEnemyCommon::GetAIAttackRange()
+{
+	return attackRange;
+}
+
+float AEnemyCommon::GetAIRange()
+{
+	return attackRange - 50.0f;
+}
+
+float AEnemyCommon::GetAITurnSpeed()
+{
+	return 4.0f;
+}
+
+void AEnemyCommon::SetAIAttackDelegate(const FCommonAIAttackFinished& InOnAttackFinished)
+{
+	OnAttackFinished = InOnAttackFinished;
+}
+
+void AEnemyCommon::SetAIBeingAttackedDelegate(const FCommonAIBeingAttacked& InOnBeingAttacked)
+{
+	OnBeingAttacked = InOnBeingAttacked;
+}
+
+bool AEnemyCommon::AttackByAI()
+{
+	if (!attackElapsedTime)
+	{
+		CommonAttack();
+		attackElapsedTime += GetWorld()->GetDeltaSeconds();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool AEnemyCommon::NoTurn()
+{
+	if (enemyWeapon == EEnemyCommonWeapon::Dagger && GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackMontage))
+	{
+		return true;
+	}
+	return false;
 }

@@ -7,6 +7,17 @@
 #include "Interface/DamageInteractions.h"
 #include "EnemyBase.generated.h"
 
+UENUM(BlueprintType)
+enum class EEnemyState : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Attacking UMETA(DisplayName = "Attack"),
+	BeingAttacked UMETA(DisplayName = "BeingAttacked"),
+
+	SIZE UMETA(DisplayName = "SIZE")
+};
+
+
 UCLASS()
 class LIESOFM_API AEnemyBase : public ACharacter, public IDamageInteractions
 {
@@ -33,4 +44,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	float maxHealth{100.0f};
+
+	UPROPERTY(BlueprintReadWrite)
+	EEnemyState currentEnemyState{ EEnemyState::None };
 };

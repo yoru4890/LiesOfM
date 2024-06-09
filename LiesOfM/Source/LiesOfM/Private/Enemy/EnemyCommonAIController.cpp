@@ -6,13 +6,22 @@
 #include "Enemy/EnemyCommon.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/ABAI.h"
 
 AEnemyCommonAIController::AEnemyCommonAIController()
 {
+	ConstructorHelpers::FObjectFinder<UBlackboardData> BBFinder(TEXT("/Script/AIModule.BlackboardData'/Game/AAA/Blueprints/Enemy/BB_EnemyCommon.BB_EnemyCommon'"));
+
+	if (BBFinder.Object)
+	{
+		ownedBB = BBFinder.Object;
+	}
+
 	ConstructorHelpers::FObjectFinder<UBehaviorTree> BTFinder(TEXT("/Script/AIModule.BehaviorTree'/Game/AAA/Blueprints/Enemy/BT_EnemyCommon.BT_EnemyCommon'"));
 
-	if (BTFinder.Succeeded())
+	if (BTFinder.Object)
 	{
 		ownedBT = BTFinder.Object;
 	}
@@ -22,63 +31,31 @@ void AEnemyCommonAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	owner = Cast<AEnemyCommon>(this->GetCharacter());
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-
-	if (ownedBT)
-	{
-		if (!RunBehaviorTree(ownedBT))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("f"));
-		}
-
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-		GetBlackboardComponent()->SetValueAsVector(TEXT("DefaultLocation"), owner->GetActorLocation());
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PatrolLocation0"), PatrolLocation[0] + owner->GetActorLocation().Z);
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PatrolLocation1"), PatrolLocation[1] + owner->GetActorLocation().Z);
-	}
-
 }
 
-void AEnemyCommonAIController::Tick(float DeltaSeconds)
+void AEnemyCommonAIController::OnPossess(APawn* InPawn)
 {
-	Super::Tick(DeltaSeconds);
-	
-	//if (LineOfSightTo(PlayerPawn))
-	//{
-	//	GetBlackboardComponent()->SetValueAsBool(TEXT("isFindPlayer"), true);
-	//	GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-	//}
-	//else
-	//{
-	//	GetBlackboardComponent()->SetValueAsBool(TEXT("isFindPlayer"), false);
-	//	//GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
-	//}
+	Super::OnPossess(InPawn);
 
-	/*if (LineOfSightTo(PlayerPawn))
+	RunAI();
+}
+
+void AEnemyCommonAIController::RunAI()
+{
+	UBlackboardComponent* BlackboardPtr{ Blackboard.Get() };
+	if (UseBlackboard(ownedBB, BlackboardPtr))
 	{
-		SetFocus(PlayerPawn);
-		
-		double distance{ FVector::Distance(owner->GetActorLocation(), PlayerPawn->GetActorLocation()) };
-		
-		if (distance > 200)
-		{
-			MoveToActor(PlayerPawn, 100);
-		}
-		else
-		{
-			if (owner)
-			{
-				if (!(owner->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
-				{
-					owner->GetMesh()->GetAnimInstance()->Montage_Play(owner->attackMontage);
-				}
-			}
-		}
+		Blackboard->SetValueAsVector(BBKEY_HOMEPOS, GetPawn()->GetActorLocation());
+		bool RunResult = RunBehaviorTree(ownedBT);
+		ensure(RunResult);
 	}
-	else
+}
+
+void AEnemyCommonAIController::StopAI()
+{
+	UBehaviorTreeComponent* BTComponent = Cast<UBehaviorTreeComponent>(BrainComponent);
+	if (BTComponent)
 	{
-		ClearFocus(EAIFocusPriority::Gameplay);
-		StopMovement();
-	}*/
+		BTComponent->StopTree();
+	}
 }

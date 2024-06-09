@@ -52,6 +52,30 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\Animation\ChangeParryingAnimNotify.cpp">
       <Filter>Source\LiesOfM\Private\Animation</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\BehaviorTree">
+      <UniqueIdentifier>{B738AD6B-A60C-3563-A7E0-F719BFAA4C60}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTBCanAttack.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTDecorator_AttackRange.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTService_CaculateRange.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTService_Detect.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTask_FindPatrolPos.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTask_TurnToTarget.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTAttack.cpp">
+      <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Enemy">
       <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
     </Filter>
@@ -79,6 +103,9 @@
     <Filter Include="Source\LiesOfM\Private\Interface">
       <UniqueIdentifier>{7C759666-5707-33DA-ABC4-A8B90C93CEA4}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\CommonAIInterface.cpp">
+      <Filter>Source\LiesOfM\Private\Interface</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\DamageInteractions.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
@@ -169,6 +196,39 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h">
       <Filter>Source\LiesOfM\Public\Animation</Filter>
     </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\BehaviorTree">
+      <UniqueIdentifier>{891EBE2B-B0AD-3865-B3CD-03EE325B17DD}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\ABAI.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTBCanAttack.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTDecorator_AttackRange.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTService_CaculateRange.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTService_Detect.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_FindPatrolPos.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_TurnToTarget.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTAttack.h">
+      <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Collision">
+      <UniqueIdentifier>{CBD650FC-B9D8-3EF0-A7B0-E444B8CEAE76}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h">
+      <Filter>Source\LiesOfM\Public\Collision</Filter>
+    </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Enemy">
       <UniqueIdentifier>{3E167887-9D10-37E2-91E0-5622CF20F263}</UniqueIdentifier>
     </Filter>
@@ -196,6 +256,9 @@
     <Filter Include="Source\LiesOfM\Public\Interface">
       <UniqueIdentifier>{B7448E84-AB7C-3C3C-B9C6-68453E62666D}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\CommonAIInterface.h">
+      <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
     </ClInclude>

@@ -1,0 +1,12 @@
+
+#pragma once
+
+#define CCHANNEL_PLAYERDAMAGE ECollisionChannel::ECC_EngineTraceChannel3
+#define CCHANNEL_ENEMYDAMAGE ECollisionChannel::ECC_EngineTraceChannel4
+#define CCHANNEL_LOCKON ECollisionChannel::ECC_EngineTraceChannel5
+#define CCHANNEL_ENEMYDETECT ECollisionChannel::ECC_EngineTraceChannel6
+
+#define TCHANNEL_PLAYERDAMAGE ETraceTypeQuery::TraceTypeQuery3
+#define TCHANNEL_ENEMYDAMAGE ETraceTypeQuery::TraceTypeQuery4
+#define TCHANNEL_LOCKON ETraceTypeQuery::TraceTypeQuery5
+#define TCHANNEL_ENEMYDETECT ETraceTypeQuery::TraceTypeQuery6

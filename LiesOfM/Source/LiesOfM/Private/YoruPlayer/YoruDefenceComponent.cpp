@@ -93,6 +93,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
+					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -112,15 +113,73 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		}
 		else if (angle > 45.0f && angle <= 135.0f)
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
-			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
-			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+			FVector parryPoint{ CaculateParryPoint(hitResult.ImpactPoint) };
+
+			if (isParrying)
+			{
+				if (!Parry(damageAmount))
+				{
+					me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
+					UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+				}
+				else
+				{
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
+					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
+					isHit = false;
+					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
+				}
+			}
+			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			{
+				CaculateBlock(damageAmount);
+				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), blockingFX, parryPoint);
+
+				isHit = false;
+			}
+			else
+			{
+				me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[1]);
+				UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+			}
 		}
 		else if (angle < -45.0f && angle >= -135.0f)
 		{
-			me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
-			UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
-			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+			FVector parryPoint{ CaculateParryPoint(hitResult.ImpactPoint) };
+
+			if (isParrying)
+			{
+				if (!Parry(damageAmount))
+				{
+					me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
+					UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+				}
+				else
+				{
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
+					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
+					isHit = false;
+					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
+				}
+			}
+			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			{
+				CaculateBlock(damageAmount);
+				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), blockingFX, parryPoint);
+
+				isHit = false;
+			}
+			else
+			{
+				me->GetMesh()->GetAnimInstance()->Montage_Play(hitReactions[3]);
+				UGameplayStatics::PlaySound2D(this, hurtSound[FMath::RandHelper(hurtSound.Num())]);
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
+			}
 		}
 		else
 		{
@@ -139,7 +198,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 
 		if (isHit)
 		{
-			SetInvincibilityTime(1.0f);
+			SetInvincibilityTime(0.4f);
 		}
 	}
 }

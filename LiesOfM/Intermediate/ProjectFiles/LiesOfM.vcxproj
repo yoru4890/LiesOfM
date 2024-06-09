@@ -136,6 +136,41 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTBCanAttack.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTDecorator_AttackRange.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTService_CaculateRange.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTService_Detect.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTask_FindPatrolPos.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTask_TurnToTarget.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTAttack.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTService_BlackboardBaseTest.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -167,6 +202,11 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyCommonAnimInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\CommonAIInterface.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -270,6 +310,15 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMDataTable.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\TOMGameInstance.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Animation\ChangeParryingAnimNotify.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\ABAI.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTBCanAttack.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTDecorator_AttackRange.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTService_CaculateRange.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTService_Detect.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_FindPatrolPos.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_TurnToTarget.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTAttack.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTService_BlackboardBaseTest.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTaskNodeTest.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTask_BlackboardBaseTest.h"/>
@@ -277,6 +326,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommon.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAnimInstance.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\CommonAIInterface.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\HitEffectInterface.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Item\ItemBase.h"/>

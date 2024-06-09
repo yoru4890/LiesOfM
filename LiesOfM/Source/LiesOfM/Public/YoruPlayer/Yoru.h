@@ -64,10 +64,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Test)
 	void SetPlayerState(const TEnumAsByte<EPlayerState>& state);
 public:
-	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class USpringArmComponent> mainSpringArmComp{};
 
-	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Compoent")
 	TObjectPtr<class UCameraComponent> mainCamera{};
 
 	//UPROPERTY(BlueprintReadWrite, Category = "Yoru|Compoent")

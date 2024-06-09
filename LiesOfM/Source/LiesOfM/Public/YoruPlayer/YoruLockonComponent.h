@@ -35,6 +35,9 @@ public:
 	void StopLockon();
 	void ChangeLockon(const FInputActionValue& value);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class AEnemyBase* lockonTarget{};
+
 private:
 	TArray<FHitResult> outHits;
 	float radius{700.0f};
@@ -43,7 +46,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lockonChangeAction;
-	class AEnemyBase* lockonTarget{};
+	
 
 	FTimerHandle lockonTimer{};
 };

@@ -12,6 +12,12 @@ UEnemyCommonAnimInstance::UEnemyCommonAnimInstance()
 void UEnemyCommonAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
+
+	owner = Cast<AEnemyCommon>(GetOwningActor());
+	if (owner)
+	{
+		charMoveComp = owner->GetCharacterMovement();
+	}
 }
 
 void UEnemyCommonAnimInstance::NativeUpdateAnimation(float DeltaSeconds)

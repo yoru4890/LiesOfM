@@ -5,7 +5,6 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "AIController.h"
 #include "Enemy/EnemyCommon.h"
-//#include "Engine/GameEngine.h"
 
 UBTTaskNodeTest::UBTTaskNodeTest()
 {
@@ -16,7 +15,7 @@ EBTNodeResult::Type UBTTaskNodeTest::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 {
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	AEnemyCommon* enemyCommon = Cast<AEnemyCommon>(OwnerComp.GetAIOwner()->GetCharacter());
+	AEnemyCommon* enemyCommon = Cast<AEnemyCommon>(OwnerComp.GetAIOwner()->GetPawn());
 
 	if (!enemyCommon)
 	{

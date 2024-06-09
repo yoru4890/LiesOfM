@@ -198,6 +198,9 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
+	if (me->GetMesh()->GetAnimInstance()->Montage_IsPlaying(useItemMontage)) return;
+
+
 	if (me->GetPlayerState() == EPlayerState::Crouch)
 	{
 		ChangeCrouch(value);
@@ -287,6 +290,8 @@ void UYoruMoveComponent::StopRunning()
 
 void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 {
+	if (me->GetMesh()->GetAnimInstance()->Montage_IsPlaying(useItemMontage)) return;
+
 	if (isMovementInput && me->statComp->CheckStamina(8.0f))
 	{
 		charMoveComp->MaxWalkSpeed = me->GetStatComp()->jogSpeed;

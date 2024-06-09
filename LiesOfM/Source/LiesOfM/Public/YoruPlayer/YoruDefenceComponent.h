@@ -70,6 +70,5 @@ public:
 	TObjectPtr<class UNiagaraSystem> bloodFX;
 
 	FTimerHandle invincibilityTimeHandle{};
-
-
+	FTimerHandle parryingTimeHandle{};
 };
