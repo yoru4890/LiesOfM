@@ -47,4 +47,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	EEnemyState currentEnemyState{ EEnemyState::None };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isDead{};
 };

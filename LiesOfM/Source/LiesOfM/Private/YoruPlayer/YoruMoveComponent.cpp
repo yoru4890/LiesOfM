@@ -328,6 +328,7 @@ void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 	{
 		if (isUseRightWeapon)
 		{
+			me->widgetComp->SetVisiblerightWeapon(false);
 			me->GetMesh()->GetAnimInstance()->Montage_Play(unEquipMontage);
 			GetWorld()->GetTimerManager().SetTimer(equipTimeHandle, this, &UYoruMoveComponent::UnEquipRightWeapon, 0.5f, false);
 		}
@@ -335,6 +336,7 @@ void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 		{
 			if (isHaveRightWeapon)
 			{
+				me->widgetComp->SetVisiblerightWeapon(true);
 				me->GetMesh()->GetAnimInstance()->Montage_Play(equipMontage);
 				EquipRightWeapon();
 			}

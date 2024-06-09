@@ -200,6 +200,11 @@ void UYoruLockonComponent::LookTarget()
 
 
 	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("Spine2")));
+
+	if (lockonTarget->isDead)
+	{
+		StopLockon();
+	}
 }
 
 void UYoruLockonComponent::StopLockon()

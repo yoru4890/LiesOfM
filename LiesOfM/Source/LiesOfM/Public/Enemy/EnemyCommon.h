@@ -109,4 +109,26 @@ private:
 
 	float attackElapsedTime{};
 
+public:
+	float maxHP{ 100.0f };
+	float currentHP{ 100.0f };
+	float totalDamage{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UWidgetComponent* widgetHP{};
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
+	class UProgressBar* HPBar;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
+	class UTextBlock* DamageText;
+	
+	void InitWidget();
+	void TriggerWidget(float damage);
+	void HiddenDamageText();
+	void HiddenHPBar();
+	void Dead();
+
+	FTimerHandle damageTextTimeHandle{};
+	FTimerHandle HPBarTimeHandle{};
 };

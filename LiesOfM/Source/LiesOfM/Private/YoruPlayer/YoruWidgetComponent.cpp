@@ -9,6 +9,7 @@
 #include "Components/WidgetComponent.h"
 #include "Components/TextBlock.h"
 #include "YoruPlayer/YoruMoveComponent.h"
+#include "Components/Image.h"
 
 UYoruWidgetComponent::UYoruWidgetComponent()
 {
@@ -70,6 +71,7 @@ void UYoruWidgetComponent::InitWidget()
 		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
 		HPBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("HPBar"));
 		PortionCountText = Cast<UTextBlock>(widgetCombat->GetWidgetFromName("Text_ItemCount"));
+		rightWeaponImage = Cast<UImage>(widgetCombat->GetWidgetFromName("RightWeapon"));
 
 		UpdateStamina();
 		UpdateHP();
@@ -164,4 +166,16 @@ void UYoruWidgetComponent::UpdateHP()
 void UYoruWidgetComponent::UpdatePortion()
 {
 	PortionCountText->SetText(FText::FromString(FString::FromInt(me->moveComp->portionCount)));
+}
+
+void UYoruWidgetComponent::SetVisiblerightWeapon(bool isVisible)
+{
+	if (isVisible)
+	{
+		rightWeaponImage->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		rightWeaponImage->SetVisibility(ESlateVisibility::Hidden);
+	}
 }

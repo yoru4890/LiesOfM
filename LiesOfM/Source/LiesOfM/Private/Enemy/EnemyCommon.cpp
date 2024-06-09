@@ -7,10 +7,20 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Collision/CollisionChannel.h"
 #include "YoruPlayer/Yoru.h"
+#include "Components/WidgetComponent.h"
+#include "Components/ProgressBar.h"
+#include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Enemy/EnemyCommonAIController.h"
+#include "Components/PrimitiveComponent.h"
 
 AEnemyCommon::AEnemyCommon()
 {
 	daggerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
+
+	widgetHP = CreateDefaultSubobject<UWidgetComponent>(TEXT("widgetHP"));
+	widgetHP->SetupAttachment(RootComponent);
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> weaponMeshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Dual_Blade/Dual_Blade_BronzeScythe/SK_Dual_Blade_BronzeScythe.SK_Dual_Blade_BronzeScythe'"));
 
@@ -90,6 +100,8 @@ void AEnemyCommon::BeginPlay()
 	default:
 		break;
 	}
+
+	InitWidget();
 }
 
 void AEnemyCommon::Tick(float DeltaTime)
@@ -105,6 +117,12 @@ void AEnemyCommon::Tick(float DeltaTime)
 	{
 		attackElapsedTime += DeltaTime;
 	}
+
+	FRotator temp = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), UGameplayStatics::GetPlayerPawn(GetWorld(), 0)->GetActorLocation());
+	
+	temp.Pitch = 0;
+	temp.Roll = 0;
+	widgetHP->SetWorldRotation(temp);
 }
 
 void AEnemyCommon::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -116,6 +134,17 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 {
 	currentEnemyState = EEnemyState::BeingAttacked;
 	OnBeingAttacked.ExecuteIfBound();
+	attackElapsedTime = attackCooltime - 1.5f;
+
+	currentHP -= damageAmount;
+	if (currentHP <= 0)
+	{
+		Dead();
+	}
+	else
+	{
+		TriggerWidget(damageAmount);
+	}
 
 	FVector actorDirection{ GetActorRotation().Vector().GetSafeNormal2D() };
 	FVector actorRightDirection{ (FRotationMatrix(GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
@@ -294,4 +323,55 @@ bool AEnemyCommon::NoTurn()
 		return true;
 	}
 	return false;
+}
+
+void AEnemyCommon::InitWidget()
+{
+	UUserWidget* widgetTemp = widgetHP->GetWidget();
+	HPBar = Cast<UProgressBar>(widgetTemp->GetWidgetFromName("HealthBar"));
+	DamageText = Cast<UTextBlock>(widgetTemp->GetWidgetFromName("DamageText"));
+	HPBar->SetVisibility(ESlateVisibility::Hidden);
+	DamageText->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void AEnemyCommon::TriggerWidget(float damage)
+{
+	totalDamage += damage;
+	HPBar->SetPercent(currentHP / maxHP);
+	DamageText->SetText(FText::AsNumber(totalDamage));
+	HPBar->SetVisibility(ESlateVisibility::Visible);
+	DamageText->SetVisibility(ESlateVisibility::Visible);
+
+	GetWorld()->GetTimerManager().SetTimer(damageTextTimeHandle, this, &AEnemyCommon::HiddenDamageText, 0.01f, false, 2.0f);
+	GetWorld()->GetTimerManager().SetTimer(HPBarTimeHandle, this, &AEnemyCommon::HiddenHPBar, 0.01f, false, 4.0f);
+
+}
+
+void AEnemyCommon::HiddenDamageText()
+{
+	totalDamage = 0;
+	DamageText->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void AEnemyCommon::HiddenHPBar()
+{
+	HPBar->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void AEnemyCommon::Dead()
+{
+	widgetHP->SetVisibility(false);
+	isDead = true;
+	AEnemyCommonAIController* temp = Cast<AEnemyCommonAIController>(GetController());
+	if (temp)
+	{
+		temp->StopAI();
+	}
+	UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(RootComponent);
+	PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	FTimerHandle tempTimerHandle{};
+	GetWorld()->GetTimerManager().SetTimer(tempTimerHandle, [this]() 
+		{
+			GetMesh()->SetVisibility(false, true);
+		}, 0.01f, false, 10.0f);
 }

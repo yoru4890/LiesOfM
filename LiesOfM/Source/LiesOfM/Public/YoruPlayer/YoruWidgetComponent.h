@@ -37,6 +37,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
 	class UTextBlock* PortionCountText;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Widget")
+	class UImage* rightWeaponImage;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
 	TSubclassOf<class UUserWidget> lockonWidgetClass;
 
@@ -70,6 +73,9 @@ public:
 
 	UFUNCTION()
 	void UpdatePortion();
+
+	UFUNCTION()
+	void SetVisiblerightWeapon(bool isVisible);
 
 	float timelineValue{};
 	FTimeline staminaRegenerationLooper;
