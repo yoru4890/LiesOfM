@@ -50,6 +50,7 @@
 			"BTService_BlackboardBaseTest.cpp.obj",
 			"BTTaskNodeTest.cpp.obj",
 			"BTTask_BlackboardBaseTest.cpp.obj",
+			"EnemyBase.cpp.obj",
 			"EnemyCommonAIController.cpp.obj",
 			"EnemyCommonAnimInstance.cpp.obj",
 			"CommonAIInterface.cpp.obj",
@@ -71,13 +72,12 @@
 			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
 			"YoruDefenceComponent.cpp.obj",
-			"YoruStatComponent.cpp.obj",
-			"LiesOfM.init.gen.cpp.obj",
-			"EnemyBase.cpp.obj",
-			"EnemyCommon.cpp.obj",
 			"YoruLockonComponent.cpp.obj",
 			"YoruMoveComponent.cpp.obj",
-			"YoruWidgetComponent.cpp.obj"
+			"YoruStatComponent.cpp.obj",
+			"YoruWidgetComponent.cpp.obj",
+			"LiesOfM.init.gen.cpp.obj",
+			"EnemyCommon.cpp.obj"
 		]
 	}
 }

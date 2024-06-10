@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FDAD623D-0CE1-38F7-9AD4-D04FD1B50C18}</ProjectGuid>
+    <ProjectGuid>{0B73E2B0-49A2-3BFD-8280-9432CFF9A610}</ProjectGuid>
     <RootNamespace>LiesOfM</RootNamespace>
   </PropertyGroup>
   <Import Project="UECommon.props" />

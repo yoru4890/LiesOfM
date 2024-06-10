@@ -13,6 +13,7 @@ enum class EEnemyCommonWeapon : uint8
 	None UMETA(DisplayName = "None"),
 	Dagger UMETA(DisplayName = "Dagger"),
 	Bow UMETA(DisplayName = "Bow"),
+	Hammer UMETA(DisplayName = "Hammer"),
 
 	Size UMETA(DisplayName = "Size")
 };
@@ -40,8 +41,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<USkeletalMeshComponent> daggerWeapon{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<USkeletalMeshComponent> hammerWeapon{};
+
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
-	TObjectPtr<UAnimMontage> attackMontage;
+	TObjectPtr<UAnimMontage> attackDaggerMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> attackHammerMontage;
 
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
 	TObjectPtr<UAnimMontage> hitReactionMontage;
@@ -66,6 +73,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
 	bool isAggro{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
+	bool isElite{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float attackCooltime{ 4.0f };

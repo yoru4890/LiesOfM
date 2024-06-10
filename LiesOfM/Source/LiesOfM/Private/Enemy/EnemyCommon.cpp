@@ -18,6 +18,7 @@
 AEnemyCommon::AEnemyCommon()
 {
 	daggerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
+	hammerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("hammerMesh"));
 
 	widgetHP = CreateDefaultSubobject<UWidgetComponent>(TEXT("widgetHP"));
 	widgetHP->SetupAttachment(RootComponent);
@@ -28,6 +29,14 @@ AEnemyCommon::AEnemyCommon()
 	{
 		daggerWeapon->SetSkeletalMesh(weaponMeshFinder.Object);
 		daggerWeapon->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Dagger"));
+	}
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> weaponHammerMeshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blunt/Blunt_Temperance/SK_Blunt_Temperance.SK_Blunt_Temperance'"));
+
+	if (weaponHammerMeshFinder.Succeeded())
+	{
+		hammerWeapon->SetSkeletalMesh(weaponHammerMeshFinder.Object);
+		hammerWeapon->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Hammer"));
 	}
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/AAA/Animations/Enemy/Common1/Knight_D_Pelegrini.Knight_D_Pelegrini'"));
@@ -49,7 +58,14 @@ AEnemyCommon::AEnemyCommon()
 
 	if (attackMontageFinder.Succeeded())
 	{
-		attackMontage = attackMontageFinder.Object;
+		attackDaggerMontage = attackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> attackHammerMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/Hammer/AM_HammerAttack.AM_HammerAttack'"));
+
+	if (attackHammerMontageFinder.Succeeded())
+	{
+		attackHammerMontage = attackHammerMontageFinder.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> hitReactionMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/AM_HitReaction.AM_HitReaction'"));
@@ -90,10 +106,16 @@ void AEnemyCommon::BeginPlay()
 	case EEnemyCommonWeapon::None:
 		break;
 	case EEnemyCommonWeapon::Dagger:
+		hammerWeapon->SetVisibility(false);
 		break;
 	case EEnemyCommonWeapon::Bow:
 		daggerWeapon->SetVisibility(false);
+		hammerWeapon->SetVisibility(false);
 		SpawnBow();
+		break;
+	case EEnemyCommonWeapon::Hammer:
+		daggerWeapon->SetVisibility(false);
+		isElite = true;
 		break;
 	case EEnemyCommonWeapon::Size:
 		break;
@@ -134,7 +156,7 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 {
 	currentEnemyState = EEnemyState::BeingAttacked;
 	OnBeingAttacked.ExecuteIfBound();
-	attackElapsedTime = attackCooltime - 1.5f;
+	
 
 	currentHP -= damageAmount;
 	if (currentHP <= 0)
@@ -156,32 +178,50 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 		angle *= -1;
 	}
 
-	if (angle <= 45.0f && angle >= -45.0f)
+
+	if (enemyWeapon != EEnemyCommonWeapon::Hammer)
 	{
-		GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage);
+		attackElapsedTime = attackCooltime - 1.5f;
+
+		if (angle <= 45.0f && angle >= -45.0f)
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage);
+		}
+		else if (angle > 45.0f && angle <= 135.0f)
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage1);
+		}
+		else if (angle < -45.0f && angle >= -135.0f)
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage2);
+		}
+		else
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage3);
+		}
 	}
-	else if (angle > 45.0f && angle <= 135.0f)
-	{
-		GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage1);
-	}
-	else if (angle < -45.0f && angle >= -135.0f)
-	{
-		GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage2);
-	}
-	else
-	{
-		GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage3);
-	}
+	
 }
 
 void AEnemyCommon::CommonAttack()
 {
 	currentEnemyState = EEnemyState::Attacking;
 
-	if (!(GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackMontage)))
+	if (enemyWeapon == EEnemyCommonWeapon::Hammer)
 	{
-		GetMesh()->GetAnimInstance()->Montage_Play(attackMontage);
+		if (!(GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackHammerMontage)))
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(attackHammerMontage);
+		}
 	}
+	else
+	{
+		if (!(GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackDaggerMontage)))
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(attackDaggerMontage);
+		}
+	}
+	
 }
 
 void AEnemyCommon::SpawnBow()
@@ -225,12 +265,26 @@ void AEnemyCommon::TriggerTrace()
 
 void AEnemyCommon::ApplyTrace()
 {
-	FVector start{ daggerWeapon->GetSocketLocation(TEXT("StartPoint")) };
-	FVector end{ daggerWeapon->GetSocketLocation(TEXT("EndPoint")) };
+	FVector start{ };
+	FVector end{ };
+	float radius{};
+	if (enemyWeapon == EEnemyCommonWeapon::Hammer)
+	{
+		start = hammerWeapon->GetSocketLocation(TEXT("StartPoint"));
+		end = hammerWeapon->GetSocketLocation(TEXT("EndPoint"));
+		radius = 25.0f;
+	}
+	else
+	{
+		start = daggerWeapon->GetSocketLocation(TEXT("StartPoint"));
+		end = daggerWeapon->GetSocketLocation(TEXT("EndPoint"));
+		radius = 15.0f;
+	}
+	
 	TArray<AActor*> ignoreActors;
 	TArray<FHitResult> outHits;
 	ignoreActors.Add(this);
-	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, 15.0, TCHANNEL_ENEMYDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
+	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, TCHANNEL_ENEMYDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
 	if (isHit)
 	{
 		for (const auto& hitResult : outHits)
@@ -260,6 +314,9 @@ float AEnemyCommon::CaculateDamage()
 			break;
 		case EEnemyCommonWeapon::Bow:
 			attackDamage = 15.0f;
+			break;
+		case EEnemyCommonWeapon::Hammer:
+			attackDamage = 40.0f;
 			break;
 		default:
 			break;
@@ -318,7 +375,7 @@ bool AEnemyCommon::AttackByAI()
 
 bool AEnemyCommon::NoTurn()
 {
-	if (enemyWeapon == EEnemyCommonWeapon::Dagger && GetMesh()->GetAnimInstance()->Montage_IsPlaying(attackMontage))
+	if (currentEnemyState == EEnemyState::Attacking)
 	{
 		return true;
 	}
