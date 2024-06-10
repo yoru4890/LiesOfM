@@ -163,6 +163,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_curve;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_grabActor_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_grabActor;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_lightAttackAction_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_lightAttackAction;
@@ -171,10 +175,6 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_hitActors_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_hitActors;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_grabActor_MetaData[];
-#endif
-		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_grabActor;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallHitMontage_MetaData[];
 #endif
@@ -217,6 +217,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve = { "curve", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, curve), Z_Construct_UClass_UCurveFloat_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData[] = {
+		{ "Category", "Yoru|Actor" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAttackComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor = { "grabActor", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, grabActor), Z_Construct_UClass_AEnemyBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_lightAttackAction_MetaData[] = {
 		{ "Category", "Yoru|Input" },
 		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAttackComponent.h" },
@@ -231,13 +238,6 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors = { "hitActors", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, hitActors), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_MetaData) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData[] = {
-		{ "Category", "Yoru|Actor" },
-		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAttackComponent.h" },
-	};
-#endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor = { "grabActor", nullptr, (EPropertyFlags)0x0044000000020001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, grabActor), Z_Construct_UClass_AEnemyBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage_MetaData[] = {
 		{ "Category", "Yoru|Montage" },
@@ -254,10 +254,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage = { "grabAttackMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, grabAttackMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruAttackComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_lightAttackAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage,
 	};
@@ -299,9 +299,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 334814641U) },
+		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 1455661645U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_4140129252(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_1039747034(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

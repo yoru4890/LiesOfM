@@ -56,6 +56,9 @@ public:
 
 	FTimeline attackDirectionTimeLine{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Actor")
+	TObjectPtr<class AEnemyBase> grabActor{};
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lightAttackAction;
@@ -70,9 +73,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
 	TArray<AActor*> hitActors{};
-
-	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
-	TObjectPtr<class AEnemyBase> grabActor{};
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> wallHitMontage;

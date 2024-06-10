@@ -39,6 +39,8 @@ public:
 	virtual bool CanGrabAttacked() override;
 
 	virtual void GrabAttacked() override;
+
+	virtual void CaculateDamage(float damage) override;
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -157,6 +159,8 @@ public:
 	void HiddenDamageText();
 	void HiddenHPBar();
 	void Dead();
+
+
 
 	FTimerHandle damageTextTimeHandle{};
 	FTimerHandle HPBarTimeHandle{};

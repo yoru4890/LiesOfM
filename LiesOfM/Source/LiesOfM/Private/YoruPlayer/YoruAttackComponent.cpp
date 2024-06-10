@@ -19,6 +19,7 @@
 #include "LevelDesign/LevelElementBase.h"
 #include "Interface/HitEffectInterface.h"
 #include "Collision/CollisionChannel.h"
+#include "YoruPlayer/YoruDefenceComponent.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -237,8 +238,6 @@ void UYoruAttackComponent::GrabAttackTrace()
 				FVector rightDirection{ (FRotationMatrix(hitResult.GetActor()->GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
 				double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
 
-				UE_LOG(LogTemp, Warning, TEXT("%f"), degree);
-
 				if (grabActor->isElite)
 				{
 					if (degree >= 135.0)
@@ -268,8 +267,8 @@ void UYoruAttackComponent::GrabAttackTrace()
 void UYoruAttackComponent::GrabAttack()
 {
 	me->moveComp->MovementInputHandler(0.0f, true);
+	me->defenceComp->SetInvincibilityTime(3.9f);
 	me->SetActorLocation(grabPoint);
 	me->GetMesh()->GetAnimInstance()->Montage_Play(grabAttackMontage);
 	grabActor->GrabAttacked();
-	grabActor = nullptr;
 }

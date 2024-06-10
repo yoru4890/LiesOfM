@@ -14,6 +14,7 @@ enum class EEnemyState : uint8
 	Attacking UMETA(DisplayName = "Attack"),
 	BeingAttacked UMETA(DisplayName = "BeingAttacked"),
 	Groggy UMETA(DisplayName = "Groggy"),
+	GrabAttacked UMETA(DisplayName = "GrabAttacked"),
 
 	SIZE UMETA(DisplayName = "SIZE")
 };
@@ -39,6 +40,9 @@ public:
 	virtual bool CanGrabAttacked() { return false; };
 
 	virtual void GrabAttacked() {};
+
+	UFUNCTION(BlueprintCallable)
+	virtual void CaculateDamage(float damage) {};
 
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseHealth(float amount);

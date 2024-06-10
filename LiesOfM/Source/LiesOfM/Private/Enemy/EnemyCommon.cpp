@@ -109,7 +109,7 @@ AEnemyCommon::AEnemyCommon()
 	{
 		grabAttackedFrontMontage = grabAttackedFrontMontageFinder.Object;
 	}
-	
+
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttackedBackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/GrabAttack/AM_GrabAttackedBack.AM_GrabAttackedBack'"));
 
 	if (grabAttackedBackMontageFinder.Succeeded())
@@ -124,24 +124,24 @@ void AEnemyCommon::BeginPlay()
 
 	switch (enemyWeapon)
 	{
-	case EEnemyCommonWeapon::None:
-		break;
-	case EEnemyCommonWeapon::Dagger:
-		hammerWeapon->SetVisibility(false);
-		break;
-	case EEnemyCommonWeapon::Bow:
-		daggerWeapon->SetVisibility(false);
-		hammerWeapon->SetVisibility(false);
-		SpawnBow();
-		break;
-	case EEnemyCommonWeapon::Hammer:
-		daggerWeapon->SetVisibility(false);
-		isElite = true;
-		break;
-	case EEnemyCommonWeapon::Size:
-		break;
-	default:
-		break;
+		case EEnemyCommonWeapon::None:
+			break;
+		case EEnemyCommonWeapon::Dagger:
+			hammerWeapon->SetVisibility(false);
+			break;
+		case EEnemyCommonWeapon::Bow:
+			daggerWeapon->SetVisibility(false);
+			hammerWeapon->SetVisibility(false);
+			SpawnBow();
+			break;
+		case EEnemyCommonWeapon::Hammer:
+			daggerWeapon->SetVisibility(false);
+			isElite = true;
+			break;
+		case EEnemyCommonWeapon::Size:
+			break;
+		default:
+			break;
 	}
 	currentHP = maxHP;
 	InitWidget();
@@ -156,13 +156,13 @@ void AEnemyCommon::Tick(float DeltaTime)
 		attackElapsedTime = 0;
 		OnAttackFinished.ExecuteIfBound();
 	}
-	else if(attackElapsedTime)
+	else if (attackElapsedTime)
 	{
 		attackElapsedTime += DeltaTime;
 	}
 
 	FRotator temp = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), UGameplayStatics::GetPlayerPawn(GetWorld(), 0)->GetActorLocation());
-	
+
 	temp.Pitch = 0;
 	temp.Roll = 0;
 	widgetHP->SetWorldRotation(temp);
@@ -177,17 +177,8 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 {
 	currentEnemyState = EEnemyState::BeingAttacked;
 	OnBeingAttacked.ExecuteIfBound();
-	
 
-	currentHP -= damageAmount;
-	if (currentHP <= 0)
-	{
-		Dead();
-	}
-	else
-	{
-		TriggerWidget(damageAmount);
-	}
+	CaculateDamage(damageAmount);
 
 	FVector actorDirection{ GetActorRotation().Vector().GetSafeNormal2D() };
 	FVector actorRightDirection{ (FRotationMatrix(GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
@@ -199,8 +190,7 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 		angle *= -1;
 	}
 
-
-	if (enemyWeapon != EEnemyCommonWeapon::Hammer)
+	if (enemyWeapon != EEnemyCommonWeapon::Hammer && currentEnemyState != EEnemyState::GrabAttacked)
 	{
 		attackElapsedTime = attackCooltime - 1.5f;
 
@@ -221,7 +211,7 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 			GetMesh()->GetAnimInstance()->Montage_Play(hitReactionMontage3);
 		}
 	}
-	
+
 }
 
 bool AEnemyCommon::CanGrabAttacked()
@@ -233,12 +223,14 @@ bool AEnemyCommon::CanGrabAttacked()
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
 void AEnemyCommon::GrabAttacked()
 {
+	currentEnemyState = EEnemyState::GrabAttacked;
+
 	if (isElite)
 	{
 
@@ -267,7 +259,7 @@ void AEnemyCommon::CommonAttack()
 			GetMesh()->GetAnimInstance()->Montage_Play(attackDaggerMontage);
 		}
 	}
-	
+
 }
 
 void AEnemyCommon::SpawnBow()
@@ -326,7 +318,7 @@ void AEnemyCommon::ApplyTrace()
 		end = daggerWeapon->GetSocketLocation(TEXT("EndPoint"));
 		radius = 15.0f;
 	}
-	
+
 	TArray<AActor*> ignoreActors;
 	TArray<FHitResult> outHits;
 	ignoreActors.Add(this);
@@ -487,8 +479,22 @@ void AEnemyCommon::Dead()
 	UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(RootComponent);
 	PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	FTimerHandle tempTimerHandle{};
-	GetWorld()->GetTimerManager().SetTimer(tempTimerHandle, [this]() 
+	GetWorld()->GetTimerManager().SetTimer(tempTimerHandle, [this]()
 		{
 			GetMesh()->SetVisibility(false, true);
 		}, 0.01f, false, 10.0f);
+}
+
+void AEnemyCommon::CaculateDamage(float damage)
+{
+	currentHP -= damage;
+	if (currentHP <= 0)
+	{
+		TriggerWidget(currentHP);
+		Dead();
+	}
+	else
+	{
+		TriggerWidget(damage);
+	}
 }
