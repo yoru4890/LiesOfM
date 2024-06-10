@@ -47,6 +47,9 @@ public:
 
 	float CaculateDamage();
 
+	void GrabAttackTrace();
+	void GrabAttack();
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Timeline")
 	UCurveFloat* curve{};
@@ -68,6 +71,14 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
 	TArray<AActor*> hitActors{};
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Actor")
+	TObjectPtr<class AEnemyBase> grabActor{};
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> wallHitMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> grabAttackMontage;
+
+	FVector grabPoint{};
 };

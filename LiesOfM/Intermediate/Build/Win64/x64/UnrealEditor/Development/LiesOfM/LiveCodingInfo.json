@@ -32,7 +32,6 @@
 			"WeaponBase.gen.cpp.obj",
 			"Yoru.gen.cpp.obj",
 			"YoruAnimInstance.gen.cpp.obj",
-			"YoruAttackComponent.gen.cpp.obj",
 			"YoruBaseComponent.gen.cpp.obj",
 			"YoruDefenceComponent.gen.cpp.obj",
 			"YoruLockonComponent.gen.cpp.obj",
@@ -50,7 +49,6 @@
 			"BTService_BlackboardBaseTest.cpp.obj",
 			"BTTaskNodeTest.cpp.obj",
 			"BTTask_BlackboardBaseTest.cpp.obj",
-			"EnemyBase.cpp.obj",
 			"EnemyCommonAIController.cpp.obj",
 			"EnemyCommonAnimInstance.cpp.obj",
 			"CommonAIInterface.cpp.obj",
@@ -69,7 +67,6 @@
 			"WeaponBase.cpp.obj",
 			"Yoru.cpp.obj",
 			"YoruAnimInstance.cpp.obj",
-			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
 			"YoruDefenceComponent.cpp.obj",
 			"YoruLockonComponent.cpp.obj",
@@ -77,7 +74,10 @@
 			"YoruStatComponent.cpp.obj",
 			"YoruWidgetComponent.cpp.obj",
 			"LiesOfM.init.gen.cpp.obj",
-			"EnemyCommon.cpp.obj"
+			"YoruAttackComponent.gen.cpp.obj",
+			"EnemyBase.cpp.obj",
+			"EnemyCommon.cpp.obj",
+			"YoruAttackComponent.cpp.obj"
 		]
 	}
 }

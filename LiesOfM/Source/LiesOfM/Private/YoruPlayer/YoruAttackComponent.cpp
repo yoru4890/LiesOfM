@@ -18,6 +18,7 @@
 #include "TOMGameInstance.h"
 #include "LevelDesign/LevelElementBase.h"
 #include "Interface/HitEffectInterface.h"
+#include "Collision/CollisionChannel.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -42,6 +43,13 @@ UYoruAttackComponent::UYoruAttackComponent()
 	if (wallHitMontageFinder.Succeeded())
 	{
 		wallHitMontage = wallHitMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/GreatSwordMove/AM_GreatSword_GrabAttack.AM_GreatSword_GrabAttack'"));
+
+	if (grabAttackMontageFinder.Succeeded())
+	{
+		grabAttackMontage = grabAttackMontageFinder.Object;
 	}
 }
 
@@ -80,8 +88,17 @@ void UYoruAttackComponent::Attack()
 {
 	if (me->moveComp->GetIsMovementInput() && me->statComp->CheckStamina(1.0f))
 	{
-		me->statComp->CallRegenerateStopStamina();
-		HandleAttack();
+		GrabAttackTrace();
+
+		if (grabActor)
+		{
+			GrabAttack();
+		}
+		else
+		{
+			me->statComp->CallRegenerateStopStamina();
+			HandleAttack();
+		}
 	}
 }
 
@@ -197,4 +214,62 @@ float UYoruAttackComponent::CaculateDamage()
 			break;
 	}
 	return attackDamage;
+}
+
+void UYoruAttackComponent::GrabAttackTrace()
+{
+	FVector start{ me->GetActorLocation() };
+	FVector end{ me->GetActorLocation() };
+	TArray<AActor*> ignoreActors{};
+	TArray<FHitResult> outHits{};
+
+	bool isEnemy = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, 120.0f, TCHANNEL_PLAYERDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
+
+	if (isEnemy)
+	{
+		for (const FHitResult& hitResult : outHits)
+		{
+			grabActor = Cast<AEnemyBase>(hitResult.GetActor());
+			if (grabActor)
+			{
+				FVector hitdirection{ (hitResult.GetActor()->GetActorLocation() - me->GetActorLocation()).GetSafeNormal2D() };
+				FVector direction{ hitResult.GetActor()->GetActorRotation().Vector().GetSafeNormal2D() };
+				FVector rightDirection{ (FRotationMatrix(hitResult.GetActor()->GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
+				double degree{ FMath::RadiansToDegrees(FMath::Acos((FVector::DotProduct(direction, hitdirection)))) };
+
+				UE_LOG(LogTemp, Warning, TEXT("%f"), degree);
+
+				if (grabActor->isElite)
+				{
+					if (degree >= 135.0)
+					{
+						if (grabActor->currentEnemyState == EEnemyState::Groggy)
+						{
+							return;
+						}
+					}
+				}
+				else
+				{
+					if (degree <= 45.0)
+					{
+						grabPoint = grabActor->GetActorLocation() - direction * 150.0 - rightDirection * 20.0;
+
+						return;
+					}
+				}
+
+				grabActor = nullptr;
+			}
+		}
+	}
+}
+
+void UYoruAttackComponent::GrabAttack()
+{
+	me->moveComp->MovementInputHandler(0.0f, true);
+	me->SetActorLocation(grabPoint);
+	me->GetMesh()->GetAnimInstance()->Montage_Play(grabAttackMontage);
+	grabActor->GrabAttacked();
+	grabActor = nullptr;
 }

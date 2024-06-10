@@ -13,6 +13,7 @@ enum class EEnemyState : uint8
 	None UMETA(DisplayName = "None"),
 	Attacking UMETA(DisplayName = "Attack"),
 	BeingAttacked UMETA(DisplayName = "BeingAttacked"),
+	Groggy UMETA(DisplayName = "Groggy"),
 
 	SIZE UMETA(DisplayName = "SIZE")
 };
@@ -35,6 +36,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
+	virtual bool CanGrabAttacked() { return false; };
+
+	virtual void GrabAttacked() {};
 
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseHealth(float amount);
@@ -50,4 +54,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool isDead{};
+
+	UPROPERTY(BlueprintReadWrite)
+	float currentGroggy{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float maxGroggy{ 100.0f };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
+	bool isElite{};
 };

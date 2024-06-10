@@ -36,6 +36,9 @@ public:
 
 	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
 
+	virtual bool CanGrabAttacked() override;
+
+	virtual void GrabAttacked() override;
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -43,6 +46,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<USkeletalMeshComponent> hammerWeapon{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> redAttackBody{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> redAttackHammer{};
 
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
 	TObjectPtr<UAnimMontage> attackDaggerMontage;
@@ -62,6 +71,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
 	TObjectPtr<UAnimMontage> hitReactionMontage3;
 
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> grabAttackedFrontMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> grabAttackedBackMontage;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Stat")
 	double attackRange{};
 
@@ -73,9 +88,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
 	bool isAggro{};
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
-	bool isElite{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float attackCooltime{ 4.0f };
@@ -92,6 +104,12 @@ public:
 	void ApplyTrace();
 	UFUNCTION(BlueprintCallable)
 	void StopTrace();
+
+	UFUNCTION(BlueprintCallable)
+	void ShowRedAttack();
+
+	UFUNCTION(BlueprintCallable)
+	void HiddenRedAttack();
 
 	float CaculateDamage();
 
@@ -120,6 +138,7 @@ private:
 	float attackElapsedTime{};
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float maxHP{ 100.0f };
 	float currentHP{ 100.0f };
 	float totalDamage{};

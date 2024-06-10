@@ -14,11 +14,18 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Enemy/EnemyCommonAIController.h"
 #include "Components/PrimitiveComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 AEnemyCommon::AEnemyCommon()
 {
 	daggerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
 	hammerWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("hammerMesh"));
+
+	redAttackBody = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackBody"));
+	redAttackBody->SetupAttachment(GetMesh());
+	redAttackHammer = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackHammer"));
+	redAttackHammer->SetupAttachment(hammerWeapon);
 
 	widgetHP = CreateDefaultSubobject<UWidgetComponent>(TEXT("widgetHP"));
 	widgetHP->SetupAttachment(RootComponent);
@@ -95,6 +102,20 @@ AEnemyCommon::AEnemyCommon()
 	{
 		hitReactionMontage3 = hitReactionMontageFinder3.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttackedFrontMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/GrabAttack/AM_GrabAttackedFront.AM_GrabAttackedFront'"));
+
+	if (grabAttackedFrontMontageFinder.Succeeded())
+	{
+		grabAttackedFrontMontage = grabAttackedFrontMontageFinder.Object;
+	}
+	
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttackedBackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/GrabAttack/AM_GrabAttackedBack.AM_GrabAttackedBack'"));
+
+	if (grabAttackedBackMontageFinder.Succeeded())
+	{
+		grabAttackedBackMontage = grabAttackedBackMontageFinder.Object;
+	}
 }
 
 void AEnemyCommon::BeginPlay()
@@ -122,7 +143,7 @@ void AEnemyCommon::BeginPlay()
 	default:
 		break;
 	}
-
+	currentHP = maxHP;
 	InitWidget();
 }
 
@@ -201,6 +222,31 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 		}
 	}
 	
+}
+
+bool AEnemyCommon::CanGrabAttacked()
+{
+	if (isElite)
+	{
+		if (currentEnemyState != EEnemyState::Groggy)
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+void AEnemyCommon::GrabAttacked()
+{
+	if (isElite)
+	{
+
+	}
+	else
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(grabAttackedBackMontage);
+	}
 }
 
 void AEnemyCommon::CommonAttack()
@@ -304,6 +350,18 @@ void AEnemyCommon::StopTrace()
 	GetWorld()->GetTimerManager().ClearTimer(lineTraceTimeHandle);
 }
 
+void AEnemyCommon::ShowRedAttack()
+{
+	redAttackBody->SetVisibility(true);
+	redAttackHammer->SetVisibility(true);
+}
+
+void AEnemyCommon::HiddenRedAttack()
+{
+	redAttackBody->SetVisibility(false);
+	redAttackHammer->SetVisibility(false);
+}
+
 float AEnemyCommon::CaculateDamage()
 {
 	float attackDamage{};
@@ -375,7 +433,7 @@ bool AEnemyCommon::AttackByAI()
 
 bool AEnemyCommon::NoTurn()
 {
-	if (currentEnemyState == EEnemyState::Attacking)
+	if (currentEnemyState == EEnemyState::Attacking && enemyWeapon == EEnemyCommonWeapon::Dagger)
 	{
 		return true;
 	}
@@ -417,6 +475,8 @@ void AEnemyCommon::HiddenHPBar()
 
 void AEnemyCommon::Dead()
 {
+	GetMesh()->GetAnimInstance()->StopAllMontages(0.1f);
+	HiddenRedAttack();
 	widgetHP->SetVisibility(false);
 	isDead = true;
 	AEnemyCommonAIController* temp = Cast<AEnemyCommonAIController>(GetController());
