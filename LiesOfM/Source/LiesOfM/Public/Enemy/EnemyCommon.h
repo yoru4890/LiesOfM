@@ -36,11 +36,15 @@ public:
 
 	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
 
+	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) override;
+
 	virtual bool CanGrabAttacked() override;
 
-	virtual void GrabAttacked() override;
+	virtual void GrabAttacked(bool isFront) override;
 
 	virtual void CaculateDamage(float damage) override;
+
+	virtual void Groggy() override;
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -79,6 +83,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
 	TObjectPtr<UAnimMontage> grabAttackedBackMontage;
 
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> groggyMontage;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Stat")
 	double attackRange{};
 
@@ -87,6 +94,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Enemy|Weapon")
 	class AWeaponBase* bow{};
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> bloodFX;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
 	bool isAggro{};

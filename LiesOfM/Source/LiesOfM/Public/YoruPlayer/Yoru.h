@@ -51,7 +51,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) override {};
 public:
 	inline TObjectPtr<class UYoruStatComponent> GetStatComp() const noexcept { return statComp; }
 

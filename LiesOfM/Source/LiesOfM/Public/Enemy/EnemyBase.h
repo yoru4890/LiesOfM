@@ -37,9 +37,17 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
+
+	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) override {};
+
 	virtual bool CanGrabAttacked() { return false; };
 
-	virtual void GrabAttacked() {};
+	virtual void GrabAttacked(bool isFront) {};
+
+	virtual void Groggy() {};
+
+	UFUNCTION(BlueprintCallable)
+	void SetInvincibilityTime(float duration);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void CaculateDamage(float damage) {};
@@ -62,9 +70,11 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	float currentGroggy{};
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Stat")
 	float maxGroggy{ 100.0f };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
 	bool isElite{};
+
+	bool isHittable{ true };
 };

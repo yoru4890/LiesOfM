@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0B73E2B0-49A2-3BFD-8280-9432CFF9A610}</ProjectGuid>
+    <ProjectGuid>{FDAD623D-0CE1-38F7-9AD4-D04FD1B50C18}</ProjectGuid>
     <RootNamespace>LiesOfM</RootNamespace>
   </PropertyGroup>
   <Import Project="UECommon.props" />
@@ -110,7 +110,6 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
-    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -171,22 +170,22 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTService_BlackboardBaseTest.cpp">
-      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTaskNodeTest.cpp">
-      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BTTask_BlackboardBaseTest.cpp">
-      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBoss.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBossAIController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBossAnimInstance.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -319,10 +318,10 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_TurnToTarget.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTAttack.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h"/>
-    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTService_BlackboardBaseTest.h"/>
-    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTaskNodeTest.h"/>
-    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BTTask_BlackboardBaseTest.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBoss.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAIController.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAnimInstance.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommon.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAnimInstance.h"/>

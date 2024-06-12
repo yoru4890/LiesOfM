@@ -42,6 +42,16 @@ void AEnemyBase::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 	}
 }
 
+void AEnemyBase::SetInvincibilityTime(float duration)
+{
+	isHittable = false;
+	FTimerHandle invincibilityTimeHandle{};
+	GetWorld()->GetTimerManager().SetTimer(invincibilityTimeHandle, [this]()
+		{
+			isHittable = true;
+		}, 0.01f, false, duration);
+}
+
 bool AEnemyBase::DecreaseHealth(float amount)
 {
 	currentHealth -= amount;

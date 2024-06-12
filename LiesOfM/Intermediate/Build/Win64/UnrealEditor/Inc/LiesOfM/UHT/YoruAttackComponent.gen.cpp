@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCurveFloat_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
 	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_AEnemyBase_NoRegister();
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruAttackComponent();
@@ -183,6 +184,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_grabAttackMontage_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_grabAttackMontage;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_swordHitSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_swordHitSound;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -252,6 +257,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage = { "grabAttackMontage", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, grabAttackMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_swordHitSound_MetaData[] = {
+		{ "Category", "Yoru|Sound" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruAttackComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_swordHitSound = { "swordHitSound", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruAttackComponent, swordHitSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_swordHitSound_MetaData), Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_swordHitSound_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruAttackComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_curve,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabActor,
@@ -260,6 +272,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_hitActors,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_wallHitMontage,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_grabAttackMontage,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruAttackComponent_Statics::NewProp_swordHitSound,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruAttackComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruAttackComponent>::IsAbstract,
@@ -299,9 +312,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruAttackComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 1455661645U) },
+		{ Z_Construct_UClass_UYoruAttackComponent, UYoruAttackComponent::StaticClass, TEXT("UYoruAttackComponent"), &Z_Registration_Info_UClass_UYoruAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruAttackComponent), 2807479044U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_1039747034(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_1591242287(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruAttackComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

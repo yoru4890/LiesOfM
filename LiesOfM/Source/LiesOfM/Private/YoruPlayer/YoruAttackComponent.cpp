@@ -20,6 +20,7 @@
 #include "Interface/HitEffectInterface.h"
 #include "Collision/CollisionChannel.h"
 #include "YoruPlayer/YoruDefenceComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -51,6 +52,13 @@ UYoruAttackComponent::UYoruAttackComponent()
 	if (grabAttackMontageFinder.Succeeded())
 	{
 		grabAttackMontage = grabAttackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> swordHitSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/SwordHit/SwordHit.SwordHit'"));
+
+	if (swordHitSoundFinder.Succeeded())
+	{
+		swordHitSound = swordHitSoundFinder.Object;
 	}
 }
 
@@ -87,6 +95,8 @@ void UYoruAttackComponent::AttackCounterHandler()
 
 void UYoruAttackComponent::Attack()
 {
+	if (me->currentRightWeaponState == EUseWeaponState::NONE) return;
+
 	if (me->moveComp->GetIsMovementInput() && me->statComp->CheckStamina(1.0f))
 	{
 		GrabAttackTrace();
@@ -179,6 +189,7 @@ void UYoruAttackComponent::ApplyLineTrace()
 			{
 				hitActors.Add(hitResult.GetActor());
 				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me, hitResult);
+				UGameplayStatics::PlaySoundAtLocation(this, swordHitSound, hitResult.ImpactPoint, 1.0f, 1.0f, 0.1f);
 			}
 			else if (hitResult.GetActor()->GetClass()->ImplementsInterface(UHitEffectInterface::StaticClass()) && !hitActors.Contains(hitResult.GetActor()))
 			{
@@ -244,6 +255,8 @@ void UYoruAttackComponent::GrabAttackTrace()
 					{
 						if (grabActor->currentEnemyState == EEnemyState::Groggy)
 						{
+							grabPoint = grabActor->GetActorLocation() + direction * 150.0 - rightDirection * 20.0;
+							isGrabAttackFront = true;
 							return;
 						}
 					}
@@ -253,7 +266,7 @@ void UYoruAttackComponent::GrabAttackTrace()
 					if (degree <= 45.0)
 					{
 						grabPoint = grabActor->GetActorLocation() - direction * 150.0 - rightDirection * 20.0;
-
+						isGrabAttackFront = false;
 						return;
 					}
 				}
@@ -270,5 +283,5 @@ void UYoruAttackComponent::GrabAttack()
 	me->defenceComp->SetInvincibilityTime(3.9f);
 	me->SetActorLocation(grabPoint);
 	me->GetMesh()->GetAnimInstance()->Montage_Play(grabAttackMontage);
-	grabActor->GrabAttacked();
+	grabActor->GrabAttacked(isGrabAttackFront);
 }

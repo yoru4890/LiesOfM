@@ -80,5 +80,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> grabAttackMontage;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Sound")
+	TObjectPtr<USoundBase> swordHitSound{};
+
 	FVector grabPoint{};
+
+	bool isGrabAttackFront{};
 };

@@ -17,6 +17,7 @@
 #include "Subsystems/TOMAudioSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "Weapon/WeaponBase.h"
+#include "Interface/DamageInteractions.h"
 
 UYoruDefenceComponent::UYoruDefenceComponent()
 {
@@ -71,6 +72,9 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		FVector hitDirection{ (hitResult.ImpactPoint - me->GetActorLocation()).GetSafeNormal2D() };
 		double rightDotResult{ FVector::DotProduct(actorRightDirection, hitDirection) };
 		double angle{ FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(actorDirection, hitDirection))) };
+
+		IDamageInteractions* damageInterface = Cast<IDamageInteractions>(attackingActor);
+
 		if (rightDotResult < 0)
 		{
 			angle *= -1;
@@ -90,10 +94,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 				}
 				else
 				{
+					damageInterface->ReceiveGroggyDamage(50.0f, me);
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
-					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -125,10 +129,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 				}
 				else
 				{
+					damageInterface->ReceiveGroggyDamage(50.0f, me);
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
-					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -160,10 +164,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 				}
 				else
 				{
+					damageInterface->ReceiveGroggyDamage(50.0f, me);
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
-					/*GetWorld()->GetTimerManager().SetTimer(parryingTimeHandle, FTimerDelegate::CreateLambda[this]())*/
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)

@@ -18,4 +18,6 @@ class LIESOFM_API IDamageInteractions
 
 public:
 	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) = 0;
+
+	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) = 0;
 };

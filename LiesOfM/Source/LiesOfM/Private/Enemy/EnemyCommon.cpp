@@ -116,6 +116,13 @@ AEnemyCommon::AEnemyCommon()
 	{
 		grabAttackedBackMontage = grabAttackedBackMontageFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> groggyMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Common1/Anim/GrabAttack/GroggyStart_Montage.GroggyStart_Montage'"));
+
+	if (groggyMontageFinder.Succeeded())
+	{
+		groggyMontage = groggyMontageFinder.Object;
+	}
 }
 
 void AEnemyCommon::BeginPlay()
@@ -145,6 +152,8 @@ void AEnemyCommon::BeginPlay()
 	}
 	currentHP = maxHP;
 	InitWidget();
+
+	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
 }
 
 void AEnemyCommon::Tick(float DeltaTime)
@@ -175,6 +184,7 @@ void AEnemyCommon::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
 {
+	if (!isHittable) return;
 	currentEnemyState = EEnemyState::BeingAttacked;
 	OnBeingAttacked.ExecuteIfBound();
 
@@ -189,6 +199,8 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 	{
 		angle *= -1;
 	}
+
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 
 	if (enemyWeapon != EEnemyCommonWeapon::Hammer && currentEnemyState != EEnemyState::GrabAttacked)
 	{
@@ -214,6 +226,22 @@ void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, con
 
 }
 
+void AEnemyCommon::ReceiveGroggyDamage(float damageAmount, AActor* attackingActor)
+{
+	Super::ReceiveGroggyDamage(damageAmount, attackingActor);
+
+	if (isElite)
+	{
+		currentGroggy += damageAmount;
+	}
+
+	if (currentGroggy >= maxGroggy)
+	{
+		currentGroggy = maxGroggy;
+		Groggy();
+	}
+}
+
 bool AEnemyCommon::CanGrabAttacked()
 {
 	if (isElite)
@@ -227,13 +255,13 @@ bool AEnemyCommon::CanGrabAttacked()
 	return true;
 }
 
-void AEnemyCommon::GrabAttacked()
+void AEnemyCommon::GrabAttacked(bool isFront)
 {
 	currentEnemyState = EEnemyState::GrabAttacked;
 
-	if (isElite)
+	if (isFront)
 	{
-
+		GetMesh()->GetAnimInstance()->Montage_Play(grabAttackedFrontMontage);
 	}
 	else
 	{
@@ -243,6 +271,8 @@ void AEnemyCommon::GrabAttacked()
 
 void AEnemyCommon::CommonAttack()
 {
+	if (currentEnemyState == EEnemyState::Groggy || currentEnemyState == EEnemyState::GrabAttacked) return;
+
 	currentEnemyState = EEnemyState::Attacking;
 
 	if (enemyWeapon == EEnemyCommonWeapon::Hammer)
@@ -497,4 +527,12 @@ void AEnemyCommon::CaculateDamage(float damage)
 	{
 		TriggerWidget(damage);
 	}
+}
+
+void AEnemyCommon::Groggy()
+{
+	currentEnemyState = EEnemyState::Groggy;
+	HiddenRedAttack();
+	currentGroggy = 0;
+	GetMesh()->GetAnimInstance()->Montage_Play(groggyMontage);
 }
