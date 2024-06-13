@@ -8,6 +8,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "BossAI/BossAI.h"
 
 AEnemyBossAIController::AEnemyBossAIController()
 {
@@ -34,8 +35,6 @@ void AEnemyBossAIController::BeginPlay()
 void AEnemyBossAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
-	RunAI();
 }
 
 void AEnemyBossAIController::RunAI()
@@ -43,8 +42,10 @@ void AEnemyBossAIController::RunAI()
 	UBlackboardComponent* BlackboardPtr{ Blackboard.Get() };
 	if (UseBlackboard(ownedBB, BlackboardPtr))
 	{
+		Blackboard->SetValueAsObject(BBKEY_TARGET, UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 		bool RunResult = RunBehaviorTree(ownedBT);
 		ensure(RunResult);
+
 	}
 }
 

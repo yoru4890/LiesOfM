@@ -55,10 +55,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseHealth(float amount);
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float currentHealth{80.0f};
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float maxHealth{100.0f};
 
 	UPROPERTY(BlueprintReadWrite)

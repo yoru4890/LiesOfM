@@ -2,9 +2,14 @@
 
 
 #include "Enemy/EnemyBoss.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Enemy/EnemyBossAIController.h"
+#include "Kismet/GameplayStatics.h"
 
 AEnemyBoss::AEnemyBoss()
 {
+	weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
+
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/AAA/Animations/Enemy/Boss1/Uriel_A_Plotexia.Uriel_A_Plotexia'"));
 
 	if (meshFinder.Succeeded())
@@ -19,16 +24,33 @@ AEnemyBoss::AEnemyBoss()
 	{
 		GetMesh()->SetAnimInstanceClass(animFinder.Class);
 	}
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> weaponMeshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Axes/Blade_GreatBlade/SK_Blade_GreatBlade.SK_Blade_GreatBlade'"));
+
+	if (weaponMeshFinder.Succeeded())
+	{
+		weapon->SetSkeletalMesh(weaponMeshFinder.Object);
+		weapon->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Weapon"));
+	}
 }
 
 void AEnemyBoss::BeginPlay()
 {
 	Super::BeginPlay();
+
+	maxGroggy = 250.0f;
 }
 
 void AEnemyBoss::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	auto player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+
+	auto RotateTemp = (player->GetActorLocation() - GetActorLocation()).Rotation();
+	RotateTemp.Pitch = 0;
+
+	SetActorRotation(RotateTemp);
 }
 
 void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -65,4 +87,100 @@ void AEnemyBoss::Groggy()
 void AEnemyBoss::CaculateDamage(float damage)
 {
 	Super::CaculateDamage(damage);
+}
+
+void AEnemyBoss::ChangePhase()
+{
+}
+
+void AEnemyBoss::Attack()
+{
+}
+
+void AEnemyBoss::CounterAttack()
+{
+}
+
+void AEnemyBoss::RushAttack()
+{
+}
+
+void AEnemyBoss::JumpAttack()
+{
+}
+
+void AEnemyBoss::meleeAttack1()
+{
+}
+
+void AEnemyBoss::meleeAttack2()
+{
+}
+
+void AEnemyBoss::meleeAttack3()
+{
+}
+
+void AEnemyBoss::TriggerTrace()
+{
+}
+
+void AEnemyBoss::ApplyTrace()
+{
+}
+
+void AEnemyBoss::StopTrace()
+{
+}
+
+void AEnemyBoss::ShowRedAttack()
+{
+}
+
+void AEnemyBoss::HiddenRedAttack()
+{
+}
+
+float AEnemyBoss::GetAIAttackMeleeRange()
+{
+	return 300.0f;
+}
+
+float AEnemyBoss::GetAIAttackLongRange()
+{
+	return 600.0f;
+}
+
+void AEnemyBoss::SetAIMoveFinishedDelegate(const FAIRandomMoveFinished& InOnRandomMoveFinished)
+{
+	OnRandomMoveFinished = InOnRandomMoveFinished;
+}
+
+void AEnemyBoss::SetAIAttackFinishedDelegate(const FAIAttackFinished& InOnAttackFinished)
+{
+	OnAttackFinished = InOnAttackFinished;
+}
+
+void AEnemyBoss::RandomMoveByAI()
+{
+	FVector Direction = FMath::VRand().GetSafeNormal2D();
+	FTransform Temp(GetActorRotation(), GetActorLocation() + Direction);
+
+	Cast<AEnemyBossAIController>(GetController())->MoveToLocation(GetActorLocation() + Direction * 500);
+
+	FTimerHandle randomMoveTimer{};
+	GetWorld()->GetTimerManager().SetTimer(randomMoveTimer, [this]()
+		{
+			StopRandomMove();
+		}, 0.01f, false, 2.0f);
+}
+
+bool AEnemyBoss::AttackByAI()
+{
+	return false;
+}
+
+void AEnemyBoss::StopRandomMove()
+{
+	OnRandomMoveFinished.ExecuteIfBound();
 }

@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.gitignore" />
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -75,6 +76,18 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\BehaviorTree\BTTAttack.cpp">
       <Filter>Source\LiesOfM\Private\BehaviorTree</Filter>
     </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\BossAI">
+      <UniqueIdentifier>{FA9905D9-0AD7-3B8C-A3AA-6342C941A966}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTDecorator_BossAttackRange.cpp">
+      <Filter>Source\LiesOfM\Private\BossAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTService_BossCaculateRange.cpp">
+      <Filter>Source\LiesOfM\Private\BossAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTTask_RandomMove.cpp">
+      <Filter>Source\LiesOfM\Private\BossAI</Filter>
+    </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Enemy">
       <UniqueIdentifier>{BC85DBD8-0FCE-38C9-B837-32C386679B59}</UniqueIdentifier>
     </Filter>
@@ -102,6 +115,9 @@
     <Filter Include="Source\LiesOfM\Private\Interface">
       <UniqueIdentifier>{7C759666-5707-33DA-ABC4-A8B90C93CEA4}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\BossAIInterface.cpp">
+      <Filter>Source\LiesOfM\Private\Interface</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\CommonAIInterface.cpp">
       <Filter>Source\LiesOfM\Private\Interface</Filter>
     </ClCompile>
@@ -134,6 +150,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\WallBase.cpp">
       <Filter>Source\LiesOfM\Private\LevelDesign</Filter>
+    </ClCompile>
+    <Filter Include="Source\LiesOfM\Private\Manager">
+      <UniqueIdentifier>{F89686CA-F7F9-33D5-BA3D-63F72D81CFDF}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Manager\BossDoorManager.cpp">
+      <Filter>Source\LiesOfM\Private\Manager</Filter>
     </ClCompile>
     <Filter Include="Source\LiesOfM\Private\Subsystems">
       <UniqueIdentifier>{70838621-C70D-3B9E-88CC-6716F7F65EA4}</UniqueIdentifier>
@@ -222,6 +244,21 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTAttack.h">
       <Filter>Source\LiesOfM\Public\BehaviorTree</Filter>
     </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\BossAI">
+      <UniqueIdentifier>{72711754-8256-35D3-94F3-A7490DCE0022}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BossAI.h">
+      <Filter>Source\LiesOfM\Public\BossAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTDecorator_BossAttackRange.h">
+      <Filter>Source\LiesOfM\Public\BossAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTService_BossCaculateRange.h">
+      <Filter>Source\LiesOfM\Public\BossAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_RandomMove.h">
+      <Filter>Source\LiesOfM\Public\BossAI</Filter>
+    </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Collision">
       <UniqueIdentifier>{CBD650FC-B9D8-3EF0-A7B0-E444B8CEAE76}</UniqueIdentifier>
     </Filter>
@@ -255,6 +292,9 @@
     <Filter Include="Source\LiesOfM\Public\Interface">
       <UniqueIdentifier>{B7448E84-AB7C-3C3C-B9C6-68453E62666D}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\BossAIInterface.h">
+      <Filter>Source\LiesOfM\Public\Interface</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\CommonAIInterface.h">
       <Filter>Source\LiesOfM\Public\Interface</Filter>
     </ClInclude>
@@ -287,6 +327,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\WallBase.h">
       <Filter>Source\LiesOfM\Public\LevelDesign</Filter>
+    </ClInclude>
+    <Filter Include="Source\LiesOfM\Public\Manager">
+      <UniqueIdentifier>{013284E1-E5C0-3D95-9F8C-E45B02B027E7}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Manager\BossDoorManager.h">
+      <Filter>Source\LiesOfM\Public\Manager</Filter>
     </ClInclude>
     <Filter Include="Source\LiesOfM\Public\Subsystems">
       <UniqueIdentifier>{F9EA4E81-F84C-3B68-9050-DC5000D6555B}</UniqueIdentifier>

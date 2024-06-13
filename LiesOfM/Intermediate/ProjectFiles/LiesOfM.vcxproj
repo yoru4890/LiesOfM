@@ -110,6 +110,7 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
+    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -170,6 +171,21 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTDecorator_BossAttackRange.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTService_BossCaculateRange.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTTask_RandomMove.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -201,6 +217,11 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyCommonAnimInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Interface\BossAIInterface.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -246,6 +267,11 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\LevelDesign\WallBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Manager\BossDoorManager.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -317,6 +343,10 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_FindPatrolPos.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTask_TurnToTarget.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BehaviorTree\BTTAttack.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BossAI.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTDecorator_BossAttackRange.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTService_BossCaculateRange.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_RandomMove.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBoss.h"/>
@@ -325,6 +355,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommon.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyCommonAnimInstance.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\BossAIInterface.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\CommonAIInterface.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\DamageInteractions.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Interface\HitEffectInterface.h"/>
@@ -334,6 +365,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\LevelElementBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\PropBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\LevelDesign\WallBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Manager\BossDoorManager.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Subsystems\TOMAudioSubsystem.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Weapon\WeaponBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\YoruPlayer\Yoru.h"/>

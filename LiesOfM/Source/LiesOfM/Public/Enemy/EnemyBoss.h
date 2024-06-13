@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Enemy/EnemyBase.h"
+#include "Interface/BossAIInterface.h"
 #include "EnemyBoss.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class LIESOFM_API AEnemyBoss : public AEnemyBase
+class LIESOFM_API AEnemyBoss : public AEnemyBase, public IBossAIInterface
 {
 	GENERATED_BODY()
 	
@@ -36,4 +37,52 @@ public:
 	virtual void Groggy() override;
 
 	virtual void CaculateDamage(float damage) override;
+
+
+
+	void ChangePhase();
+
+	// Attack
+	void Attack();
+	void CounterAttack();
+	void RushAttack();
+	void JumpAttack();
+	void meleeAttack1();
+	void meleeAttack2();
+	void meleeAttack3();
+
+	UFUNCTION(BlueprintCallable)
+	void TriggerTrace();
+	void ApplyTrace();
+	UFUNCTION(BlueprintCallable)
+	void StopTrace();
+
+	UFUNCTION(BlueprintCallable)
+	void ShowRedAttack();
+
+	UFUNCTION(BlueprintCallable)
+	void HiddenRedAttack();
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<USkeletalMeshComponent> weapon{};
+
+private:
+	int phase{};
+
+	// AI
+public:
+	FAIRandomMoveFinished OnRandomMoveFinished{};
+	FAIAttackFinished OnAttackFinished{};
+
+	virtual float GetAIAttackMeleeRange() override;
+	virtual float GetAIAttackLongRange() override;
+
+	virtual void SetAIMoveFinishedDelegate(const FAIRandomMoveFinished& InOnRandomMoveFinished) override;
+	virtual void SetAIAttackFinishedDelegate(const FAIAttackFinished& InOnAttackFinished) override;
+	virtual void RandomMoveByAI() override;
+	virtual bool AttackByAI() override;
+
+	void StopRandomMove();
 };

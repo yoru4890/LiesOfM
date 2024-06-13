@@ -21,9 +21,18 @@ protected:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemy|Character")
 	class AEnemyBoss* owner{};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Yoru|Character")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemy|Character")
 	class UCharacterMovementComponent* charMoveComp{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemy|Character")
+	FVector velocity{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemy|Character")
+	float moveSpeed{};
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Enemy|Character")
+	float angle{};
 };
