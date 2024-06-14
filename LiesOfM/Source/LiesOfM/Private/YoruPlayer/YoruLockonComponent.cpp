@@ -89,7 +89,7 @@ bool UYoruLockonComponent::CheckTrace()
 AActor* UYoruLockonComponent::FindFrontClosedOne()
 {
 	AActor* hitActor{};
-	float minDistance{ 900.0f };
+	float minDistance{ 2200.0f };
 
 	for (const FHitResult& hitResult : outHits)
 	{
@@ -196,7 +196,7 @@ void UYoruLockonComponent::LookTarget()
 		result.Pitch = -30.0f;
 	}
 
-	me->GetController()->SetControlRotation(result);
+	me->GetController()->SetControlRotation(FMath::RInterpTo(me->GetControlRotation(), result, GetWorld()->GetDeltaSeconds(), 10.0f));
 
 
 	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("Spine2")));

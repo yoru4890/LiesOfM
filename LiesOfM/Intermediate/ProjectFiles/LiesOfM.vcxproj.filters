@@ -12,7 +12,6 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.gitignore" />
-    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -83,6 +82,9 @@
       <Filter>Source\LiesOfM\Private\BossAI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTService_BossCaculateRange.cpp">
+      <Filter>Source\LiesOfM\Private\BossAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTTask_BossAttack.cpp">
       <Filter>Source\LiesOfM\Private\BossAI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTTask_RandomMove.cpp">
@@ -254,6 +256,9 @@
       <Filter>Source\LiesOfM\Public\BossAI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTService_BossCaculateRange.h">
+      <Filter>Source\LiesOfM\Public\BossAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_BossAttack.h">
       <Filter>Source\LiesOfM\Public\BossAI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_RandomMove.h">

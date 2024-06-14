@@ -16,6 +16,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 	LIESOFM_API UClass* Z_Construct_UClass_UYoruMoveComponent_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_LiesOfM();
 // End Cross Module References
+	DEFINE_FUNCTION(UYoruMoveComponent::execStopRollMove)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->StopRollMove();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(UYoruMoveComponent::execCaculatePortion)
 	{
 		P_FINISH;
@@ -69,6 +76,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 			{ "HiddenItem", &UYoruMoveComponent::execHiddenItem },
 			{ "MovementInputHandler", &UYoruMoveComponent::execMovementInputHandler },
 			{ "ShowItem", &UYoruMoveComponent::execShowItem },
+			{ "StopRollMove", &UYoruMoveComponent::execStopRollMove },
 			{ "UnEquipRightWeapon", &UYoruMoveComponent::execUnEquipRightWeapon },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -204,6 +212,28 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UYoruMoveComponent, nullptr, "StopRollMove", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics::Function_MetaDataParams), Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UYoruMoveComponent_StopRollMove()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UYoruMoveComponent_StopRollMove_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon_Statics
 	{
 #if WITH_METADATA
@@ -303,6 +333,14 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_portionCount_MetaData[];
 #endif
 		static const UECodeGen_Private::FIntPropertyParams NewProp_portionCount;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_rollDistance_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_rollDistance;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_rollMoveSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_rollMoveSpeed;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -318,6 +356,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		{ &Z_Construct_UFunction_UYoruMoveComponent_HiddenItem, "HiddenItem" }, // 2925751229
 		{ &Z_Construct_UFunction_UYoruMoveComponent_MovementInputHandler, "MovementInputHandler" }, // 1628321773
 		{ &Z_Construct_UFunction_UYoruMoveComponent_ShowItem, "ShowItem" }, // 1999823505
+		{ &Z_Construct_UFunction_UYoruMoveComponent_StopRollMove, "StopRollMove" }, // 3181781862
 		{ &Z_Construct_UFunction_UYoruMoveComponent_UnEquipRightWeapon, "UnEquipRightWeapon" }, // 2050398647
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::FuncInfo) < 2048);
@@ -447,6 +486,20 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount = { "portionCount", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, portionCount), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollDistance_MetaData[] = {
+		{ "Category", "Yoru" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollDistance = { "rollDistance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, rollDistance), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollDistance_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollDistance_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollMoveSpeed_MetaData[] = {
+		{ "Category", "Yoru" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruMoveComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollMoveSpeed = { "rollMoveSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruMoveComponent, rollMoveSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollMoveSpeed_MetaData), Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollMoveSpeed_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruMoveComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_moveAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_lookAction,
@@ -464,6 +517,8 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_mouseSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_canBeHit,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_portionCount,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollDistance,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruMoveComponent_Statics::NewProp_rollMoveSpeed,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruMoveComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruMoveComponent>::IsAbstract,
@@ -503,9 +558,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruMoveComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 298868233U) },
+		{ Z_Construct_UClass_UYoruMoveComponent, UYoruMoveComponent::StaticClass, TEXT("UYoruMoveComponent"), &Z_Registration_Info_UClass_UYoruMoveComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruMoveComponent), 1438675784U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_500620617(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_2686278776(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruMoveComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

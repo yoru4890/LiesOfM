@@ -110,7 +110,6 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
-    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -177,6 +176,11 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTService_BossCaculateRange.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\BossAI\BTTask_BossAttack.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -346,6 +350,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BossAI.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTDecorator_BossAttackRange.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTService_BossCaculateRange.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_BossAttack.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_RandomMove.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>

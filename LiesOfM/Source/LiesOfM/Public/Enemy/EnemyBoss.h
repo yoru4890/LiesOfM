@@ -18,6 +18,8 @@ class LIESOFM_API AEnemyBoss : public AEnemyBase, public IBossAIInterface
 public:
 	AEnemyBoss();
 
+	void InitContents();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -38,7 +40,11 @@ public:
 
 	virtual void CaculateDamage(float damage) override;
 
+	UFUNCTION(BlueprintCallable)
+	void ChangeLockonPlayer(bool InisLockon);
 
+	UFUNCTION(BlueprintCallable)
+	void NotifyAttackEnd();
 
 	void ChangePhase();
 
@@ -63,14 +69,61 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HiddenRedAttack();
 
+	UFUNCTION(BlueprintCallable)
+	void ChangeDamage(float damage);
+
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<USkeletalMeshComponent> weapon{};
 
-private:
-	int phase{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> redAttackBody{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> redAttackWeapon{};
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> bloodFX;
+private:
+	bool isLockon{ true };
+	int phase{};
+	float resultDamage{ 20.0f };
+	float turnSpeed{2.0f};
+	float redAttackTurnSpeed{ 5.0f };
+	float normalTurnSpeed{ 2.0f };
+	TObjectPtr<class AEnemyBossAIController> BossAIController{};
+
+	TObjectPtr<APawn> Player{};
+
+	UPROPERTY(VisibleAnywhere, Category = "Actor")
+	TArray<AActor*> hitActors{};
+
+	FTimerHandle lineTraceTimeHandle{};
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> meleeAttack1Montage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> meleeAttack2Montage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> meleeAttack3Montage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> rushAttackMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> jumpAttackMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> counterBlockMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> counterAttackMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> changePhaseMontage;
 	// AI
 public:
 	FAIRandomMoveFinished OnRandomMoveFinished{};

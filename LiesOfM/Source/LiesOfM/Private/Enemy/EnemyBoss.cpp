@@ -5,11 +5,26 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Enemy/EnemyBossAIController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Collision/CollisionChannel.h"
+#include "YoruPlayer/Yoru.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 AEnemyBoss::AEnemyBoss()
 {
 	weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
 
+	redAttackBody = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackBody"));
+	redAttackBody->SetupAttachment(GetMesh());
+	redAttackWeapon = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackWeapon"));
+	redAttackWeapon->SetupAttachment(weapon);
+
+	InitContents();
+
+}
+
+void AEnemyBoss::InitContents()
+{
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(TEXT("/Script/Engine.SkeletalMesh'/Game/AAA/Animations/Enemy/Boss1/Uriel_A_Plotexia.Uriel_A_Plotexia'"));
 
 	if (meshFinder.Succeeded())
@@ -32,6 +47,62 @@ AEnemyBoss::AEnemyBoss()
 		weapon->SetSkeletalMesh(weaponMeshFinder.Object);
 		weapon->SetupAttachment(GetMesh(), TEXT("RightHandSocket_Weapon"));
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> meleeAttack1MontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_MeleeAttack1.AM_MeleeAttack1'"));
+
+	if (meleeAttack1MontageFinder.Succeeded())
+	{
+		meleeAttack1Montage = meleeAttack1MontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> meleeAttack2MontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_MeleeAttack2.AM_MeleeAttack2'"));
+
+	if (meleeAttack2MontageFinder.Succeeded())
+	{
+		meleeAttack2Montage = meleeAttack2MontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> meleeAttack3MontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_MeleeAttack3.AM_MeleeAttack3'"));
+
+	if (meleeAttack3MontageFinder.Succeeded())
+	{
+		meleeAttack3Montage = meleeAttack3MontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> rushAttackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_RushAttack.AM_RushAttack'"));
+
+	if (rushAttackMontageFinder.Succeeded())
+	{
+		rushAttackMontage = rushAttackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> jumpAttackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_JumpAttack.AM_JumpAttack'"));
+
+	if (jumpAttackMontageFinder.Succeeded())
+	{
+		jumpAttackMontage = jumpAttackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> counterBlockMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_CounterBlock.AM_CounterBlock'"));
+
+	if (counterBlockMontageFinder.Succeeded())
+	{
+		counterBlockMontage = counterBlockMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> counterAttackMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_CounterAttack.AM_CounterAttack'"));
+
+	if (counterAttackMontageFinder.Succeeded())
+	{
+		counterAttackMontage = counterAttackMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> changePhaseMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/AM_ChangePhase.AM_ChangePhase'"));
+
+	if (changePhaseMontageFinder.Succeeded())
+	{
+		changePhaseMontage = changePhaseMontageFinder.Object;
+	}
 }
 
 void AEnemyBoss::BeginPlay()
@@ -39,18 +110,28 @@ void AEnemyBoss::BeginPlay()
 	Super::BeginPlay();
 
 	maxGroggy = 250.0f;
+
+	BossAIController = Cast<AEnemyBossAIController>(GetController());
+
+	Player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+
+	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
 }
 
 void AEnemyBoss::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	auto player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	if (isLockon)
+	{
+		auto RotateTemp = (Player->GetActorLocation() - GetActorLocation()).Rotation();
+		RotateTemp.Pitch = 0;
 
-	auto RotateTemp = (player->GetActorLocation() - GetActorLocation()).Rotation();
-	RotateTemp.Pitch = 0;
+		SetActorRotation(FMath::RInterpTo(GetActorRotation(), RotateTemp, DeltaTime, turnSpeed));
+	}
 
-	SetActorRotation(RotateTemp);
+	auto temp = FVector::Distance(GetActorLocation(), Player->GetActorLocation());
+	UE_LOG(LogTemp, Warning, TEXT("%f"), temp);
 }
 
 void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -89,56 +170,135 @@ void AEnemyBoss::CaculateDamage(float damage)
 	Super::CaculateDamage(damage);
 }
 
+void AEnemyBoss::ChangeLockonPlayer(bool InisLockon)
+{
+	isLockon = InisLockon;
+}
+
+void AEnemyBoss::NotifyAttackEnd()
+{
+	OnAttackFinished.ExecuteIfBound();
+	ChangeLockonPlayer(true);
+}
+
 void AEnemyBoss::ChangePhase()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(changePhaseMontage);
+	}
 }
 
 void AEnemyBoss::Attack()
 {
+	RushAttack();
 }
 
 void AEnemyBoss::CounterAttack()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(counterAttackMontage);
+	}
 }
 
 void AEnemyBoss::RushAttack()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
+	}
 }
 
 void AEnemyBoss::JumpAttack()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(jumpAttackMontage);
+	}
 }
 
 void AEnemyBoss::meleeAttack1()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack1Montage);
+	}
 }
 
 void AEnemyBoss::meleeAttack2()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack2Montage);
+	}
 }
 
 void AEnemyBoss::meleeAttack3()
 {
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack3Montage);
+	}
 }
 
 void AEnemyBoss::TriggerTrace()
 {
+	hitActors.Reset();
+	GetWorld()->GetTimerManager().SetTimer(lineTraceTimeHandle, this, &AEnemyBoss::ApplyTrace, 0.01, true);
 }
 
 void AEnemyBoss::ApplyTrace()
 {
+	FVector start{ };
+	FVector end{ };
+	float radius{80.0f};
+	
+	start = weapon->GetSocketLocation(TEXT("StartPoint"));
+	end = weapon->GetSocketLocation(TEXT("EndPoint"));
+
+	TArray<AActor*> ignoreActors;
+	TArray<FHitResult> outHits;
+	ignoreActors.Add(this);
+	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, TCHANNEL_ENEMYDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
+	if (isHit)
+	{
+		for (const auto& hitResult : outHits)
+		{
+			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
+			{
+				hitActors.Add(hitResult.GetActor());
+				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult);
+			}
+		}
+
+	}
 }
 
 void AEnemyBoss::StopTrace()
 {
+	GetWorld()->GetTimerManager().ClearTimer(lineTraceTimeHandle);
 }
 
 void AEnemyBoss::ShowRedAttack()
 {
+	redAttackBody->SetVisibility(true);
+	redAttackWeapon->SetVisibility(true);
+	ChangeLockonPlayer(true);
+	turnSpeed = redAttackTurnSpeed;
 }
 
 void AEnemyBoss::HiddenRedAttack()
 {
+	redAttackBody->SetVisibility(false);
+	redAttackWeapon->SetVisibility(false);
+	ChangeLockonPlayer(false);
+	turnSpeed = normalTurnSpeed;
+}
+
+void AEnemyBoss::ChangeDamage(float damage)
+{
+	resultDamage = damage;
 }
 
 float AEnemyBoss::GetAIAttackMeleeRange()
@@ -163,20 +323,45 @@ void AEnemyBoss::SetAIAttackFinishedDelegate(const FAIAttackFinished& InOnAttack
 
 void AEnemyBoss::RandomMoveByAI()
 {
-	FVector Direction = FMath::VRand().GetSafeNormal2D();
-	FTransform Temp(GetActorRotation(), GetActorLocation() + Direction);
+	FVector DirectionArray[5]{
+		GetActorForwardVector(), GetActorRightVector(),
+		GetActorForwardVector() * -1, GetActorRightVector() * -1
+	};
 
-	Cast<AEnemyBossAIController>(GetController())->MoveToLocation(GetActorLocation() + Direction * 500);
+	int32 RandIndex = FMath::RandHelper(5);
+	float DelayTime{ 2.0f };
+
+	if (RandIndex >= 5 || RandIndex < 0)
+	{
+		RandIndex = 4;
+	}
+
+	if (RandIndex == 1 && FVector::Distance(GetActorLocation(), Player->GetActorLocation()) <= 300.0f)
+	{
+		RandIndex++;
+	}
+
+	if (RandIndex == 4)
+	{
+		DelayTime = 0.5f;
+	}
+
+	GetCharacterMovement()->MaxWalkSpeed = RandIndex ? 200.0f : 100.0f;
+
+	BossAIController->MoveToLocation(GetActorLocation() + DirectionArray[RandIndex] * 300.0f);
 
 	FTimerHandle randomMoveTimer{};
 	GetWorld()->GetTimerManager().SetTimer(randomMoveTimer, [this]()
 		{
 			StopRandomMove();
-		}, 0.01f, false, 2.0f);
+		}, 0.01f, false, DelayTime);
 }
 
 bool AEnemyBoss::AttackByAI()
 {
+	ChangeLockonPlayer(false);
+	Attack();
+
 	return false;
 }
 

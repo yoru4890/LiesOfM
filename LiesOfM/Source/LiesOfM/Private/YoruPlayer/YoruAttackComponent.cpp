@@ -21,6 +21,7 @@
 #include "Collision/CollisionChannel.h"
 #include "YoruPlayer/YoruDefenceComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "YoruPlayer/YoruLockonComponent.h"
 
 UYoruAttackComponent::UYoruAttackComponent()
 {
@@ -126,6 +127,9 @@ void UYoruAttackComponent::HandleAttack()
 
 void UYoruAttackComponent::UpdateAttackRotation()
 {
+	if (me->lockonComp->lockonTarget) return;
+
+
 	if (me->moveComp->HasMovementKeyInput())
 	{
 		startYaw = me->GetActorRotation().Yaw;

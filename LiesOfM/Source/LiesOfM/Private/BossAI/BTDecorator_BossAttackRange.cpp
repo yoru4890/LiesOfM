@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Interface/BossAIInterface.h"
+#include "Kismet/GameplayStatics.h"
 
 UBTDecorator_BossAttackRange::UBTDecorator_BossAttackRange()
 {

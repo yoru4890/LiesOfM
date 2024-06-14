@@ -40,7 +40,7 @@ public:
 
 private:
 	TArray<FHitResult> outHits;
-	float radius{700.0f};
+	float radius{2000.0f};
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lockonAction;
 

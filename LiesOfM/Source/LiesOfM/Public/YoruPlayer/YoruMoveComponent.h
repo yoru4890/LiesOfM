@@ -59,6 +59,8 @@ public:
 	void SpawnWeapon();
 	void SpawnItem();
 
+	UFUNCTION(BlueprintCallable)
+	void StopRollMove();
 	
 
 	bool GetIsMovementInput() const noexcept { return isMovementInput; }
@@ -127,8 +129,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Item")
 	int32 portionCount{ 5 };
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru")
+	float rollDistance{ 65.0f };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru")
+	float rollMoveSpeed{ 4.5f };
+
 	FTimerHandle inputTimeHandle{};
 	FTimerHandle equipTimeHandle{};
 	FTimerHandle spawnTimeHandle{};
 	FTimerHandle HPTimeHandle{};
+	FTimerHandle rollTimeHandle{};
 };

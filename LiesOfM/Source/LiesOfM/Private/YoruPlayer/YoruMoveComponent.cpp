@@ -381,6 +381,11 @@ void UYoruMoveComponent::HandleRollStepBack()
 	{
 		me->ChangeCamera(false);
 		me->SetPlayerState(EPlayerState::Rolling);
+		GetWorld()->GetTimerManager().SetTimer(rollTimeHandle, [this]()
+			{
+				me->SetActorLocation(FMath::VInterpTo(me->GetActorLocation(), me->GetActorLocation() + me->GetActorForwardVector() * rollDistance, GetWorld()->GetDeltaSeconds(), rollMoveSpeed));
+			}, 0.01f, true);
+		
 		me->GetMesh()->GetAnimInstance()->Montage_Play(rollingMontage);
 		me->defenceComp->SetInvincibilityTime(0.6f);
 		me->SetActorRotation({ 0,charMoveComp->GetLastInputVector().ToOrientationRotator().Yaw,0 });
@@ -495,5 +500,10 @@ void UYoruMoveComponent::SpawnItem()
 
 	me->equippedItem->AttachToComponent(me->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("hand_rSocket_Item"));
 	HiddenItem();
+}
+
+void UYoruMoveComponent::StopRollMove()
+{
+	GetWorld()->GetTimerManager().ClearTimer(rollTimeHandle);
 }
 
