@@ -264,6 +264,15 @@ void UYoruAttackComponent::GrabAttackTrace()
 							return;
 						}
 					}
+					else if (degree <= 45.0)
+					{
+						if (grabActor->currentEnemyState == EEnemyState::Groggy)
+						{
+							grabPoint = grabActor->GetActorLocation() - direction * 150.0 - rightDirection * 20.0;
+							isGrabAttackFront = false;
+							return;
+						}
+					}
 				}
 				else
 				{
@@ -285,7 +294,12 @@ void UYoruAttackComponent::GrabAttack()
 {
 	me->moveComp->MovementInputHandler(0.0f, true);
 	me->defenceComp->SetInvincibilityTime(3.9f);
+	grabPoint.Z = me->GetActorLocation().Z;
 	me->SetActorLocation(grabPoint);
+	if (me->lockonComp->lockonTarget == nullptr)
+	{
+		me->lockonComp->SetLockonTarget(grabActor);
+	}
 	me->GetMesh()->GetAnimInstance()->Montage_Play(grabAttackMontage);
 	grabActor->GrabAttacked(isGrabAttackFront);
 }

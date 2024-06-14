@@ -56,9 +56,7 @@ void UYoruLockonComponent::TryLockon()
 			lockonTarget = Cast<AEnemyBase>(FindFrontClosedOne());
 			if (lockonTarget)
 			{
-				me->SetIsLockon(true);
-				me->lockonWidget->SetVisibility(true);
-				GetWorld()->GetTimerManager().SetTimer(lockonTimer, this, &UYoruLockonComponent::LookTarget, GetWorld()->GetDeltaSeconds(), true);
+				SetLockonTarget(lockonTarget);
 			}
 			else
 			{
@@ -86,10 +84,18 @@ bool UYoruLockonComponent::CheckTrace()
 	return UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, ETraceTypeQuery::TraceTypeQuery5, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
 }
 
+void UYoruLockonComponent::SetLockonTarget(AActor* target)
+{
+	lockonTarget = Cast<AEnemyBase>(target);
+	me->SetIsLockon(true);
+	me->lockonWidget->SetVisibility(true);
+	GetWorld()->GetTimerManager().SetTimer(lockonTimer, this, &UYoruLockonComponent::LookTarget, GetWorld()->GetDeltaSeconds(), true);
+}
+
 AActor* UYoruLockonComponent::FindFrontClosedOne()
 {
 	AActor* hitActor{};
-	float minDistance{ 2200.0f };
+	float minDistance{ 1700.0f };
 
 	for (const FHitResult& hitResult : outHits)
 	{
@@ -114,7 +120,7 @@ AActor* UYoruLockonComponent::FindFrontClosedOne()
 AActor* UYoruLockonComponent::FindLeftClosedOne()
 {
 	AActor* hitActor{};
-	float minDistance{ 900.0f };
+	float minDistance{ 1700.0f };
 
 	for (const FHitResult& hitResult : outHits)
 	{
@@ -151,7 +157,7 @@ AActor* UYoruLockonComponent::FindLeftClosedOne()
 AActor* UYoruLockonComponent::FindRightClosedOne()
 {
 	AActor* hitActor{};
-	float minDistance{ 900.0f };
+	float minDistance{ 1700.0f };
 
 	for (const FHitResult& hitResult : outHits)
 	{
@@ -188,7 +194,7 @@ AActor* UYoruLockonComponent::FindRightClosedOne()
 void UYoruLockonComponent::LookTarget()
 {
 	FVector start{ me->mainCamera->GetComponentLocation() };
-	FVector end{ lockonTarget->GetActorLocation() };
+	FVector end{ lockonTarget->GetMesh()->GetBoneLocation(TEXT("Spine2")) };
 	FRotator result{ (end - start).Rotation() };
 	result.Pitch -= 10.0f;
 	if (result.Pitch <= -30.0f)
@@ -196,7 +202,7 @@ void UYoruLockonComponent::LookTarget()
 		result.Pitch = -30.0f;
 	}
 
-	me->GetController()->SetControlRotation(FMath::RInterpTo(me->GetControlRotation(), result, GetWorld()->GetDeltaSeconds(), 10.0f));
+	me->GetController()->SetControlRotation(FMath::RInterpTo(me->GetControlRotation(), result, GetWorld()->GetDeltaSeconds(), 20.0f));
 
 
 	me->lockonWidget->SetWorldLocation(lockonTarget->GetMesh()->GetBoneLocation(TEXT("Spine2")));

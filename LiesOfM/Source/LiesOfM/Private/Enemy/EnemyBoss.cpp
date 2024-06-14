@@ -103,6 +103,27 @@ void AEnemyBoss::InitContents()
 	{
 		changePhaseMontage = changePhaseMontageFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> groggyMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/GrabAttacked/AM_Groggy.AM_Groggy'"));
+
+	if (groggyMontageFinder.Succeeded())
+	{
+		groggyMontage = groggyMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttacked1MontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/GrabAttacked/AM_GrabAttacked_Front.AM_GrabAttacked_Front'"));
+
+	if (grabAttacked1MontageFinder.Succeeded())
+	{
+		grabAttackedFrontMontage = grabAttacked1MontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> grabAttacked2MontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Enemy/Boss1/Anim/GrabAttacked/AM_GrabAttacked_Back.AM_GrabAttacked_Back'"));
+
+	if (grabAttacked2MontageFinder.Succeeded())
+	{
+		grabAttackedBackMontage = grabAttacked2MontageFinder.Object;
+	}
 }
 
 void AEnemyBoss::BeginPlay()
@@ -147,6 +168,18 @@ void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 void AEnemyBoss::ReceiveGroggyDamage(float damageAmount, AActor* attackingActor)
 {
 	Super::ReceiveGroggyDamage(damageAmount, attackingActor);
+	
+	if (isRedAttack)
+	{
+		damageAmount *= 4;
+	}
+
+	currentGroggy += damageAmount;
+	if (currentGroggy >= maxGroggy)
+	{
+		currentGroggy = maxGroggy;
+		Groggy();
+	}
 }
 
 bool AEnemyBoss::CanGrabAttacked()
@@ -158,11 +191,27 @@ bool AEnemyBoss::CanGrabAttacked()
 void AEnemyBoss::GrabAttacked(bool isFront)
 {
 	Super::GrabAttacked(isFront);
+
+	currentEnemyState = EEnemyState::GrabAttacked;
+
+	if (isFront)
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(grabAttackedFrontMontage);
+	}
+	else
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(grabAttackedBackMontage);
+	}
 }
 
 void AEnemyBoss::Groggy()
 {
 	Super::Groggy();
+
+	currentEnemyState = EEnemyState::Groggy;
+	HiddenRedAttack();
+	currentGroggy = 0;
+	GetMesh()->GetAnimInstance()->Montage_Play(groggyMontage);
 }
 
 void AEnemyBoss::CaculateDamage(float damage)
@@ -191,7 +240,7 @@ void AEnemyBoss::ChangePhase()
 
 void AEnemyBoss::Attack()
 {
-	RushAttack();
+	JumpAttack();
 }
 
 void AEnemyBoss::CounterAttack()
@@ -282,6 +331,7 @@ void AEnemyBoss::StopTrace()
 
 void AEnemyBoss::ShowRedAttack()
 {
+	isRedAttack = true;
 	redAttackBody->SetVisibility(true);
 	redAttackWeapon->SetVisibility(true);
 	ChangeLockonPlayer(true);
@@ -290,6 +340,7 @@ void AEnemyBoss::ShowRedAttack()
 
 void AEnemyBoss::HiddenRedAttack()
 {
+	isRedAttack = false;
 	redAttackBody->SetVisibility(false);
 	redAttackWeapon->SetVisibility(false);
 	ChangeLockonPlayer(false);

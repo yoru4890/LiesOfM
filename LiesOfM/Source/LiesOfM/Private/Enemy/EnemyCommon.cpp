@@ -459,6 +459,11 @@ bool AEnemyCommon::NoTurn()
 	{
 		return true;
 	}
+
+	if (currentEnemyState == EEnemyState::GrabAttacked || currentEnemyState == EEnemyState::Groggy)
+	{
+		return true;
+	}
 	return false;
 }
 

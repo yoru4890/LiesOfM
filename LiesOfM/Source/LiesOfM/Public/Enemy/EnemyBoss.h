@@ -87,11 +87,12 @@ public:
 	TObjectPtr<class UNiagaraSystem> bloodFX;
 private:
 	bool isLockon{ true };
+	bool isRedAttack{};
 	int phase{};
 	float resultDamage{ 20.0f };
-	float turnSpeed{2.0f};
-	float redAttackTurnSpeed{ 5.0f };
-	float normalTurnSpeed{ 2.0f };
+	float turnSpeed{5.0f};
+	float redAttackTurnSpeed{ 10.0f };
+	float normalTurnSpeed{ 5.0f };
 	TObjectPtr<class AEnemyBossAIController> BossAIController{};
 
 	TObjectPtr<APawn> Player{};
@@ -124,6 +125,16 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
 	TObjectPtr<UAnimMontage> changePhaseMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> groggyMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> grabAttackedFrontMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy|Montage")
+	TObjectPtr<UAnimMontage> grabAttackedBackMontage;
+
 	// AI
 public:
 	FAIRandomMoveFinished OnRandomMoveFinished{};

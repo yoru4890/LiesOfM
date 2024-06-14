@@ -27,6 +27,8 @@ public:
 
 	bool CheckTrace();
 
+	void SetLockonTarget(AActor* target);
+
 	AActor* FindFrontClosedOne();
 	AActor* FindLeftClosedOne();
 	AActor* FindRightClosedOne();
@@ -40,7 +42,7 @@ public:
 
 private:
 	TArray<FHitResult> outHits;
-	float radius{2000.0f};
+	float radius{1500.0f};
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> lockonAction;
 
