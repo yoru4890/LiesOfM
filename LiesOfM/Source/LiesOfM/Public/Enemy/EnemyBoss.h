@@ -7,9 +7,6 @@
 #include "Interface/BossAIInterface.h"
 #include "EnemyBoss.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LIESOFM_API AEnemyBoss : public AEnemyBase, public IBossAIInterface
 {
@@ -72,6 +69,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeDamage(float damage);
 
+	void TriggerWidget(float damage);
+
+	void Dead();
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -83,8 +83,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<class UNiagaraComponent> redAttackWeapon{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UBossWidget> widgetComp{};
+
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class UNiagaraSystem> bloodFX;
+
 private:
 	bool isLockon{ true };
 	bool isRedAttack{};
@@ -93,6 +97,9 @@ private:
 	float turnSpeed{5.0f};
 	float redAttackTurnSpeed{ 10.0f };
 	float normalTurnSpeed{ 5.0f };
+	float totalDamage{};
+
+
 	TObjectPtr<class AEnemyBossAIController> BossAIController{};
 
 	TObjectPtr<APawn> Player{};

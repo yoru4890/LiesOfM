@@ -9,6 +9,7 @@
 #include "YoruPlayer/Yoru.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "Enemy/BossWidget.h"
 
 AEnemyBoss::AEnemyBoss()
 {
@@ -18,6 +19,8 @@ AEnemyBoss::AEnemyBoss()
 	redAttackBody->SetupAttachment(GetMesh());
 	redAttackWeapon = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackWeapon"));
 	redAttackWeapon->SetupAttachment(weapon);
+
+	widgetComp = CreateDefaultSubobject<UBossWidget>(TEXT("widgetComp"));
 
 	InitContents();
 
@@ -131,7 +134,7 @@ void AEnemyBoss::BeginPlay()
 	Super::BeginPlay();
 
 	maxGroggy = 250.0f;
-
+	currentHealth = maxHealth;
 	BossAIController = Cast<AEnemyBossAIController>(GetController());
 
 	Player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
@@ -162,7 +165,21 @@ void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
 {
-	Super::ReceiveDamage(damageAmount, attackingActor, hitResult);
+	if (!isHittable) return;
+
+	CaculateDamage(damageAmount);
+
+	FVector actorDirection{ GetActorRotation().Vector().GetSafeNormal2D() };
+	FVector actorRightDirection{ (FRotationMatrix(GetActorRotation()).GetScaledAxis(EAxis::Y)).GetSafeNormal2D() };
+	FVector hitDirection{ (hitResult.ImpactPoint - GetActorLocation()).GetSafeNormal2D() };
+	double rightDotResult{ FVector::DotProduct(actorRightDirection, hitDirection) };
+	double angle{ FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(actorDirection, hitDirection))) };
+	if (rightDotResult < 0)
+	{
+		angle *= -1;
+	}
+
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), bloodFX, hitResult.ImpactPoint);
 }
 
 void AEnemyBoss::ReceiveGroggyDamage(float damageAmount, AActor* attackingActor)
@@ -217,6 +234,17 @@ void AEnemyBoss::Groggy()
 void AEnemyBoss::CaculateDamage(float damage)
 {
 	Super::CaculateDamage(damage);
+
+	currentHealth -= damage;
+	if (currentHealth <= 0)
+	{
+		TriggerWidget(damage + currentHealth);
+		Dead();
+	}
+	else
+	{
+		TriggerWidget(damage);
+	}
 }
 
 void AEnemyBoss::ChangeLockonPlayer(bool InisLockon)
@@ -350,6 +378,28 @@ void AEnemyBoss::HiddenRedAttack()
 void AEnemyBoss::ChangeDamage(float damage)
 {
 	resultDamage = damage;
+}
+
+void AEnemyBoss::TriggerWidget(float damage)
+{
+	totalDamage += damage;
+	widgetComp->UpdateHP();
+	widgetComp->UpdateDamageText(totalDamage);
+}
+
+void AEnemyBoss::Dead()
+{
+	GetMesh()->GetAnimInstance()->StopAllMontages(0.1f);
+	HiddenRedAttack();
+	isDead = true;
+	AEnemyBossAIController* temp = Cast<AEnemyBossAIController>(GetController());
+	if (temp)
+	{
+		temp->StopAI();
+	}
+	UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(RootComponent);
+	PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	weapon->SetVisibility(false);
 }
 
 float AEnemyBoss::GetAIAttackMeleeRange()

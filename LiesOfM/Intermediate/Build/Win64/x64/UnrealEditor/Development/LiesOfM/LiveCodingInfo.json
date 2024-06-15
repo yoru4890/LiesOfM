@@ -4,6 +4,7 @@
 		"Module.LiesOfM.cpp.obj": [
 			"BossAIInterface.gen.cpp.obj",
 			"BossDoorManager.gen.cpp.obj",
+			"BossWidget.gen.cpp.obj",
 			"BTBCanAttack.gen.cpp.obj",
 			"BTDecorator_AttackRange.gen.cpp.obj",
 			"BTDecorator_BossAttackRange.gen.cpp.obj",
@@ -20,6 +21,7 @@
 			"CommonAIInterface.gen.cpp.obj",
 			"DamageInteractions.gen.cpp.obj",
 			"EnemyBase.gen.cpp.obj",
+			"EnemyBaseComponent.gen.cpp.obj",
 			"EnemyBoss.gen.cpp.obj",
 			"EnemyBossAIController.gen.cpp.obj",
 			"EnemyBossAnimInstance.gen.cpp.obj",
@@ -57,7 +59,6 @@
 			"BTService_BossCaculateRange.cpp.obj",
 			"BTTask_BossAttack.cpp.obj",
 			"BTTask_RandomMove.cpp.obj",
-			"EnemyBase.cpp.obj",
 			"EnemyBossAIController.cpp.obj",
 			"EnemyBossAnimInstance.cpp.obj",
 			"EnemyCommonAIController.cpp.obj",
@@ -73,23 +74,26 @@
 			"PropBase.cpp.obj",
 			"WallBase.cpp.obj",
 			"LiesOfM.cpp.obj",
-			"BossDoorManager.cpp.obj",
 			"TOMAudioSubsystem.cpp.obj",
 			"TOMDataTable.cpp.obj",
 			"TOMGameInstance.cpp.obj",
 			"WeaponBase.cpp.obj",
 			"Yoru.cpp.obj",
 			"YoruAnimInstance.cpp.obj",
+			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
 			"YoruDefenceComponent.cpp.obj",
+			"YoruLockonComponent.cpp.obj",
 			"YoruMoveComponent.cpp.obj",
 			"YoruStatComponent.cpp.obj",
 			"YoruWidgetComponent.cpp.obj",
 			"LiesOfM.init.gen.cpp.obj",
+			"BossWidget.cpp.obj",
+			"EnemyBase.cpp.obj",
+			"EnemyBaseComponent.cpp.obj",
 			"EnemyBoss.cpp.obj",
 			"EnemyCommon.cpp.obj",
-			"YoruAttackComponent.cpp.obj",
-			"YoruLockonComponent.cpp.obj"
+			"BossDoorManager.cpp.obj"
 		]
 	}
 }

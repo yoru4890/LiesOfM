@@ -110,6 +110,7 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
+    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -190,7 +191,17 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\BossWidget.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBaseComponent.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -353,7 +364,9 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_BossAttack.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\BossAI\BTTask_RandomMove.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Collision\CollisionChannel.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BossWidget.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBaseComponent.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBoss.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAnimInstance.h"/>

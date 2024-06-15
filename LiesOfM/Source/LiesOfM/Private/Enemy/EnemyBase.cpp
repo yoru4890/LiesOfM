@@ -42,6 +42,11 @@ void AEnemyBase::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 	}
 }
 
+float AEnemyBase::GetHPRatio()
+{
+	return currentHealth / maxHealth;
+}
+
 void AEnemyBase::SetInvincibilityTime(float duration)
 {
 	isHittable = false;

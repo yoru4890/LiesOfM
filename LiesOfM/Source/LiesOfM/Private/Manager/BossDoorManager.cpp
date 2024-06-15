@@ -6,6 +6,7 @@
 #include "YoruPlayer/Yoru.h"
 #include "Kismet/GameplayStatics.h"
 #include "Enemy/EnemyBossAIController.h"
+#include "Enemy/BossWidget.h"
 
 ABossDoorManager::ABossDoorManager()
 {
@@ -34,7 +35,7 @@ void ABossDoorManager::TriggerEnter()
 {
 	AEnemyBossAIController* BossController = Cast<AEnemyBossAIController>(Boss->GetController());
 	BossController->RunAI();
-	// 보스 AI 동작 , Widget 동작
+	Boss->widgetComp->ShowWidget();
 	// Player Anim 동작
 }
 

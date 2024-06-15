@@ -525,7 +525,7 @@ void AEnemyCommon::CaculateDamage(float damage)
 	currentHP -= damage;
 	if (currentHP <= 0)
 	{
-		TriggerWidget(currentHP);
+		TriggerWidget(damage + currentHealth);
 		Dead();
 	}
 	else

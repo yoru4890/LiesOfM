@@ -46,6 +46,8 @@ public:
 
 	virtual void Groggy() {};
 
+	float GetHPRatio();
+
 	UFUNCTION(BlueprintCallable)
 	void SetInvincibilityTime(float duration);
 
