@@ -61,6 +61,10 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bloodFX_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_bloodFX;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_parryingFootFX_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_parryingFootFX;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -133,6 +137,13 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_bloodFX = { "bloodFX", nullptr, (EPropertyFlags)0x0014000000010005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, bloodFX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_bloodFX_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_bloodFX_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFootFX_MetaData[] = {
+		{ "Category", "Default" },
+		{ "ModuleRelativePath", "Public/YoruPlayer/YoruDefenceComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFootFX = { "parryingFootFX", nullptr, (EPropertyFlags)0x0014000000010005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UYoruDefenceComponent, parryingFootFX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFootFX_MetaData), Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFootFX_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UYoruDefenceComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockMontage,
@@ -141,6 +152,7 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFX,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_blockingFX,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_bloodFX,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UYoruDefenceComponent_Statics::NewProp_parryingFootFX,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UYoruDefenceComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UYoruDefenceComponent>::IsAbstract,
@@ -180,9 +192,9 @@ void EmptyLinkFunctionForGeneratedCodeYoruDefenceComponent() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 3271966425U) },
+		{ Z_Construct_UClass_UYoruDefenceComponent, UYoruDefenceComponent::StaticClass, TEXT("UYoruDefenceComponent"), &Z_Registration_Info_UClass_UYoruDefenceComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UYoruDefenceComponent), 2401057599U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_738660543(TEXT("/Script/LiesOfM"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_2728831670(TEXT("/Script/LiesOfM"),
 		Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_LiesOfM_Source_LiesOfM_Public_YoruPlayer_YoruDefenceComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

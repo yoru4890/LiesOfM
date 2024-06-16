@@ -192,7 +192,7 @@ void UYoruAttackComponent::ApplyLineTrace()
 			if (hitResult.GetActor()->GetClass()->IsChildOf<AEnemyBase>() && !hitActors.Contains(hitResult.GetActor()))
 			{
 				hitActors.Add(hitResult.GetActor());
-				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me, hitResult);
+				Cast<AEnemyBase>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), me, hitResult, false);
 				UGameplayStatics::PlaySoundAtLocation(this, swordHitSound, hitResult.ImpactPoint, 1.0f, 1.0f, 0.1f);
 			}
 			else if (hitResult.GetActor()->GetClass()->ImplementsInterface(UHitEffectInterface::StaticClass()) && !hitActors.Contains(hitResult.GetActor()))

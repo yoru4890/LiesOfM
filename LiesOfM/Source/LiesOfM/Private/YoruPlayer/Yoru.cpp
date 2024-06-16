@@ -119,9 +119,9 @@ void AYoru::SetPlayerState(const TEnumAsByte<EPlayerState>& state)
 	currentPlayerState = state;
 }
 
-void AYoru::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
+void AYoru::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
-	defenceComp->HitReaction(damageAmount, attackingActor, hitResult);
+	defenceComp->HitReaction(damageAmount, attackingActor, hitResult, isRedAttack);
 }
 
 void AYoru::SetIsLockon(bool lockon)

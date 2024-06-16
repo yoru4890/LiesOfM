@@ -7,6 +7,7 @@
 #include "Enemy/EnemyBoss.h"
 #include "Components/WidgetComponent.h"
 #include "Components/TextBlock.h"
+#include "Animation/WidgetAnimation.h"
 
 UBossWidget::UBossWidget()
 {
@@ -44,9 +45,14 @@ void UBossWidget::InitWidget()
 		TotalDamageText = Cast<UTextBlock>(widgetHP->GetWidgetFromName("DamageText"));
 		TotalDamageText->SetVisibility(ESlateVisibility::Hidden);
 
+		FProperty* Prop = widgetHP->GetClass()->FindPropertyByName(FName("BossDie"));
+		if (Prop)
+		{
+			BossDie = *Prop->ContainerPtrToValuePtr<UWidgetAnimation*>(widgetHP);
+		}
+
 		UpdateHP();
 		UpdateNameText();
-
 	}
 	else
 	{
@@ -85,4 +91,12 @@ void UBossWidget::ShowWidget()
 void UBossWidget::HiddenWidget()
 {
 	widgetHP->RemoveFromParent();
+}
+
+void UBossWidget::PlayAnimationBossDie()
+{
+	if (widgetHP && BossDie)
+	{
+		widgetHP->PlayAnimation(BossDie);
+	}
 }

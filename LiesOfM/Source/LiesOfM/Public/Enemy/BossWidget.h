@@ -33,6 +33,8 @@ public:
 	void ShowWidget();
 	void HiddenWidget();
 
+	void PlayAnimationBossDie();
+
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Enemy|widget")
 	TSubclassOf<class UUserWidget> widgetClass;
@@ -48,6 +50,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Enemy|Widget")
 	class UTextBlock* TotalDamageText;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	class UWidgetAnimation* BossDie;
 
 private:
 	FTimerHandle damageTextTimeHandle{};

@@ -182,7 +182,7 @@ void AEnemyCommon::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
+void AEnemyCommon::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
 	if (!isHittable) return;
 	currentEnemyState = EEnemyState::BeingAttacked;
@@ -360,7 +360,7 @@ void AEnemyCommon::ApplyTrace()
 			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
 			{
 				hitActors.Add(hitResult.GetActor());
-				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), this, hitResult);
+				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(CaculateDamage(), this, hitResult, false);
 			}
 		}
 

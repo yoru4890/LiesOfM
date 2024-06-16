@@ -25,7 +25,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack) override;
 
 	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) override;
 
@@ -50,9 +50,9 @@ public:
 	void CounterAttack();
 	void RushAttack();
 	void JumpAttack();
-	void meleeAttack1();
-	void meleeAttack2();
-	void meleeAttack3();
+	void MeleeAttack1();
+	void MeleeAttack2();
+	void MeleeAttack3();
 
 	UFUNCTION(BlueprintCallable)
 	void TriggerTrace();
@@ -71,7 +71,13 @@ public:
 
 	void TriggerWidget(float damage);
 
+	UFUNCTION(BlueprintCallable)
+	void RemoveWidget();
+
 	void Dead();
+
+	UFUNCTION(BlueprintCallable)
+	void PlayAnimBossDieText();
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -86,19 +92,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<class UBossWidget> widgetComp{};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UEnemyBaseMovement> moveComp{};
+
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class UNiagaraSystem> bloodFX;
 
 private:
 	bool isLockon{ true };
-	bool isRedAttack{};
+	bool bRedAttack{};
 	int phase{};
 	float resultDamage{ 20.0f };
 	float turnSpeed{5.0f};
 	float redAttackTurnSpeed{ 10.0f };
 	float normalTurnSpeed{ 5.0f };
 	float totalDamage{};
-
+	double playerDistance{};
 
 	TObjectPtr<class AEnemyBossAIController> BossAIController{};
 

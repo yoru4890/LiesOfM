@@ -10,6 +10,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "Enemy/BossWidget.h"
+#include "Enemy/EnemyBaseMovement.h"
 
 AEnemyBoss::AEnemyBoss()
 {
@@ -21,6 +22,7 @@ AEnemyBoss::AEnemyBoss()
 	redAttackWeapon->SetupAttachment(weapon);
 
 	widgetComp = CreateDefaultSubobject<UBossWidget>(TEXT("widgetComp"));
+	moveComp = CreateDefaultSubobject<UEnemyBaseMovement>(TEXT("moveComp"));
 
 	InitContents();
 
@@ -154,8 +156,7 @@ void AEnemyBoss::Tick(float DeltaTime)
 		SetActorRotation(FMath::RInterpTo(GetActorRotation(), RotateTemp, DeltaTime, turnSpeed));
 	}
 
-	auto temp = FVector::Distance(GetActorLocation(), Player->GetActorLocation());
-	UE_LOG(LogTemp, Warning, TEXT("%f"), temp);
+	playerDistance = FVector::Distance(GetActorLocation(), Player->GetActorLocation());
 }
 
 void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -163,7 +164,7 @@ void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
+void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
 	if (!isHittable) return;
 
@@ -186,7 +187,7 @@ void AEnemyBoss::ReceiveGroggyDamage(float damageAmount, AActor* attackingActor)
 {
 	Super::ReceiveGroggyDamage(damageAmount, attackingActor);
 	
-	if (isRedAttack)
+	if (bRedAttack)
 	{
 		damageAmount *= 4;
 	}
@@ -268,7 +269,50 @@ void AEnemyBoss::ChangePhase()
 
 void AEnemyBoss::Attack()
 {
-	JumpAttack();
+	enum EAttack
+	{
+		JUMPATTACK,
+		RUSHATTACK,
+		MELEEATTACK1,
+		MELEEATTACK2,
+		MELEEATTACK3,
+
+		Size
+	};
+
+	EAttack randomAttackNum{};
+
+	if (playerDistance <= 200.0f)
+	{
+		randomAttackNum = static_cast<EAttack>(FMath::RandHelper(5));
+	}
+	else if (playerDistance <= 400.0f)
+	{
+		randomAttackNum = static_cast<EAttack>(FMath::RandHelper(2));
+	}
+
+	switch (randomAttackNum)
+	{
+		case JUMPATTACK:
+			JumpAttack();
+			break;
+		case RUSHATTACK:
+			RushAttack();
+			break;
+		case MELEEATTACK1:
+			MeleeAttack1();
+			break;
+		case MELEEATTACK2:
+			MeleeAttack2();
+			break;
+		case MELEEATTACK3:
+			MeleeAttack3();
+			break;
+		case Size:
+			break;
+		default:
+			break;
+	}
 }
 
 void AEnemyBoss::CounterAttack()
@@ -295,7 +339,7 @@ void AEnemyBoss::JumpAttack()
 	}
 }
 
-void AEnemyBoss::meleeAttack1()
+void AEnemyBoss::MeleeAttack1()
 {
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
@@ -303,7 +347,7 @@ void AEnemyBoss::meleeAttack1()
 	}
 }
 
-void AEnemyBoss::meleeAttack2()
+void AEnemyBoss::MeleeAttack2()
 {
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
@@ -311,7 +355,7 @@ void AEnemyBoss::meleeAttack2()
 	}
 }
 
-void AEnemyBoss::meleeAttack3()
+void AEnemyBoss::MeleeAttack3()
 {
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
@@ -345,7 +389,7 @@ void AEnemyBoss::ApplyTrace()
 			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
 			{
 				hitActors.Add(hitResult.GetActor());
-				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult);
+				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult, bRedAttack);
 			}
 		}
 
@@ -359,7 +403,7 @@ void AEnemyBoss::StopTrace()
 
 void AEnemyBoss::ShowRedAttack()
 {
-	isRedAttack = true;
+	bRedAttack = true;
 	redAttackBody->SetVisibility(true);
 	redAttackWeapon->SetVisibility(true);
 	ChangeLockonPlayer(true);
@@ -368,7 +412,7 @@ void AEnemyBoss::ShowRedAttack()
 
 void AEnemyBoss::HiddenRedAttack()
 {
-	isRedAttack = false;
+	bRedAttack = false;
 	redAttackBody->SetVisibility(false);
 	redAttackWeapon->SetVisibility(false);
 	ChangeLockonPlayer(false);
@@ -387,6 +431,11 @@ void AEnemyBoss::TriggerWidget(float damage)
 	widgetComp->UpdateDamageText(totalDamage);
 }
 
+void AEnemyBoss::RemoveWidget()
+{
+	widgetComp->HiddenWidget();
+}
+
 void AEnemyBoss::Dead()
 {
 	GetMesh()->GetAnimInstance()->StopAllMontages(0.1f);
@@ -400,6 +449,11 @@ void AEnemyBoss::Dead()
 	UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(RootComponent);
 	PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	weapon->SetVisibility(false);
+}
+
+void AEnemyBoss::PlayAnimBossDieText()
+{
+	widgetComp->PlayAnimationBossDie();
 }
 
 float AEnemyBoss::GetAIAttackMeleeRange()
@@ -469,4 +523,6 @@ bool AEnemyBoss::AttackByAI()
 void AEnemyBoss::StopRandomMove()
 {
 	OnRandomMoveFinished.ExecuteIfBound();
+
+	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 }

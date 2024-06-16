@@ -113,7 +113,7 @@ public:
 	class UTOMGameInstance* singleGameInstance;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) override;
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack) override;
 
 	TArray<FName> GetDataTableRowNames() const noexcept { return dataTableRowNames; }
 

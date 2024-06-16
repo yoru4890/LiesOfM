@@ -206,6 +206,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBaseMovement.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBoss.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -367,6 +372,7 @@
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\BossWidget.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBase.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBaseComponent.h"/>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBaseMovement.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBoss.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAIController.h"/>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBossAnimInstance.h"/>

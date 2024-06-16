@@ -24,7 +24,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UEnhancedInputComponent* enhancedInputComponent) override;
 
 public:
-	void HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult);
+	void HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack);
 	void HandleHit();
 	void SetInvincibilityTime(float duration);
 	void ChangeHittable();
@@ -37,6 +37,7 @@ public:
 	bool Parry(float& damageAmount);
 	void InitData();
 	void InitFX();
+	void ParryingBackMove();
 	FVector CaculateParryPoint(const FVector& impactPoint);
 
 private:
@@ -69,6 +70,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class UNiagaraSystem> bloodFX;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> parryingFootFX;
+
 	FTimerHandle invincibilityTimeHandle{};
 	FTimerHandle parryingTimeHandle{};
+	FTimerHandle parryingMoveTimeHandle{};
 };

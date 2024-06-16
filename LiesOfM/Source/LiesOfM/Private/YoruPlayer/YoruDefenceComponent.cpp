@@ -57,7 +57,7 @@ void UYoruDefenceComponent::SetupPlayerInputComponent(UEnhancedInputComponent* e
 	enhancedInputComponent->BindAction(blockAction, ETriggerEvent::Completed, this, &UYoruDefenceComponent::UnBlock);
 }
 
-void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult)
+void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
 	if (isHittable)
 	{
@@ -98,6 +98,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
+					if (isRedAttack)
+					{
+						ParryingBackMove();
+					}
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -133,6 +137,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
+					if (isRedAttack)
+					{
+						ParryingBackMove();
+					}
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -168,6 +176,10 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), parryingFX, parryPoint);
 					UGameplayStatics::PlaySoundAtLocation(this, parryingSound[FMath::RandHelper(parryingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
 					isHit = false;
+					if (isRedAttack)
+					{
+						ParryingBackMove();
+					}
 				}
 			}
 			else if (me->GetPlayerState() == EPlayerState::Blocking)
@@ -324,6 +336,34 @@ void UYoruDefenceComponent::InitFX()
 
 	blockingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blocking.NS_Blocking'"));
 	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
+	parryingFootFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_ParryingFoot.NS_ParryingFoot'"));
+}
+
+void UYoruDefenceComponent::ParryingBackMove()
+{
+	float initialSpeed = 600.0f;
+	float decelerationRate = 0.98f;
+	float currentSpeed = initialSpeed;
+
+	UNiagaraFunctionLibrary::SpawnSystemAttached(parryingFootFX, me->GetMesh(), "foot_r", FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset, true);
+	UNiagaraFunctionLibrary::SpawnSystemAttached(parryingFootFX, me->GetMesh(), "foot_l", { 0.0,-30.0,0.0 }, {0.0,0.0,0.0}, EAttachLocation::KeepRelativeOffset, true);
+
+	GetWorld()->GetTimerManager().SetTimer(parryingMoveTimeHandle, [this, currentSpeed, decelerationRate]() mutable
+		{
+			FVector currentLocation = me->GetActorLocation();
+			FVector forwardVector = me->GetActorForwardVector().GetSafeNormal2D() * -1;
+			FVector newLocation = currentLocation + forwardVector * currentSpeed * GetWorld()->GetDeltaSeconds();
+
+			me->SetActorLocation(newLocation, true);
+
+			currentSpeed *= decelerationRate;
+
+			if (currentSpeed < 0.01f)
+			{
+				GetWorld()->GetTimerManager().ClearTimer(parryingMoveTimeHandle);
+			}
+
+		}, GetWorld()->GetDeltaSeconds(), true, 0.0f);
 }
 
 FVector UYoruDefenceComponent::CaculateParryPoint(const FVector& impactPoint)

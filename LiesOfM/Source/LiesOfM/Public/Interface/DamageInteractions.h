@@ -17,7 +17,7 @@ class LIESOFM_API IDamageInteractions
 	GENERATED_BODY()
 
 public:
-	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult) = 0;
+	virtual void ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack) = 0;
 
 	virtual void ReceiveGroggyDamage(float damageAmount, AActor* attackingActor) = 0;
 };

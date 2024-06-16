@@ -103,6 +103,9 @@
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBaseComponent.cpp">
       <Filter>Source\LiesOfM\Private\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBaseMovement.cpp">
+      <Filter>Source\LiesOfM\Private\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LiesOfM\Private\Enemy\EnemyBoss.cpp">
       <Filter>Source\LiesOfM\Private\Enemy</Filter>
     </ClCompile>
@@ -287,6 +290,9 @@
       <Filter>Source\LiesOfM\Public\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBaseComponent.h">
+      <Filter>Source\LiesOfM\Public\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBaseMovement.h">
       <Filter>Source\LiesOfM\Public\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LiesOfM\Public\Enemy\EnemyBoss.h">
