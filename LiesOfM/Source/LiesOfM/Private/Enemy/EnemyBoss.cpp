@@ -11,6 +11,7 @@
 #include "NiagaraComponent.h"
 #include "Enemy/BossWidget.h"
 #include "Enemy/EnemyBaseMovement.h"
+#include "Animation/AnimMontage.h"
 
 AEnemyBoss::AEnemyBoss()
 {
@@ -129,6 +130,13 @@ void AEnemyBoss::InitContents()
 	{
 		grabAttackedBackMontage = grabAttacked2MontageFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> blockingSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/GreatSword/SW_GreatSwordBlocking_1.SW_GreatSwordBlocking_1'"));
+
+	if (blockingSoundFinder.Succeeded())
+	{
+		blockingSound = blockingSoundFinder.Object;
+	}
 }
 
 void AEnemyBoss::BeginPlay()
@@ -142,6 +150,8 @@ void AEnemyBoss::BeginPlay()
 	Player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
 	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
+
+	blockingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blocking.NS_Blocking'"));
 }
 
 void AEnemyBoss::Tick(float DeltaTime)
@@ -157,6 +167,7 @@ void AEnemyBoss::Tick(float DeltaTime)
 	}
 
 	playerDistance = FVector::Distance(GetActorLocation(), Player->GetActorLocation());
+	UE_LOG(LogTemp, Warning, TEXT("%f"), playerDistance);
 }
 
 void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -167,6 +178,17 @@ void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
 	if (!isHittable) return;
+
+	if (isCounter)
+	{
+		isCounter = false;
+		FVector tempPoint = hitResult.ImpactPoint;
+		tempPoint.Z += 50.0f;
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), blockingFX, tempPoint);
+		UGameplayStatics::PlaySoundAtLocation(this, blockingSound, tempPoint, 1.0f, 1.0f, 0.1f);
+		GetMesh()->GetAnimInstance()->Montage_Play(counterAttackMontage);
+		return;
+	}
 
 	CaculateDamage(damageAmount);
 
@@ -225,7 +247,7 @@ void AEnemyBoss::GrabAttacked(bool isFront)
 void AEnemyBoss::Groggy()
 {
 	Super::Groggy();
-
+	moveComp->SetSubBackMoveValue(1);
 	currentEnemyState = EEnemyState::Groggy;
 	HiddenRedAttack();
 	currentGroggy = 0;
@@ -261,6 +283,8 @@ void AEnemyBoss::NotifyAttackEnd()
 
 void AEnemyBoss::ChangePhase()
 {
+	phase++;
+	isChanging = true;
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
 		GetMesh()->GetAnimInstance()->Montage_Play(changePhaseMontage);
@@ -269,6 +293,12 @@ void AEnemyBoss::ChangePhase()
 
 void AEnemyBoss::Attack()
 {
+	if (!phase && GetHPRatio() <= 0.5)
+	{
+		ChangePhase();
+		return;
+	}
+
 	enum EAttack
 	{
 		JUMPATTACK,
@@ -276,20 +306,32 @@ void AEnemyBoss::Attack()
 		MELEEATTACK1,
 		MELEEATTACK2,
 		MELEEATTACK3,
+		COUNTER,
 
 		Size
 	};
 
 	EAttack randomAttackNum{};
+	int32 randomNum{-1};
+	do
+	{
+		if (playerDistance <= 300.0f)
+		{
+			randomNum = FMath::RandHelper(6);
+		}
+		else if (playerDistance <= 450.0f)
+		{
+			randomNum = FMath::RandHelper(2);
+		}
+	} while (randomNum == preAttack);
 
-	if (playerDistance <= 200.0f)
+	if (playerDistance > 400.0f)
 	{
-		randomAttackNum = static_cast<EAttack>(FMath::RandHelper(5));
+		randomNum = 0;
 	}
-	else if (playerDistance <= 400.0f)
-	{
-		randomAttackNum = static_cast<EAttack>(FMath::RandHelper(2));
-	}
+	preAttack = randomNum;
+
+	randomAttackNum = static_cast<EAttack>(randomNum);
 
 	switch (randomAttackNum)
 	{
@@ -308,6 +350,9 @@ void AEnemyBoss::Attack()
 		case MELEEATTACK3:
 			MeleeAttack3();
 			break;
+		case COUNTER:
+			Counter();
+			break;
 		case Size:
 			break;
 		default:
@@ -325,18 +370,34 @@ void AEnemyBoss::CounterAttack()
 
 void AEnemyBoss::RushAttack()
 {
-	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	if (!phase)
 	{
-		GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
+		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
+		}
 	}
+	else
+	{
+
+	}
+	
 }
 
 void AEnemyBoss::JumpAttack()
 {
-	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	if (!phase)
 	{
-		GetMesh()->GetAnimInstance()->Montage_Play(jumpAttackMontage);
+		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(jumpAttackMontage);
+		}
 	}
+	else
+	{
+
+	}
+	
 }
 
 void AEnemyBoss::MeleeAttack1()
@@ -349,10 +410,20 @@ void AEnemyBoss::MeleeAttack1()
 
 void AEnemyBoss::MeleeAttack2()
 {
-	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	if (!phase)
 	{
-		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack2Montage);
+		moveComp->SetSubBackMoveValue(0.2f);
+
+		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack2Montage);
+		}
 	}
+	else
+	{
+
+	}
+	
 }
 
 void AEnemyBoss::MeleeAttack3()
@@ -360,6 +431,14 @@ void AEnemyBoss::MeleeAttack3()
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
 		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack3Montage);
+	}
+}
+
+void AEnemyBoss::Counter()
+{
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(counterBlockMontage);
 	}
 }
 
@@ -456,6 +535,31 @@ void AEnemyBoss::PlayAnimBossDieText()
 	widgetComp->PlayAnimationBossDie();
 }
 
+void AEnemyBoss::EndChange()
+{
+	isChanging = false;
+}
+
+void AEnemyBoss::EndCounter()
+{
+	isCounter = false;
+}
+
+void AEnemyBoss::ChangeRushAttack()
+{
+	GetMesh()->GetAnimInstance()->Montage_Stop(0.1f);
+	RushAttack();
+}
+
+void AEnemyBoss::SummonFire()
+{
+}
+
+void AEnemyBoss::StartCounter()
+{
+	isCounter = true;
+}
+
 float AEnemyBoss::GetAIAttackMeleeRange()
 {
 	return 300.0f;
@@ -503,7 +607,10 @@ void AEnemyBoss::RandomMoveByAI()
 
 	GetCharacterMovement()->MaxWalkSpeed = RandIndex ? 200.0f : 100.0f;
 
-	BossAIController->MoveToLocation(GetActorLocation() + DirectionArray[RandIndex] * 300.0f);
+	if (RandIndex >= 0 && RandIndex < 5)
+	{
+		BossAIController->MoveToLocation(GetActorLocation() + DirectionArray[RandIndex] * 300.0f);
+	}
 
 	FTimerHandle randomMoveTimer{};
 	GetWorld()->GetTimerManager().SetTimer(randomMoveTimer, [this]()

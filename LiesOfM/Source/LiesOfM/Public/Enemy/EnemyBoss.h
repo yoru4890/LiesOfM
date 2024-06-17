@@ -53,6 +53,7 @@ public:
 	void MeleeAttack1();
 	void MeleeAttack2();
 	void MeleeAttack3();
+	void Counter();
 
 	UFUNCTION(BlueprintCallable)
 	void TriggerTrace();
@@ -78,6 +79,21 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlayAnimBossDieText();
+
+	UFUNCTION(BlueprintCallable)
+	void EndChange();
+
+	UFUNCTION(BlueprintCallable)
+	void StartCounter();
+
+	UFUNCTION(BlueprintCallable)
+	void EndCounter();
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeRushAttack();
+
+	UFUNCTION(BlueprintCallable)
+	void SummonFire();
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
@@ -98,16 +114,26 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class UNiagaraSystem> bloodFX;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UNiagaraSystem> blockingFX;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class USoundBase> blockingSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy")
+	int32 phase{};
 private:
 	bool isLockon{ true };
 	bool bRedAttack{};
-	int phase{};
+	bool isChanging{};
+	bool isCounter{};
 	float resultDamage{ 20.0f };
 	float turnSpeed{5.0f};
 	float redAttackTurnSpeed{ 10.0f };
 	float normalTurnSpeed{ 5.0f };
 	float totalDamage{};
 	double playerDistance{};
+	int32 preAttack{};
 
 	TObjectPtr<class AEnemyBossAIController> BossAIController{};
 

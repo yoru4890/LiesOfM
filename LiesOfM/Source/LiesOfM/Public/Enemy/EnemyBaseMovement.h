@@ -36,8 +36,46 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UCurveFloat* BackMoveCurve{};
+
+	UFUNCTION()
+	void JumpMoveTick();
+
+	UFUNCTION()
+	void JumpMoveEnd();
+
+	UFUNCTION(BlueprintCallable)
+	void JumpMoveToggle(bool isStart);
+
+	UPROPERTY(EditAnywhere)
+	UCurveVector* JumpMoveCurve{};
+
+	UFUNCTION()
+	void ChaseMoveTick();
+
+	UFUNCTION()
+	void ChaseMoveEnd();
+
+	UFUNCTION(BlueprintCallable)
+	void ChaseMoveToggle(bool isStart);
+
+	UPROPERTY(EditAnywhere)
+	UCurveFloat* ChaseMoveCurve{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float JumpSpeed{ 3.0f };
+
+	void SetSubBackMoveValue(float value) { subBackMoveValue = value; }
 private:
 	
 	class APawn* Player{};
 	FTimeline BackMoveTL{};
+	FTimeline JumpMoveTL{};
+	FTimeline ChaseMoveTL{};
+
+	float subBackMoveValue{1};
+
+	FVector StartPos{};
+	FVector PlayerPos{};
+	FVector TargetPos{};
+	bool isMiddle{};
 };

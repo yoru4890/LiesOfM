@@ -4,6 +4,7 @@
 #include "Enemy/EnemyBaseMovement.h"
 #include "Enemy/EnemyBoss.h"
 #include "Kismet/GameplayStatics.h"
+#include "Curves/CurveVector.h"
 
 UEnemyBaseMovement::UEnemyBaseMovement()
 {
@@ -14,6 +15,20 @@ UEnemyBaseMovement::UEnemyBaseMovement()
 	if (BackMoveCurveFinder.Succeeded())
 	{
 		BackMoveCurve = BackMoveCurveFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UCurveVector> JumpMoveCurveFinder(TEXT("/Script/Engine.CurveVector'/Game/AAA/Curves/C_JumpMove.C_JumpMove'"));
+
+	if (JumpMoveCurveFinder.Succeeded())
+	{
+		JumpMoveCurve = JumpMoveCurveFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UCurveFloat> ChaseMoveCurveFinder(TEXT("/Script/Engine.CurveFloat'/Game/AAA/Curves/C_ChaseMove.C_ChaseMove'"));
+
+	if (ChaseMoveCurveFinder.Succeeded())
+	{
+		ChaseMoveCurve = ChaseMoveCurveFinder.Object;
 	}
 }
 
@@ -31,6 +46,8 @@ void UEnemyBaseMovement::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	BackMoveTL.TickTimeline(DeltaTime);
+	JumpMoveTL.TickTimeline(DeltaTime);
+	ChaseMoveTL.TickTimeline(DeltaTime);
 }
 
 void UEnemyBaseMovement::InitTimeLine()
@@ -45,6 +62,30 @@ void UEnemyBaseMovement::InitTimeLine()
 		BackMoveTL.AddInterpFloat(BackMoveCurve, TimelineCallback);
 		BackMoveTL.SetTimelineFinishedFunc(TimelineFinishedCallback);
 		BackMoveTL.SetLooping(false);
+	}
+
+	if (JumpMoveCurve)
+	{
+		FOnTimelineVector TimelineCallback;
+		FOnTimelineEventStatic TimelineFinishedCallback;
+
+		TimelineCallback.BindUFunction(this, FName("JumpMoveTick"));
+		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("JumpMoveEnd") });
+		JumpMoveTL.AddInterpVector(JumpMoveCurve, TimelineCallback);
+		JumpMoveTL.SetTimelineFinishedFunc(TimelineFinishedCallback);
+		JumpMoveTL.SetLooping(false);
+	}
+
+	if (ChaseMoveCurve)
+	{
+		FOnTimelineFloat TimelineCallback;
+		FOnTimelineEventStatic TimelineFinishedCallback;
+
+		TimelineCallback.BindUFunction(this, FName("ChaseMoveTick"));
+		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("ChaseMoveEnd") });
+		ChaseMoveTL.AddInterpFloat(ChaseMoveCurve, TimelineCallback);
+		ChaseMoveTL.SetTimelineFinishedFunc(TimelineFinishedCallback);
+		ChaseMoveTL.SetLooping(false);
 	}
 }
 
@@ -61,6 +102,73 @@ void UEnemyBaseMovement::GrabAttackedMoveToggle(bool isStart)
 	}
 }
 
+void UEnemyBaseMovement::JumpMoveTick()
+{
+	float timelineValue = JumpMoveTL.GetPlaybackPosition();
+	FVector currentValue = JumpMoveCurve->GetVectorValue(timelineValue);
+
+	if (!isMiddle && timelineValue >= 0.4)
+	{
+		isMiddle = true;
+		PlayerPos = Player->GetActorLocation();
+		TargetPos = (StartPos - PlayerPos);
+		TargetPos = (TargetPos / TargetPos.Length())* 200.0 + PlayerPos;
+		TargetPos.Z = 0;
+	}
+
+	FVector tempLoc = me->GetActorLocation();
+	tempLoc.Z = 0;
+	FVector tempDest = FMath::VInterpTo(tempLoc, TargetPos, GetWorld()->GetDeltaSeconds(), JumpSpeed);
+	tempDest.Z = StartPos.Z + currentValue.Z;
+	me->SetActorLocation(tempDest, true);
+}
+
+void UEnemyBaseMovement::JumpMoveEnd()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Finished"));
+}
+
+void UEnemyBaseMovement::JumpMoveToggle(bool isStart)
+{
+	if (isStart)
+	{
+		StartPos = me->GetActorLocation();
+		PlayerPos = Player->GetActorLocation();
+		TargetPos = (StartPos - PlayerPos);
+		TargetPos = (TargetPos / TargetPos.Length()) * 200.0 + PlayerPos;
+		TargetPos.Z = 0;
+		isMiddle = false;
+		JumpMoveTL.PlayFromStart();
+	}
+	else
+	{
+		JumpMoveTL.Stop();
+	}
+}
+
+void UEnemyBaseMovement::ChaseMoveTick()
+{
+	float timelineValue = ChaseMoveTL.GetPlaybackPosition();
+	float currentValue = ChaseMoveCurve->GetFloatValue(timelineValue);
+}
+
+void UEnemyBaseMovement::ChaseMoveEnd()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Finished"));
+}
+
+void UEnemyBaseMovement::ChaseMoveToggle(bool isStart)
+{
+	if (isStart)
+	{
+		ChaseMoveTL.PlayFromStart();
+	}
+	else
+	{
+		ChaseMoveTL.Stop();
+	}
+}
+
 void UEnemyBaseMovement::backMoveTick()
 {
 	
@@ -69,7 +177,7 @@ void UEnemyBaseMovement::backMoveTick()
 
 	FVector Direction{ Player->GetActorForwardVector().GetSafeNormal2D()};
 	
-	me->SetActorLocation(me->GetActorLocation() + Direction * currentValue, true);
+	me->SetActorLocation(me->GetActorLocation() + Direction * currentValue * subBackMoveValue, true);
 }
 
 void UEnemyBaseMovement::backMoveEnd()
