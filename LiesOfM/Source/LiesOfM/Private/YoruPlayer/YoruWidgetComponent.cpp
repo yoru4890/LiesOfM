@@ -29,6 +29,13 @@ UYoruWidgetComponent::UYoruWidgetComponent()
 		lockonWidgetClass = lockonWidgetFinder.Class;
 	}
 
+	static ConstructorHelpers::FClassFinder<UUserWidget> dieWidgetFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/AAA/Widget/WB_Die.WB_Die_C'"));
+
+	if (dieWidgetFinder.Succeeded())
+	{
+		dieWidgetClass = dieWidgetFinder.Class;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UCurveFloat> curveFinder(TEXT("/Script/Engine.CurveFloat'/Game/AAA/Curves/C_Temp.C_Temp'"));
 
 	if (curveFinder.Succeeded())
@@ -67,7 +74,8 @@ void UYoruWidgetComponent::InitWidget()
 	if (widgetClass)
 	{
 		widgetCombat = CreateWidget(GetWorld()->GetFirstPlayerController(), widgetClass);
-		widgetCombat->AddToViewport();
+		widgetDie = CreateWidget(GetWorld()->GetFirstPlayerController(), dieWidgetClass);
+		//widgetCombat->AddToViewport();
 		staminaBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("StaminaBar"));
 		HPBar = Cast<UProgressBar>(widgetCombat->GetWidgetFromName("HPBar"));
 		PortionCountText = Cast<UTextBlock>(widgetCombat->GetWidgetFromName("Text_ItemCount"));
@@ -107,6 +115,11 @@ void UYoruWidgetComponent::InitTimeline()
 		HPRegenerationLooper.SetTimelineFinishedFunc(TimelineFinishedCallback2);
 		HPRegenerationLooper.SetLooping(true);
 	}
+}
+
+void UYoruWidgetComponent::AddToViewDie()
+{
+	widgetDie->AddToViewport();
 }
 
 void UYoruWidgetComponent::StaminaRegenTick()

@@ -38,6 +38,7 @@ public:
 	void ChangeCrouch(const FInputActionValue& value);
 	void ChangeWeapon(const FInputActionValue& value);
 	void UseItem();
+	void Die();
 
 	UFUNCTION(BlueprintCallable)
 	void MovementInputHandler(float duration, bool isStopInput);

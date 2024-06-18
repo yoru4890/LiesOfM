@@ -13,6 +13,7 @@
 #include "Weapon/WeaponBase.h"
 #include "YoruPlayer/YoruDefenceComponent.h"
 #include "Item/ItemBase.h"
+#include "Components/CapsuleComponent.h"
 
 UYoruMoveComponent::UYoruMoveComponent()
 {
@@ -199,7 +200,8 @@ void UYoruMoveComponent::Look(const FInputActionValue& value)
 void UYoruMoveComponent::Jump(const FInputActionValue& value)
 {
 	if (me->GetMesh()->GetAnimInstance()->Montage_IsPlaying(useItemMontage)) return;
-
+	if (me->isDie) return;
+	if (!(me->isCanJump)) return;
 
 	if (me->GetPlayerState() == EPlayerState::Crouch)
 	{
@@ -291,6 +293,7 @@ void UYoruMoveComponent::StopRunning()
 void UYoruMoveComponent::RollOrStepBack(const FInputActionValue& value)
 {
 	if (me->GetMesh()->GetAnimInstance()->Montage_IsPlaying(useItemMontage)) return;
+	if (me->isDie) return;
 
 	if (isMovementInput && me->statComp->CheckStamina(8.0f))
 	{
@@ -323,6 +326,7 @@ void UYoruMoveComponent::ChangeCrouch(const FInputActionValue& value)
 void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 {
 	if (me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()) return;
+	if (me->isDie) return;
 
 	if (!HasMovementKeyInput())
 	{
@@ -347,6 +351,7 @@ void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 void UYoruMoveComponent::UseItem()
 {
 	if (me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()) return;
+	if (me->isDie) return;
 
 	if (!portionCount) return;
 
@@ -356,6 +361,14 @@ void UYoruMoveComponent::UseItem()
 		me->GetMesh()->GetAnimInstance()->Montage_Play(useItemMontage);
 		MovementInputHandler(0.5f, false);
 	}
+}
+
+void UYoruMoveComponent::Die()
+{
+	me->isDie = true;
+	me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	MovementInputHandler(0.0f, true);
+	me->widgetComp->AddToViewDie();
 }
 
 

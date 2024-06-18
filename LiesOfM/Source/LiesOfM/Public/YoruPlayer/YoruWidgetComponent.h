@@ -43,6 +43,12 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
 	TSubclassOf<class UUserWidget> lockonWidgetClass;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
+	TSubclassOf<class UUserWidget> dieWidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|widget")
+	UUserWidget* widgetDie;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Timeline")
 	UCurveFloat* curve{};
 
@@ -50,6 +56,7 @@ public:
 	void InitWidget();
 	void InitTimeline();
 
+	void AddToViewDie();
 	UFUNCTION()
 	void StaminaRegenTick();
 

@@ -42,6 +42,7 @@ float UYoruStatComponent::DecreaseHP(float amount)
 	if (currentHP < 0)
 	{
 		currentHP = 0;
+		me->moveComp->Die();
 	}
 
 	onUpdateHP.Broadcast();

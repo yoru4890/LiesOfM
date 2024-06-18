@@ -100,6 +100,27 @@ void AYoru::BeginPlay()
 void AYoru::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (GetCharacterMovement()->IsFalling())
+	{
+		fallingElapsedTime += DeltaTime;
+	}
+	else
+	{
+		if (fallingElapsedTime >= 1.5f)
+		{
+			statComp->DecreaseHP(25);
+		}
+		fallingElapsedTime = 0;
+	}
+
+	if (fallingElapsedTime)
+	{
+		if (!isDie && fallingElapsedTime >= 2.5f)
+		{
+			FallingDie();
+		}
+	}
 }
 
 void AYoru::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -142,4 +163,13 @@ void AYoru::ChangeCamera(bool isLockonMove)
 		bUseControllerRotationYaw = false;
 		GetCharacterMovement()->bOrientRotationToMovement = true;
 	}
+}
+
+void AYoru::FallingDie()
+{
+	statComp->currentHP = 0;
+	statComp->onUpdateHP.Broadcast();
+	isDie = true;
+	moveComp->MovementInputHandler(0.0f, true);
+	widgetComp->AddToViewDie();
 }

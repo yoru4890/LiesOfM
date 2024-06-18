@@ -78,4 +78,6 @@ private:
 	FVector PlayerPos{};
 	FVector TargetPos{};
 	bool isMiddle{};
+
+	class AEnemyBoss* realMe{};
 };

@@ -72,7 +72,7 @@ public:
 	float maxStamina{ 60.0f };
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|Stamina")
-	float StaminaRegen{ 0.2f };
+	float StaminaRegen{ 0.1f };
 
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Speed")
 	float walkSpeed{ 150.0f };

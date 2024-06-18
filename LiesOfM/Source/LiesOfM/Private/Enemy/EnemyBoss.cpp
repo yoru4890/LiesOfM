@@ -12,15 +12,23 @@
 #include "Enemy/BossWidget.h"
 #include "Enemy/EnemyBaseMovement.h"
 #include "Animation/AnimMontage.h"
+#include "Particles/ParticleSystem.h"
 
 AEnemyBoss::AEnemyBoss()
 {
 	weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("weaponMesh"));
+	wing = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("wing"));
+	wing->SetupAttachment(GetMesh(), "Wing");
 
 	redAttackBody = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackBody"));
 	redAttackBody->SetupAttachment(GetMesh());
 	redAttackWeapon = CreateDefaultSubobject<UNiagaraComponent>(TEXT("redAttackWeapon"));
 	redAttackWeapon->SetupAttachment(weapon);
+
+	yellowBody = CreateDefaultSubobject<UNiagaraComponent>(TEXT("yellowBdoy"));
+	yellowBody->SetupAttachment(GetMesh());
+	yellowWeapon = CreateDefaultSubobject<UNiagaraComponent>(TEXT("yellowWeapon"));
+	yellowWeapon->SetupAttachment(weapon);
 
 	widgetComp = CreateDefaultSubobject<UBossWidget>(TEXT("widgetComp"));
 	moveComp = CreateDefaultSubobject<UEnemyBaseMovement>(TEXT("moveComp"));
@@ -37,6 +45,13 @@ void AEnemyBoss::InitContents()
 	{
 		GetMesh()->SetSkeletalMesh(meshFinder.Object);
 		GetMesh()->SetRelativeLocationAndRotation({ 0.0,0.0,-90.0 }, { 0.0,-90.0,0.0 });
+	}
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> wingMeshFinder(TEXT("/Script/Engine.StaticMesh'/Game/AAA/StaticMesh/Fracture/SM_AngelStatue_GeometryCollection_SM_1_.SM_AngelStatue_GeometryCollection_SM_1_'"));
+
+	if (wingMeshFinder.Succeeded())
+	{
+		wing->SetStaticMesh(wingMeshFinder.Object);
 	}
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> animFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/AAA/Blueprints/Enemy/Boss/ABP_EnemyBoss.ABP_EnemyBoss_C'"));
@@ -137,6 +152,20 @@ void AEnemyBoss::InitContents()
 	{
 		blockingSound = blockingSoundFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> lightningEffectFinder(TEXT("/Script/Engine.ParticleSystem'/Game/FXVarietyPack/Particles/P_ky_lightning3.P_ky_lightning3'"));
+
+	if (lightningEffectFinder.Succeeded())
+	{
+		lightningEffect = lightningEffectFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> lightningGroundEffectFinder(TEXT("/Script/Engine.ParticleSystem'/Game/AAA/Effect/Cascade/P_Lightning_Ground.P_Lightning_Ground'"));
+
+	if (lightningGroundEffectFinder.Succeeded())
+	{
+		lightningGroundEffect = lightningGroundEffectFinder.Object;
+	}
 }
 
 void AEnemyBoss::BeginPlay()
@@ -152,6 +181,8 @@ void AEnemyBoss::BeginPlay()
 	bloodFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blood.NS_Blood'"));
 
 	blockingFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Script/Niagara.NiagaraSystem'/Game/AAA/Effect/Niagara/NS_Blocking.NS_Blocking'"));
+
+	yoru = Cast<AYoru>(Player);
 }
 
 void AEnemyBoss::Tick(float DeltaTime)
@@ -166,8 +197,12 @@ void AEnemyBoss::Tick(float DeltaTime)
 		SetActorRotation(FMath::RInterpTo(GetActorRotation(), RotateTemp, DeltaTime, turnSpeed));
 	}
 
+	if (yoru->isDie)
+	{
+		BossAIController->StopAI();
+	}
+
 	playerDistance = FVector::Distance(GetActorLocation(), Player->GetActorLocation());
-	UE_LOG(LogTemp, Warning, TEXT("%f"), playerDistance);
 }
 
 void AEnemyBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -190,6 +225,11 @@ void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 		return;
 	}
 
+	if (isChanging)
+	{
+		damageAmount /= 10;
+	}
+
 	CaculateDamage(damageAmount);
 
 	FVector actorDirection{ GetActorRotation().Vector().GetSafeNormal2D() };
@@ -208,7 +248,7 @@ void AEnemyBoss::ReceiveDamage(float damageAmount, AActor* attackingActor, const
 void AEnemyBoss::ReceiveGroggyDamage(float damageAmount, AActor* attackingActor)
 {
 	Super::ReceiveGroggyDamage(damageAmount, attackingActor);
-	
+
 	if (bRedAttack)
 	{
 		damageAmount *= 4;
@@ -250,6 +290,8 @@ void AEnemyBoss::Groggy()
 	moveComp->SetSubBackMoveValue(1);
 	currentEnemyState = EEnemyState::Groggy;
 	HiddenRedAttack();
+	HiddenYellowMode();
+	moveComp->ChaseMoveToggle(false);
 	currentGroggy = 0;
 	GetMesh()->GetAnimInstance()->Montage_Play(groggyMontage);
 }
@@ -285,6 +327,9 @@ void AEnemyBoss::ChangePhase()
 {
 	phase++;
 	isChanging = true;
+
+	SummonLightning(Player->GetActorLocation() - (0,0,65.0f));
+
 	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
 	{
 		GetMesh()->GetAnimInstance()->Montage_Play(changePhaseMontage);
@@ -312,7 +357,7 @@ void AEnemyBoss::Attack()
 	};
 
 	EAttack randomAttackNum{};
-	int32 randomNum{-1};
+	int32 randomNum{ -1 };
 	do
 	{
 		if (playerDistance <= 300.0f)
@@ -325,9 +370,16 @@ void AEnemyBoss::Attack()
 		}
 	} while (randomNum == preAttack);
 
-	if (playerDistance > 400.0f)
+	if (playerDistance > 450.0f)
 	{
-		randomNum = 0;
+		if (phase == 1)
+		{
+			randomNum = FMath::RandHelper(2);
+		}
+		else
+		{
+			randomNum = 0;
+		}
 	}
 	preAttack = randomNum;
 
@@ -335,28 +387,28 @@ void AEnemyBoss::Attack()
 
 	switch (randomAttackNum)
 	{
-		case JUMPATTACK:
-			JumpAttack();
-			break;
-		case RUSHATTACK:
-			RushAttack();
-			break;
-		case MELEEATTACK1:
-			MeleeAttack1();
-			break;
-		case MELEEATTACK2:
-			MeleeAttack2();
-			break;
-		case MELEEATTACK3:
-			MeleeAttack3();
-			break;
-		case COUNTER:
-			Counter();
-			break;
-		case Size:
-			break;
-		default:
-			break;
+	case JUMPATTACK:
+		JumpAttack();
+		break;
+	case RUSHATTACK:
+		RushAttack();
+		break;
+	case MELEEATTACK1:
+		MeleeAttack1();
+		break;
+	case MELEEATTACK2:
+		MeleeAttack2();
+		break;
+	case MELEEATTACK3:
+		MeleeAttack3();
+		break;
+	case COUNTER:
+		Counter();
+		break;
+	case Size:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -370,34 +422,24 @@ void AEnemyBoss::CounterAttack()
 
 void AEnemyBoss::RushAttack()
 {
-	if (!phase)
-	{
-		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
-		{
-			GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
-		}
-	}
-	else
-	{
 
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
 	}
-	
+
+
 }
 
 void AEnemyBoss::JumpAttack()
 {
-	if (!phase)
-	{
-		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
-		{
-			GetMesh()->GetAnimInstance()->Montage_Play(jumpAttackMontage);
-		}
-	}
-	else
-	{
 
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(jumpAttackMontage);
 	}
-	
+
+
 }
 
 void AEnemyBoss::MeleeAttack1()
@@ -410,20 +452,15 @@ void AEnemyBoss::MeleeAttack1()
 
 void AEnemyBoss::MeleeAttack2()
 {
-	if (!phase)
-	{
-		moveComp->SetSubBackMoveValue(0.2f);
 
-		if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
-		{
-			GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack2Montage);
-		}
-	}
-	else
-	{
+	moveComp->SetSubBackMoveValue(0.2f);
 
+	if (!(GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(meleeAttack2Montage);
 	}
-	
+
+
 }
 
 void AEnemyBoss::MeleeAttack3()
@@ -452,8 +489,8 @@ void AEnemyBoss::ApplyTrace()
 {
 	FVector start{ };
 	FVector end{ };
-	float radius{80.0f};
-	
+	float radius{ 80.0f };
+
 	start = weapon->GetSocketLocation(TEXT("StartPoint"));
 	end = weapon->GetSocketLocation(TEXT("EndPoint"));
 
@@ -547,12 +584,72 @@ void AEnemyBoss::EndCounter()
 
 void AEnemyBoss::ChangeRushAttack()
 {
-	GetMesh()->GetAnimInstance()->Montage_Stop(0.1f);
-	RushAttack();
+	if (phase == 1)
+	{
+		GetMesh()->GetAnimInstance()->Montage_Play(rushAttackMontage);
+	}
 }
 
-void AEnemyBoss::SummonFire()
+void AEnemyBoss::SummonLightning(const FVector& location)
 {
+	lightningLoc = location;
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), lightningGroundEffect, location);
+
+	FTimerHandle tempEffectTH{};
+	GetWorld()->GetTimerManager().SetTimer(tempEffectTH, [this]()
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), lightningEffect, lightningLoc);
+		}, 0.1f, false, 0.7);
+
+	FTimerHandle tempDamageTH{};
+	GetWorld()->GetTimerManager().SetTimer(tempDamageTH, this, &AEnemyBoss::LightningAttack, 0.1f, false, 0.8);
+	
+}
+
+void AEnemyBoss::ShowWing()
+{
+	wing->SetVisibility(true);
+}
+
+void AEnemyBoss::HiddenWing()
+{
+	wing->SetVisibility(false);
+}
+
+void AEnemyBoss::ShowYellowMode()
+{
+	yellowBody->SetVisibility(true);
+	yellowWeapon->SetVisibility(true);
+}
+
+void AEnemyBoss::HiddenYellowMode()
+{
+	yellowBody->SetVisibility(false);
+	yellowWeapon->SetVisibility(false);
+}
+
+void AEnemyBoss::LightningAttack()
+{
+	FVector start{ lightningLoc };
+	FVector end{ lightningLoc };
+	float radius{ 120.0f };
+	hitActors.Reset();
+	TArray<AActor*> ignoreActors;
+	TArray<FHitResult> outHits;
+	ignoreActors.Add(this);
+	bool isHit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), start, end, radius, TCHANNEL_ENEMYDAMAGE, false, ignoreActors, EDrawDebugTrace::None, outHits, true);
+	if (isHit)
+	{
+		for (const auto& hitResult : outHits)
+		{
+			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
+			{
+				hitActors.Add(hitResult.GetActor());
+				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult, false);
+			}
+		}
+
+	}
 }
 
 void AEnemyBoss::StartCounter()

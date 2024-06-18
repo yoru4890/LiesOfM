@@ -7,7 +7,7 @@
 #include "Interface/DamageInteractions.h"
 #include "Yoru.generated.h"
 
-UENUM(BlueprintType)
+UENUM(BlueprintType, meta = (ScriptName = "EPlayerStateEnum"))
 enum class EPlayerState : uint8
 { 
 	NONE UMETA(DisplayName = "NONE"),
@@ -125,6 +125,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeCamera(bool isLockonMove);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isDie{};
+
+	UFUNCTION(BlueprintCallable)
+	void FallingDie();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isCanJump{ true };
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isPressedMovementInput{};
@@ -134,4 +143,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	bool isLockon{};
+
+	float fallingElapsedTime{};
 };

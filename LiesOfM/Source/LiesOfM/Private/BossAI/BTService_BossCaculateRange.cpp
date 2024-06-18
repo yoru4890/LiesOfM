@@ -10,7 +10,7 @@
 UBTService_BossCaculateRange::UBTService_BossCaculateRange()
 {
 	NodeName = TEXT("CaculateRange");
-	Interval = 0.5f;
+	Interval = 0.08f;
 }
 
 void UBTService_BossCaculateRange::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)

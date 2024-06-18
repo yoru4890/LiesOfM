@@ -93,17 +93,40 @@ public:
 	void ChangeRushAttack();
 
 	UFUNCTION(BlueprintCallable)
-	void SummonFire();
+	void SummonLightning(const FVector& location);
+
+	UFUNCTION(BlueprintCallable)
+	void ShowWing();
+
+	UFUNCTION(BlueprintCallable)
+	void HiddenWing();
+
+	UFUNCTION(BlueprintCallable)
+	void ShowYellowMode();
+
+	UFUNCTION(BlueprintCallable)
+	void HiddenYellowMode();
+
+	void LightningAttack();
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<USkeletalMeshComponent> weapon{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<UStaticMeshComponent> wing{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<class UNiagaraComponent> redAttackBody{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<class UNiagaraComponent> redAttackWeapon{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> yellowBody{};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
+	TObjectPtr<class UNiagaraComponent> yellowWeapon{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")
 	TObjectPtr<class UBossWidget> widgetComp{};
@@ -120,8 +143,16 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class USoundBase> blockingSound;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UParticleSystem> lightningEffect;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class UParticleSystem> lightningGroundEffect;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy")
 	int32 phase{};
+
+	TObjectPtr<class AEnemyBossAIController> BossAIController{};
 private:
 	bool isLockon{ true };
 	bool bRedAttack{};
@@ -134,10 +165,11 @@ private:
 	float totalDamage{};
 	double playerDistance{};
 	int32 preAttack{};
-
-	TObjectPtr<class AEnemyBossAIController> BossAIController{};
+	FVector lightningLoc{};
+	
 
 	TObjectPtr<APawn> Player{};
+	class AYoru* yoru {};
 
 	UPROPERTY(VisibleAnywhere, Category = "Actor")
 	TArray<AActor*> hitActors{};

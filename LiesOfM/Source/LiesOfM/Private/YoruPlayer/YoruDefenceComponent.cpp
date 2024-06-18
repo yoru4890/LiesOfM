@@ -59,7 +59,7 @@ void UYoruDefenceComponent::SetupPlayerInputComponent(UEnhancedInputComponent* e
 
 void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingActor, const FHitResult& hitResult, bool isRedAttack)
 {
-	if (isHittable)
+	if (isHittable || isRedAttack)
 	{
 		bool isHit{true};
 		HandleHit();
@@ -104,7 +104,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					}
 				}
 			}
-			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			else if (me->GetPlayerState() == EPlayerState::Blocking && !isRedAttack)
 			{
 				CaculateBlock(damageAmount);
 				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
@@ -143,7 +143,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					}
 				}
 			}
-			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			else if (me->GetPlayerState() == EPlayerState::Blocking && !isRedAttack)
 			{
 				CaculateBlock(damageAmount);
 				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
@@ -182,7 +182,7 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 					}
 				}
 			}
-			else if (me->GetPlayerState() == EPlayerState::Blocking)
+			else if (me->GetPlayerState() == EPlayerState::Blocking && !isRedAttack)
 			{
 				CaculateBlock(damageAmount);
 				UGameplayStatics::PlaySoundAtLocation(this, blockingSound[FMath::RandHelper(blockingSound.Num())], parryPoint, 1.0f, 1.0f, 0.1f);
@@ -215,6 +215,9 @@ void UYoruDefenceComponent::HitReaction(float damageAmount, AActor* attackingAct
 		if (isHit)
 		{
 			SetInvincibilityTime(0.4f);
+			me->moveComp->StopRollMove();
+			me->ChangeCamera(me->GetIsLockon());
+			me->moveComp->MovementInputHandler(0.0f, false);
 		}
 	}
 }
@@ -284,7 +287,7 @@ void UYoruDefenceComponent::CaculateBlock(float& damageAmount)
 {
 	if (me->statComp->CheckStamina(15.0f))
 	{
-		damageAmount /= 2;
+		damageAmount /= 4;
 		me->statComp->HandleStaminaRegen(false);
 		me->statComp->DecreaseStamina(15.0f);
 		me->statComp->HandleStaminaRegen(true, 0.75f);

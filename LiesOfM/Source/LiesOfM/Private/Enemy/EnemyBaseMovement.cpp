@@ -5,6 +5,8 @@
 #include "Enemy/EnemyBoss.h"
 #include "Kismet/GameplayStatics.h"
 #include "Curves/CurveVector.h"
+#include "Enemy/EnemyBossAIController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UEnemyBaseMovement::UEnemyBaseMovement()
 {
@@ -37,6 +39,8 @@ void UEnemyBaseMovement::BeginPlay()
 	Super::BeginPlay();
 
 	Player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+
+	realMe = Cast<AEnemyBoss>(me);
 
 	InitTimeLine();
 }
@@ -150,22 +154,34 @@ void UEnemyBaseMovement::ChaseMoveTick()
 {
 	float timelineValue = ChaseMoveTL.GetPlaybackPosition();
 	float currentValue = ChaseMoveCurve->GetFloatValue(timelineValue);
+
+	FVector Direction{Player->GetActorLocation() - realMe->GetActorLocation()};
+	Direction.Normalize();
+	Direction.Z = 0;
+
+	realMe->BossAIController->MoveToLocation(realMe->GetActorLocation() + Direction * 300.0f);
 }
 
 void UEnemyBaseMovement::ChaseMoveEnd()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Finished"));
+	realMe->HiddenYellowMode();
 }
 
 void UEnemyBaseMovement::ChaseMoveToggle(bool isStart)
 {
-	if (isStart)
+	if (realMe->phase == 1)
 	{
-		ChaseMoveTL.PlayFromStart();
-	}
-	else
-	{
-		ChaseMoveTL.Stop();
+		if (isStart)
+		{
+			ChaseMoveTL.PlayFromStart();
+			realMe->ShowYellowMode();
+			realMe->GetCharacterMovement()->MaxWalkSpeed = 800.0f;
+		}
+		else
+		{
+			ChaseMoveTL.Stop();
+		}
 	}
 }
 
