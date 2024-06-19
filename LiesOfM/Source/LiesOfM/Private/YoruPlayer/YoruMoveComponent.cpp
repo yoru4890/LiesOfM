@@ -50,6 +50,7 @@ void UYoruMoveComponent::SetupPlayerInputComponent(UEnhancedInputComponent* enha
 	enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeCrouch);
 	enhancedInputComponent->BindAction(changeWeaponAction, ETriggerEvent::Started, this, &UYoruMoveComponent::ChangeWeapon);
 	enhancedInputComponent->BindAction(useItemAction, ETriggerEvent::Started, this, &UYoruMoveComponent::UseItem);
+	enhancedInputComponent->BindAction(interActAction, ETriggerEvent::Started, this, &UYoruMoveComponent::InterAction);
 }
 
 void UYoruMoveComponent::InitFile()
@@ -110,6 +111,13 @@ void UYoruMoveComponent::InitFile()
 		useItemAction = useItemActionFinder.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> interActActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/AAA/Input/IA_InterAction.IA_InterAction'"));
+
+	if (interActActionFinder.Succeeded())
+	{
+		interActAction = interActActionFinder.Object;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> rollingMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/Roll/AM_Rolling.AM_Rolling'"));
 
 	if (rollingMontageFinder.Succeeded())
@@ -143,6 +151,13 @@ void UYoruMoveComponent::InitFile()
 	if (useItemMontageFinder.Succeeded())
 	{
 		useItemMontage = useItemMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> bossEnterMontageFinder(TEXT("/Script/Engine.AnimMontage'/Game/AAA/Animations/Yoru/BaseMove/BossEntrance/AM_BossEntrance.AM_BossEntrance'"));
+
+	if (bossEnterMontageFinder.Succeeded())
+	{
+		bossEnterMontage = bossEnterMontageFinder.Object;
 	}
 }
 
@@ -348,6 +363,27 @@ void UYoruMoveComponent::ChangeWeapon(const FInputActionValue& value)
 	}
 }
 
+void UYoruMoveComponent::InterAction(const FInputActionValue& value)
+{
+	if (me->GetMesh()->GetAnimInstance()->Montage_IsPlaying(useItemMontage)) return;
+	if (me->isDie) return;
+
+	if (canBossEnter)
+	{
+		me->SetActorRotation({0,-8.0,0});
+		MovementInputHandler(0.0f, true);
+		me->defenceComp->SetInvincibilityTime(2.5f);
+		me->equippedWeapon->weaponMesh->SetVisibility(false);
+		me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		me->GetMesh()->GetAnimInstance()->Montage_Play(bossEnterMontage);
+		
+		GetWorld()->GetTimerManager().SetTimer(bossEnterTimeHandle, [this]()
+			{
+				me->SetActorLocation(FMath::VInterpTo(me->GetActorLocation(), me->GetActorLocation() + me->GetActorForwardVector() * 100.0f, 0.01f, 1.5f));
+			}, 0.01f, true);
+	}
+}
+
 void UYoruMoveComponent::UseItem()
 {
 	if (me->GetMesh()->GetAnimInstance()->IsAnyMontagePlaying()) return;
@@ -518,5 +554,14 @@ void UYoruMoveComponent::SpawnItem()
 void UYoruMoveComponent::StopRollMove()
 {
 	GetWorld()->GetTimerManager().ClearTimer(rollTimeHandle);
+}
+
+void UYoruMoveComponent::StopBossEnter()
+{
+	GetWorld()->GetTimerManager().ClearTimer(bossEnterTimeHandle);
+	me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	me->equippedWeapon->weaponMesh->SetVisibility(true);
+	canBossEnter = false;
+	MovementInputHandler(0.0f, false);
 }
 

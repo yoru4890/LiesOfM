@@ -1,7 +1,7 @@
 {
 	"RemapUnityFiles": 
 	{
-		"Module.LiesOfM.cpp.obj": [
+		"Module.LiesOfM.1.cpp.obj": [
 			"BossAIInterface.gen.cpp.obj",
 			"BossDoorManager.gen.cpp.obj",
 			"BossWidget.gen.cpp.obj",
@@ -37,14 +37,17 @@
 			"TOMAudioSubsystem.gen.cpp.obj",
 			"TOMDataTable.gen.cpp.obj",
 			"TOMGameInstance.gen.cpp.obj",
+			"LiesOfM.init.gen.cpp.obj"
+		],
+		"Module.LiesOfM.2.cpp.obj": [
 			"WallBase.gen.cpp.obj",
 			"WeaponBase.gen.cpp.obj",
+			"Yoru.gen.cpp.obj",
 			"YoruAnimInstance.gen.cpp.obj",
 			"YoruAttackComponent.gen.cpp.obj",
 			"YoruBaseComponent.gen.cpp.obj",
 			"YoruDefenceComponent.gen.cpp.obj",
 			"YoruLockonComponent.gen.cpp.obj",
-			"YoruMoveComponent.gen.cpp.obj",
 			"YoruStatComponent.gen.cpp.obj",
 			"YoruWidgetComponent.gen.cpp.obj",
 			"ChangeParryingAnimNotify.cpp.obj",
@@ -56,11 +59,14 @@
 			"BTTask_TurnToTarget.cpp.obj",
 			"BTTAttack.cpp.obj",
 			"BTDecorator_BossAttackRange.cpp.obj",
+			"BTService_BossCaculateRange.cpp.obj",
 			"BTTask_BossAttack.cpp.obj",
 			"BTTask_RandomMove.cpp.obj",
 			"BossWidget.cpp.obj",
 			"EnemyBase.cpp.obj",
 			"EnemyBaseComponent.cpp.obj",
+			"EnemyBaseMovement.cpp.obj",
+			"EnemyBoss.cpp.obj",
 			"EnemyBossAIController.cpp.obj",
 			"EnemyBossAnimInstance.cpp.obj",
 			"EnemyCommon.cpp.obj",
@@ -82,20 +88,16 @@
 			"TOMDataTable.cpp.obj",
 			"TOMGameInstance.cpp.obj",
 			"WeaponBase.cpp.obj",
+			"Yoru.cpp.obj",
 			"YoruAnimInstance.cpp.obj",
 			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
-			"YoruLockonComponent.cpp.obj",
-			"LiesOfM.init.gen.cpp.obj",
-			"Yoru.gen.cpp.obj",
-			"BTService_BossCaculateRange.cpp.obj",
-			"EnemyBaseMovement.cpp.obj",
-			"EnemyBoss.cpp.obj",
-			"Yoru.cpp.obj",
 			"YoruDefenceComponent.cpp.obj",
-			"YoruMoveComponent.cpp.obj",
+			"YoruLockonComponent.cpp.obj",
 			"YoruStatComponent.cpp.obj",
-			"YoruWidgetComponent.cpp.obj"
+			"YoruWidgetComponent.cpp.obj",
+			"YoruMoveComponent.gen.cpp.obj",
+			"YoruMoveComponent.cpp.obj"
 		]
 	}
 }

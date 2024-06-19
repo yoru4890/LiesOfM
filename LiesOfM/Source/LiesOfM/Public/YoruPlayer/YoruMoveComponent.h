@@ -38,6 +38,7 @@ public:
 	void ChangeCrouch(const FInputActionValue& value);
 	void ChangeWeapon(const FInputActionValue& value);
 	void UseItem();
+	void InterAction(const FInputActionValue& value);
 	void Die();
 
 	UFUNCTION(BlueprintCallable)
@@ -63,6 +64,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StopRollMove();
 	
+	UFUNCTION(BlueprintCallable)
+	void StopBossEnter();
 
 	bool GetIsMovementInput() const noexcept { return isMovementInput; }
 
@@ -95,6 +98,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
 	TObjectPtr<class UInputAction> useItemAction;
 
+	UPROPERTY(VisibleAnywhere, Category = "Yoru|Input")
+	TObjectPtr<class UInputAction> interActAction;
+
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> rollingMontage;
 
@@ -109,6 +115,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> useItemMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
+	TObjectPtr<UAnimMontage> bossEnterMontage;
 
 	float elapsedTimePressedMove{};
 	float elapsedTimePressedRunOrRolling{};
@@ -127,6 +136,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Hit")
 	bool canBeHit{ true };
 
+	UPROPERTY(BlueprintReadWrite, Category = "Yoru|Hit")
+	bool canBossEnter{ false };
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Yoru|Item")
 	int32 portionCount{ 5 };
 
@@ -141,4 +153,5 @@ public:
 	FTimerHandle spawnTimeHandle{};
 	FTimerHandle HPTimeHandle{};
 	FTimerHandle rollTimeHandle{};
+	FTimerHandle bossEnterTimeHandle{};
 };
