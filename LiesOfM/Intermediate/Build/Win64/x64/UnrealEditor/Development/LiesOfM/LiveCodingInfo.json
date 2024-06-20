@@ -33,11 +33,11 @@
 			"HitEffectInterface.gen.cpp.obj",
 			"ItemBase.gen.cpp.obj",
 			"LevelElementBase.gen.cpp.obj",
+			"LiesOfM.init.gen.cpp.obj",
 			"PropBase.gen.cpp.obj",
 			"TOMAudioSubsystem.gen.cpp.obj",
 			"TOMDataTable.gen.cpp.obj",
-			"TOMGameInstance.gen.cpp.obj",
-			"LiesOfM.init.gen.cpp.obj"
+			"TOMGameInstance.gen.cpp.obj"
 		],
 		"Module.LiesOfM.2.cpp.obj": [
 			"WallBase.gen.cpp.obj",
@@ -48,6 +48,7 @@
 			"YoruBaseComponent.gen.cpp.obj",
 			"YoruDefenceComponent.gen.cpp.obj",
 			"YoruLockonComponent.gen.cpp.obj",
+			"YoruMoveComponent.gen.cpp.obj",
 			"YoruStatComponent.gen.cpp.obj",
 			"YoruWidgetComponent.gen.cpp.obj",
 			"ChangeParryingAnimNotify.cpp.obj",
@@ -66,7 +67,6 @@
 			"EnemyBase.cpp.obj",
 			"EnemyBaseComponent.cpp.obj",
 			"EnemyBaseMovement.cpp.obj",
-			"EnemyBoss.cpp.obj",
 			"EnemyBossAIController.cpp.obj",
 			"EnemyBossAnimInstance.cpp.obj",
 			"EnemyCommon.cpp.obj",
@@ -83,21 +83,21 @@
 			"PropBase.cpp.obj",
 			"WallBase.cpp.obj",
 			"LiesOfM.cpp.obj",
-			"BossDoorManager.cpp.obj",
 			"TOMAudioSubsystem.cpp.obj",
 			"TOMDataTable.cpp.obj",
 			"TOMGameInstance.cpp.obj",
 			"WeaponBase.cpp.obj",
 			"Yoru.cpp.obj",
 			"YoruAnimInstance.cpp.obj",
-			"YoruAttackComponent.cpp.obj",
 			"YoruBaseComponent.cpp.obj",
 			"YoruDefenceComponent.cpp.obj",
 			"YoruLockonComponent.cpp.obj",
+			"YoruMoveComponent.cpp.obj",
 			"YoruStatComponent.cpp.obj",
 			"YoruWidgetComponent.cpp.obj",
-			"YoruMoveComponent.gen.cpp.obj",
-			"YoruMoveComponent.cpp.obj"
+			"EnemyBoss.cpp.obj",
+			"BossDoorManager.cpp.obj",
+			"YoruAttackComponent.cpp.obj"
 		]
 	}
 }

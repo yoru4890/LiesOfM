@@ -108,6 +108,8 @@ public:
 	void HiddenYellowMode();
 
 	void LightningAttack();
+
+	void SetVisible(bool isVisible);
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Component")

@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FDAD623D-0CE1-38F7-9AD4-D04FD1B50C18}</ProjectGuid>
+    <ProjectGuid>{0B9DF45B-DDC5-3D9C-B0D5-5F2DA8F9804A}</ProjectGuid>
     <RootNamespace>LiesOfM</RootNamespace>
   </PropertyGroup>
   <Import Project="UECommon.props" />
@@ -110,6 +110,7 @@
     <None Include="..\..\Source\LiesOfM.Target.cs"/>
     <None Include="..\..\Source\LiesOfMEditor.Target.cs"/>
     <None Include="..\..\.gitignore"/>
+    <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>

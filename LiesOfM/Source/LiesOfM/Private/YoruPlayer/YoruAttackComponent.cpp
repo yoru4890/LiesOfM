@@ -55,7 +55,7 @@ UYoruAttackComponent::UYoruAttackComponent()
 		grabAttackMontage = grabAttackMontageFinder.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<USoundBase> swordHitSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/SwordHit/SwordHit.SwordHit'"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> swordHitSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/SwordHit/The_sound_of_blood_f.The_sound_of_blood_f'"));
 
 	if (swordHitSoundFinder.Succeeded())
 	{

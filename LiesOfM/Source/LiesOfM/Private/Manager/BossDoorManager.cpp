@@ -33,6 +33,7 @@ void ABossDoorManager::Tick(float DeltaTime)
 
 void ABossDoorManager::TriggerEnter()
 {
+	Boss->SetVisible(true);
 	AEnemyBossAIController* BossController = Cast<AEnemyBossAIController>(Boss->GetController());
 	BossController->RunAI();
 	Boss->widgetComp->ShowWidget();

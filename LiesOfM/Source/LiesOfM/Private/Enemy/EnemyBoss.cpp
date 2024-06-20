@@ -652,6 +652,12 @@ void AEnemyBoss::LightningAttack()
 	}
 }
 
+void AEnemyBoss::SetVisible(bool isVisible)
+{
+	GetMesh()->SetVisibility(isVisible);
+	weapon->SetVisibility(isVisible);
+}
+
 void AEnemyBoss::StartCounter()
 {
 	isCounter = true;
