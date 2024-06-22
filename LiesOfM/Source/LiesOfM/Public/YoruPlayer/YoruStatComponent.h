@@ -84,7 +84,7 @@ public:
 	float runSpeed{ 600.0f };
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
-	float currentHP{ 50.0f };
+	float currentHP{ 100.0f };
 
 	UPROPERTY(BlueprintReadWrite, Category = "Your|HP")
 	float maxHP{ 100.0f };

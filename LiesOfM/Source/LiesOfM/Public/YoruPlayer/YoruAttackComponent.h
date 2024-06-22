@@ -67,6 +67,7 @@ private:
 	double attackDirectionYaw{};
 	double startYaw{};
 	double deltaYaw{};
+	float myResultDamage{};
 
 	FTimerHandle attackTimeHandle{};
 	FTimerHandle lineTraceTimeHandle{};

@@ -166,13 +166,19 @@ void AEnemyBoss::InitContents()
 	{
 		lightningGroundEffect = lightningGroundEffectFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> lightningSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/Environment/Lightning.Lightning'"));
+
+	if (lightningSoundFinder.Succeeded())
+	{
+		lightningSound = lightningSoundFinder.Object;
+	}
 }
 
 void AEnemyBoss::BeginPlay()
 {
 	Super::BeginPlay();
 
-	maxGroggy = 250.0f;
 	currentHealth = maxHealth;
 	BossAIController = Cast<AEnemyBossAIController>(GetController());
 
@@ -505,7 +511,14 @@ void AEnemyBoss::ApplyTrace()
 			if (hitResult.GetActor()->GetClass()->IsChildOf<AYoru>() && !hitActors.Contains(hitResult.GetActor()))
 			{
 				hitActors.Add(hitResult.GetActor());
-				Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult, bRedAttack);
+				if (bRedAttack)
+				{
+					Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage, this, hitResult, bRedAttack);
+				}
+				else
+				{
+					Cast<AYoru>(hitResult.GetActor())->ReceiveDamage(resultDamage * 1.3f, this, hitResult, bRedAttack);
+				}
 			}
 		}
 
@@ -599,6 +612,7 @@ void AEnemyBoss::SummonLightning(const FVector& location)
 	GetWorld()->GetTimerManager().SetTimer(tempEffectTH, [this]()
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), lightningEffect, lightningLoc);
+			UGameplayStatics::PlaySound2D(GetWorld(), lightningSound);
 		}, 0.1f, false, 0.7);
 
 	FTimerHandle tempDamageTH{};
@@ -691,7 +705,7 @@ void AEnemyBoss::RandomMoveByAI()
 	};
 
 	int32 RandIndex = FMath::RandHelper(5);
-	float DelayTime{ 2.0f };
+	float DelayTime{ 1.0f };
 
 	if (RandIndex >= 5 || RandIndex < 0)
 	{

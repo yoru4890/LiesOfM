@@ -73,7 +73,7 @@ public:
 	float currentGroggy{};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Stat")
-	float maxGroggy{ 100.0f };
+	float maxGroggy{ 1000.0f };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|State")
 	bool isElite{};

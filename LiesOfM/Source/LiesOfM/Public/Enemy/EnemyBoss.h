@@ -146,6 +146,9 @@ public:
 	TObjectPtr<class USoundBase> blockingSound;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	TObjectPtr<class USoundBase> lightningSound;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	TObjectPtr<class UParticleSystem> lightningEffect;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
@@ -160,7 +163,7 @@ private:
 	bool bRedAttack{};
 	bool isChanging{};
 	bool isCounter{};
-	float resultDamage{ 20.0f };
+	float resultDamage{ 15.0f };
 	float turnSpeed{5.0f};
 	float redAttackTurnSpeed{ 10.0f };
 	float normalTurnSpeed{ 5.0f };

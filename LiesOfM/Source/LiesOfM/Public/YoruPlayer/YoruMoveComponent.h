@@ -119,6 +119,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Yoru|Montage")
 	TObjectPtr<UAnimMontage> bossEnterMontage;
 
+	UPROPERTY(EditAnywhere, Category = "Yoru|Sound")
+	TObjectPtr<USoundBase> bossEnterSound;
+
 	float elapsedTimePressedMove{};
 	float elapsedTimePressedRunOrRolling{};
 	float moveSpeed{};

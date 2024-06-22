@@ -14,6 +14,7 @@
 #include "YoruPlayer/YoruDefenceComponent.h"
 #include "Item/ItemBase.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 UYoruMoveComponent::UYoruMoveComponent()
 {
@@ -158,6 +159,13 @@ void UYoruMoveComponent::InitFile()
 	if (bossEnterMontageFinder.Succeeded())
 	{
 		bossEnterMontage = bossEnterMontageFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> bossEnterSoundFinder(TEXT("/Script/Engine.SoundWave'/Game/AAA/Audio/Wind/WindFog.WindFog'"));
+
+	if (bossEnterSoundFinder.Succeeded())
+	{
+		bossEnterSound = bossEnterSoundFinder.Object;
 	}
 }
 
@@ -370,6 +378,7 @@ void UYoruMoveComponent::InterAction(const FInputActionValue& value)
 
 	if (canBossEnter)
 	{
+		UGameplayStatics::PlaySound2D(GetWorld(), bossEnterSound, 1.0f, 1.0f, 0.5f);
 		me->SetActorRotation({0,-8.0,0});
 		MovementInputHandler(0.0f, true);
 		me->defenceComp->SetInvincibilityTime(2.5f);

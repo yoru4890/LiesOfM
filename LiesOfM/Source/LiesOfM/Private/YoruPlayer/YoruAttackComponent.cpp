@@ -151,6 +151,7 @@ UAnimMontage* UYoruAttackComponent::GetCorrectAttackAnimation()
 
 UAnimMontage* UYoruAttackComponent::CheckIfCounterExceedsAttack(const TArray<UAnimMontage*>& animations)
 {
+	myResultDamage = attackCounter * 9.0f + 19.0f;
 	if (attackCounter >= animations.Num() - 1)
 	{
 		ResetAttackCounter();
@@ -229,6 +230,7 @@ float UYoruAttackComponent::CaculateDamage()
 		default:
 			break;
 	}
+	attackDamage = myResultDamage;
 	return attackDamage;
 }
 

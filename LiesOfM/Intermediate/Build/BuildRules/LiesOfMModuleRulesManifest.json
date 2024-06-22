@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"D:\\github\\game_project\\Unreal_Game\\LiesOfM\\LiesOfM\\Source\\LiesOfM\\LiesOfM.Build.cs",
-		"D:\\github\\game_project\\Unreal_Game\\LiesOfM\\LiesOfM\\Source\\LiesOfM.Target.cs",
-		"D:\\github\\game_project\\Unreal_Game\\LiesOfM\\LiesOfM\\Source\\LiesOfMEditor.Target.cs"
+		"C:\\UE5\\LiesOfM\\Source\\LiesOfM\\LiesOfM.Build.cs",
+		"C:\\UE5\\LiesOfM\\Source\\LiesOfM.Target.cs",
+		"C:\\UE5\\LiesOfM\\Source\\LiesOfMEditor.Target.cs"
 	],
 	"EngineVersion": "5.3.2"
 }
